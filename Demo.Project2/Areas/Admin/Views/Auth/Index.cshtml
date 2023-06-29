@@ -21,13 +21,14 @@
                     <div class="card bg-light border border-dark-subtle shadow">
                         <div class="card-body mx-auto">
                             <h2>Đăng Nhập Admin</h2>
-                            <form action="">
-                                <input type="text" name="" id="" class="form-control my-4 py-2"
+                            <form asp-area="admin" asp-controller="auth" asp-action="login" method="post">
+                                <input type="text" name="username" id="" class="form-control my-4 py-2"
                                        placeholder="Tài khoản" />
-                                <input type="text" name="" id="" class="form-control my-4 py-2"
+                                <input type="password" name="password" id="" class="form-control my-4 py-2"
                                        placeholder="Mật khẩu" />
+                                <span class="text-danger">@ViewBag.error</span>
                                 <div class="text-center my-3">
-                                    <button class="btn btn-primary">Đăng nhập</button>
+                                    <button class="btn btn-primary" type="submit">Đăng nhập</button>
                                 </div>
                             </form>
                         </div>
@@ -45,7 +46,7 @@
         </div>
     </footer>
 
-    <script src="./assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/assets/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
 </html>
