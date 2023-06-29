@@ -112,10 +112,6 @@ namespace Demo.Project2.Context
             //        .OnDelete(DeleteBehavior.ClientSetNull)
             //        .HasConstraintName("FK_InvoiceDetails_Product");
             //});
-
-            //OnModelCreatingPartial(modelBuilder);
         }
-
-        //partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
     }
 }
