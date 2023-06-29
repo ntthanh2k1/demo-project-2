@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="~/assets/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="~/assets/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="~/client/client.css">
+    <title>Trang chủ</title>
+    <style>
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light border-bottom">
+            <div class="container-fluid">
+                <button class="btn btn-light me-3 border border-dark-subtle" type="button" data-bs-toggle="offcanvas"
+                        data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <a class="navbar-brand fw-bold" href="#">THANH THUY STORE</a>
+                <button class="navbar-toggler btn btn-light border border-dark-subtle" type="button"
+                        data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarCollapse">
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="#">Liên hệ</a>
+                        </li>
+                    </ul>
+                    <form class="d-flex ms-auto me-3" role="search">
+                        <div class="input-group my-3 my-lg-0">
+                            <input type="text" class="form-control border border-dark-subtle" placeholder="Tìm kiếm"
+                                   aria-label="Tìm kiếm" aria-describedby="button-addon2">
+                            <button class="btn btn-light border border-dark-subtle" type="button" id="button-addon2">
+                                <i class="bi bi-search text-black"></i>
+                            </button>
+                        </div>
+                    </form>
+                    <ul class="navbar-nav mb-2 mb-lg-0">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown"
+                               aria-expanded="false">
+                                <i class="bi bi-person-circle"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="#">Trang cá nhân</a></li>
+                                <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+
+        <div class="offcanvas offcanvas-start sidebar-nav bg-dark opacity-75 text-white" tabindex="-1"
+             id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-body p-0">
+                <nav class="navbar navbar-dark">
+                    <ul class="navbar-nav">
+                        <li>
+                            <div class="fw-bold px-3 my-2">
+                                Danh mục
+                            </div>
+                        </li>
+                        <li class="my-2"></li>
+                        <li>
+                            <a class="nav-link active px-3 sidebar-link" data-bs-toggle="collapse" href="#collapse1"
+                               role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <span class="right-icon"><i class="bi bi-chevron-right"></i></span>
+                                <span class="me-2"><i class="bi bi-menu-button-wide-fill"></i></span>
+                                <span>Phân loại 1</span>
+                            </a>
+                            <div class="collapse" id="collapse1">
+                                <div>
+                                    <ul class="navbar-nav ps-3">
+                                        <li>
+                                            <a href="#" class="nav-link active px-3">
+                                                <span class="me-2"><i class="bi bi-sliders"></i></span>
+                                                <span>Sản phẩm 1.1</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                        <li>
+                            <a class="nav-link active px-3 sidebar-link" data-bs-toggle="collapse" href="#collapse2"
+                               role="button" aria-expanded="false" aria-controls="collapseExample">
+                                <span class="right-icon"><i class="bi bi-chevron-right"></i></span>
+                                <span class="me-2"><i class="bi bi-menu-button-wide-fill"></i></span>
+                                <span>Phân loại 2</span>
+                            </a>
+                            <div class="collapse" id="collapse2">
+                                <div>
+                                    <ul class="navbar-nav ps-3">
+                                        <li>
+                                            <a href="#" class="nav-link active px-3">
+                                                <span class="me-2"><i class="bi bi-diagram-3"></i></span>
+                                                <span>Sản phẩm 2.1</span>
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#" class="nav-link active px-3">
+                                                <span class="me-2"><i class="bi bi-boxes"></i></span>
+                                                <span>Sản phẩm 2.2</span>
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="container mb-5 mt-3">
+        <div class="row mx-5">
+            @RenderBody()
+        </div>
+    </main>
+
+    <footer class="footer py-3 bg-light fixed-bottom border-top">
+        <div class="container-fluid">
+            <div class="d-flex small">
+                <div class="text-muted ms-auto">Copyright &copy; Thanh Thuy Store 2023</div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/assets/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/client/client.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

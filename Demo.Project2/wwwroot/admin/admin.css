@@ -1,0 +1,34 @@
+:root {
+    --offcanvas-width: 220px;
+    --top-navbar-height: 56px;
+}
+
+.sidebar-nav {
+    width: var(--offcanvas-width) !important;
+}
+
+@media (min-width: 1000px) {
+    main {
+        margin-left: var(--offcanvas-width);
+    }
+
+    footer {
+        margin-left: var(--offcanvas-width);
+    }
+
+    .sidebar-nav {
+        transform: none !important;
+        visibility: visible;
+        top: var(--top-navbar-height) !important;
+        height: calc(100% - var(--top-navbar-height));
+    }
+}
+
+.sidebar-link .right-icon {
+    display: inline-flex;
+    transition: all ease 0.25s;
+}
+
+.sidebar-link[aria-expanded="true"] .right-icon {
+    transform: rotate(90deg);
+}

@@ -1,0 +1,13 @@
+:root {
+    --offcanvas-width: 300px;
+}
+
+.sidebar-nav {
+    width: var(--offcanvas-width) !important;
+}
+
+.card-text {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
