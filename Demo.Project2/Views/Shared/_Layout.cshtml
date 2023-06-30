@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="~/assets/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/assets/dist/css/bootstrap.min.css">
-    <link rel="stylesheet" href="~/client/client.css">
+    <link rel="stylesheet" href="~/customer/customer.css">
     <title>Trang chủ</title>
     <style>
     </style>
@@ -20,7 +20,7 @@
                         data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <a class="navbar-brand fw-bold" href="#">THANH THUY STORE</a>
+                <a class="navbar-brand fw-bold" asp-controller="home" asp-action="index">THANH THUY STORE</a>
                 <button class="navbar-toggler btn btn-light border border-dark-subtle" type="button"
                         data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -142,7 +142,7 @@
     </footer>
 
     <script src="~/assets/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/client/client.js"></script>
+    <script src="~/customer/customer.js"></script>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 

@@ -8,29 +8,29 @@ namespace Demo.Project2.Helper
 {
     public class SecurityHelper
     {
-        public async void SignIn(HttpContext httpContext, User user, string scheme)
-        {
-            var claimsIdentity = new ClaimsIdentity(GetUserClaims(user), scheme);
-            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
-            await httpContext.SignInAsync(scheme, claimsPrincipal);
-        }
-
-        public async void SignOut(HttpContext httpContext, string scheme)
-        {
-            await httpContext.SignOutAsync(scheme);
-        }
-
-        private IEnumerable<Claim> GetUserClaims(User account)
+        public async Task SignIn(HttpContext httpContext, User user, string scheme)
         {
             var claims = new List<Claim>
             {
-                new Claim(ClaimTypes.Name, account.Username),
+                new Claim(ClaimTypes.Name, user.Username)
             };
-            foreach (var roleAccount in account.UserRoles)
+            foreach (var userRole in user.UserRoles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, roleAccount.Role.Name));
+                claims.Add(new Claim(ClaimTypes.Role, userRole.Role.Name));
             }
-            return claims;
+            var claimsIdentity = new ClaimsIdentity(claims, scheme);
+            var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
+            var authProperties = new AuthenticationProperties
+            {
+                IsPersistent = true,
+                ExpiresUtc = DateTime.UtcNow.AddDays(1)
+            };
+            await httpContext.SignInAsync(scheme, claimsPrincipal, authProperties);
+        }
+
+        public async Task SignOut(HttpContext httpContext, string scheme)
+        {
+            await httpContext.SignOutAsync(scheme);
         }
     }
 }

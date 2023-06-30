@@ -10,19 +10,19 @@ builder.Services.AddRazorPages();
 
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultScheme = "UserSchemes";
+    options.DefaultScheme = "ClientSchemes";
 })
-    .AddCookie("UserSchemes", options =>
+    .AddCookie("ClientSchemes", options =>
     {
         options.LoginPath = "/customer/login";
         options.LogoutPath = "/customer/logout";
-        options.AccessDeniedPath = "/customer/accessDenied";
+        options.AccessDeniedPath = "/customer/forbidden";
     })
     .AddCookie("AdminSchemes", options =>
     {
         options.LoginPath = "/admin/auth/index";
         options.LogoutPath = "/admin/auth/logout";
-        options.AccessDeniedPath = "/admin/account/accessDenied";
+        options.AccessDeniedPath = "/admin/auth/forbidden";
     });
 
 builder.Services.AddSession();
@@ -45,13 +45,13 @@ if (!app.Environment.IsDevelopment())
 app.Use(async (context, next) =>
 {
     var principal = new ClaimsPrincipal();
-    var result1 = await context.AuthenticateAsync("UserSchemes");
-    if (result1?.Principal != null)
+    var result1 = await context.AuthenticateAsync("ClientSchemes");
+    if (result1.Principal != null)
     {
         principal.AddIdentities(result1.Principal.Identities);
     }
     var result2 = await context.AuthenticateAsync("AdminSchemes");
-    if (result2?.Principal != null)
+    if (result2.Principal != null)
     {
         principal.AddIdentities(result2.Principal.Identities);
     }

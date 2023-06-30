@@ -6,10 +6,6 @@ namespace Demo.Project2.Context
 {
     public class DemoProject2DbContext : DbContext
     {
-        public DemoProject2DbContext()
-        {
-        }
-
         public DemoProject2DbContext(DbContextOptions options) : base(options)
         {
         }
@@ -22,39 +18,37 @@ namespace Demo.Project2.Context
         {
             modelBuilder.Entity<Role>(entity =>
             {
-                entity.Property(e => e.Name).HasMaxLength(250);
+                entity.HasKey(a => a.Id);
+
+                entity.Property(a => a.Name).HasMaxLength(250);
             });
 
             modelBuilder.Entity<User>(entity =>
             {
-                entity.Property(e => e.Email)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
+                entity.HasKey(a => a.Id);
 
-                entity.Property(e => e.FullName).HasMaxLength(50);
+                entity.Property(a => a.Username).HasMaxLength(250);
 
-                entity.Property(e => e.Password)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
+                entity.Property(a => a.Password).HasMaxLength(250);
 
-                entity.Property(e => e.Username)
-                    .HasMaxLength(250)
-                    .IsUnicode(false);
+                entity.Property(a => a.FullName).HasMaxLength(250);
+
+                entity.Property(a => a.Email).HasMaxLength(250);
             });
 
             modelBuilder.Entity<UserRole>(entity =>
             {
-                entity.HasKey(e => new { e.RoleId, e.UserId });
+                entity.HasKey(a => new { a.UserId, a.RoleId });
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.UserRoles)
-                    .HasForeignKey(d => d.UserId)
+                entity.HasOne(a => a.User)
+                    .WithMany(b => b.UserRoles)
+                    .HasForeignKey(c => c.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserRole_User");
 
-                entity.HasOne(d => d.Role)
-                    .WithMany(p => p.UserRoles)
-                    .HasForeignKey(d => d.RoleId)
+                entity.HasOne(a => a.Role)
+                    .WithMany(b => b.UserRoles)
+                    .HasForeignKey(c => c.RoleId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserRole_Role");
             });

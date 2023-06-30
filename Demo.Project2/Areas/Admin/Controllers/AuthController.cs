@@ -2,6 +2,7 @@
 using Demo.Project2.Helper;
 using Demo.Project2.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Project2.Areas.Admin.Controllers
 {
@@ -10,7 +11,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
     public class AuthController : Controller
     {
         private readonly DemoProject2DbContext _context;
-        private readonly SecurityHelper _securityHelper = new SecurityHelper();
+        private readonly SecurityHelper _securityHelper = new();
 
         public AuthController(DemoProject2DbContext context)
         {
@@ -26,25 +27,27 @@ namespace Demo.Project2.Areas.Admin.Controllers
 
         [HttpPost]
         [Route("login")]
-        public IActionResult Login(string username, string password)
+        public async Task<IActionResult> Login(string username, string password)
         {
-            var user = Authenticate(username, password);
+            var user = await _context.Users
+                .FirstOrDefaultAsync(a => a.Username.Equals(username) && a.Status == true);
             if (user != null)
             {
-                _securityHelper.SignIn(this.HttpContext, user, "AdminSchemes");
-                return RedirectToAction("index", "dashboard", new { area = "admin" });
+                var userRole = user.UserRoles.FirstOrDefault(a => a.RoleId == 1 && a.Status == true);
+                if (userRole != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
+                {
+                    await _securityHelper.SignIn(this.HttpContext, user, "AdminSchemes");
+                    return RedirectToAction("index", "home", new { area = "admin" });
+                }
             }
-            else
-            {
-                ViewBag.error = "Tài khoản không hợp lệ";
-                return View("Index");
-            }
+            ViewBag.error = "Tài khoản không hợp lệ";
+            return View("Index");
         }
 
         [Route("logout")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
-            _securityHelper.SignOut(this.HttpContext, "AdminSchemes");
+            await _securityHelper.SignOut(this.HttpContext, "AdminSchemes");
             return RedirectToAction("index", "auth", new { area = "admin" });
         }
 
@@ -52,20 +55,6 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public IActionResult AccessDenied()
         {
             return View("AccessDenied");
-        }
-
-        private User Authenticate(string username, string password)
-        {
-            var account = _context.Users.SingleOrDefault(a => a.Username.Equals(username) && a.Status == true);
-            if (account != null)
-            {
-                var roleOfAccount = account.UserRoles.FirstOrDefault();
-                if (roleOfAccount?.RoleId == 1 && BCrypt.Net.BCrypt.Verify(password, account.Password))
-                {
-                    return account;
-                }
-            }
-            return null;
         }
     }
 }

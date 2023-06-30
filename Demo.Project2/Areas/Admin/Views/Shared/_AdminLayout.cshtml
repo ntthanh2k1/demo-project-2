@@ -21,7 +21,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <a class="navbar-brand fw-bold me-auto" href="#">Administration</a>
+                <a class="navbar-brand fw-bold me-auto" asp-area="admin" asp-controller="home" asp-action="index">Administration</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -51,7 +51,7 @@
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" href="#">Đăng xuất</a></li>
+                                <li><a class="dropdown-item" asp-area="admin" asp-controller="auth" asp-action="logout">Đăng xuất</a></li>
                             </ul>
                         </li>
                     </ul>
