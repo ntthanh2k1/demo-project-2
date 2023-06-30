@@ -8,13 +8,13 @@ var builder = WebApplication.CreateBuilder(args);
 // Add services to the container.
 builder.Services.AddAuthentication(options =>
 {
-    options.DefaultScheme = "ClientSchemes";
+    options.DefaultScheme = "CustomerSchemes";
 })
-    .AddCookie("ClientSchemes", options =>
+    .AddCookie("CustomerSchemes", options =>
     {
-        options.LoginPath = "/customer/login";
-        options.LogoutPath = "/customer/logout";
-        options.AccessDeniedPath = "/customer/forbidden";
+        options.LoginPath = "/auth/index";
+        options.LogoutPath = "/auth/logout";
+        options.AccessDeniedPath = "/auth/forbidden";
     })
     .AddCookie("AdminSchemes", options =>
     {
@@ -43,7 +43,7 @@ if (!app.Environment.IsDevelopment())
 app.Use(async (context, next) =>
 {
     var principal = new ClaimsPrincipal();
-    var result1 = await context.AuthenticateAsync("ClientSchemes");
+    var result1 = await context.AuthenticateAsync("CustomerSchemes");
     if (result1.Principal != null)
     {
         principal.AddIdentities(result1.Principal.Identities);
