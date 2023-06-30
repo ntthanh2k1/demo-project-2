@@ -40,7 +40,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
                     return RedirectToAction("index", "home", new { area = "admin" });
                 }
             }
-            ViewBag.error = "Tài khoản không hợp lệ";
+            ViewBag.message = "Tài khoản không hợp lệ";
             return View("Index");
         }
 
