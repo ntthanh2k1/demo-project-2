@@ -31,7 +31,6 @@ namespace Demo.Project2.Areas.Admin.Controllers
         }
 
         [HttpGet]
-        [Route("")]
         [Route("updateProfile")]
         public async Task<IActionResult> UpdateProfile()
         {
@@ -40,8 +39,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             return View("UpdateProfile", user);
         }
 
-        [HttpPatch]
-        [Route("")]
+        [HttpPost]
         [Route("updateProfile")]
         public async Task<IActionResult> UpdateProfile(User user)
         {

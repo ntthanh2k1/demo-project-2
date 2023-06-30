@@ -26,7 +26,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <a class="navbar-brand fw-bold me-auto" asp-area="admin" asp-controller="home" asp-action="index">Administration</a>
+                <a asp-area="admin" asp-controller="home" asp-action="index" class="navbar-brand fw-bold me-auto">Administration</a>
 
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
@@ -52,12 +52,12 @@
                                 <span><i class="bi bi-person-circle"></i></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" asp-area="admin" asp-controller="profile" asp-action="index">Trang cá nhân</a></li>
+                                <li><a asp-area="admin" asp-controller="profile" asp-action="index" class="dropdown-item">Trang cá nhân</a></li>
                                 <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
-                                <li><a class="dropdown-item" asp-area="admin" asp-controller="auth" asp-action="logout">Đăng xuất</a></li>
+                                <li><a asp-area="admin" asp-controller="auth" asp-action="logout" class="dropdown-item">Đăng xuất</a></li>
                             </ul>
                         </li>
                     </ul>
