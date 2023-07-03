@@ -53,7 +53,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a asp-area="admin" asp-controller="profile" asp-action="index" class="dropdown-item">Trang cá nhân</a></li>
-                                <li><a class="dropdown-item" href="#">Đổi mật khẩu</a></li>
+                                <li><a asp-area="admin" asp-controller="profile" asp-action="updatePassword" class="dropdown-item">Đổi mật khẩu</a></li>
                                 <li>
                                     <hr class="dropdown-divider">
                                 </li>
@@ -72,17 +72,11 @@
                     <ul class="navbar-nav">
                         <li>
                             <div class="fw-bold px-3 my-2">
+                                <i class="bi bi-speedometer2"></i>
                                 Bảng điều khiển
                             </div>
                         </li>
                         <li class="my-2"></li>
-                        <li>
-                            <a class="nav-link px-3" data-bs-toggle="collapse" href="#" role="button"
-                               aria-expanded="false" aria-controls="collapseExample">
-                                <span class="me-2"><i class="bi bi-bar-chart-fill"></i></span>
-                                <span>Trang chủ</span>
-                            </a>
-                        </li>
                         <li>
                             <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#collapse1"
                                role="button" aria-expanded="false" aria-controls="collapseExample">

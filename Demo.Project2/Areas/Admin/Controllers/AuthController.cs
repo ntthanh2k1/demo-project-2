@@ -31,17 +31,19 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             var user = await _context.Users
                 .FirstOrDefaultAsync(a => a.Username.Equals(username) && a.Status == true);
-            if (user != null)
+            if (user == null)
             {
-                var userRole = user.UserRoles.FirstOrDefault(a => a.RoleId == 1 && a.Status == true);
-                if (userRole != null && BCrypt.Net.BCrypt.Verify(password, user.Password))
-                {
-                    await _securityHelper.SignIn(this.HttpContext, user, "AdminSchemes");
-                    return RedirectToAction("index", "home", new { area = "admin" });
-                }
+                ViewBag.error = "Tài khoản không hợp lệ";
+                return View("Index");
             }
-            ViewBag.message = "Tài khoản không hợp lệ";
-            return View("Index");
+            var userRole = user.UserRoles.FirstOrDefault(a => a.RoleId == 1 && a.Status == true);
+            if (userRole == null || BCrypt.Net.BCrypt.Verify(password, user.Password) == false)
+            {
+                ViewBag.error = "Tài khoản không hợp lệ";
+                return View("Index");
+            }
+            await _securityHelper.SignIn(this.HttpContext, user, "AdminSchemes");
+            return RedirectToAction("index", "home", new { area = "admin" });
         }
 
         [Route("logout")]
