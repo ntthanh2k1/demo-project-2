@@ -3,7 +3,6 @@ using System.Security.Principal;
 
 namespace Demo.Project2.Models
 {
-    [Table("UserRole")]
     public partial class UserRole
     {
         public int UserId { get; set; }

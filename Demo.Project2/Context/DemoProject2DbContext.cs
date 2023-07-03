@@ -10,14 +10,31 @@ namespace Demo.Project2.Context
         {
         }
 
+        public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Category>(entity =>
+            {
+                entity.ToTable("Category");
+
+                entity.HasKey(a => a.Id);
+
+                entity.Property(a => a.Name).HasMaxLength(250);
+
+                entity.HasOne(a => a.ParentCategory)
+                    .WithMany(b => b.ChildCategories)
+                    .HasForeignKey(c => c.ParentId)
+                    .HasConstraintName("FK_Category_Category");
+            });
+
             modelBuilder.Entity<Role>(entity =>
             {
+                entity.ToTable("Role");
+
                 entity.HasKey(a => a.Id);
 
                 entity.Property(a => a.Name).HasMaxLength(250);
@@ -25,6 +42,8 @@ namespace Demo.Project2.Context
 
             modelBuilder.Entity<User>(entity =>
             {
+                entity.ToTable("User");
+
                 entity.HasKey(a => a.Id);
 
                 entity.Property(a => a.Username).HasMaxLength(250);
@@ -38,6 +57,8 @@ namespace Demo.Project2.Context
 
             modelBuilder.Entity<UserRole>(entity =>
             {
+                entity.ToTable("UserRole");
+
                 entity.HasKey(a => new { a.UserId, a.RoleId });
 
                 entity.HasOne(a => a.User)
@@ -52,16 +73,6 @@ namespace Demo.Project2.Context
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserRole_Role");
             });
-
-            //modelBuilder.Entity<Category>(entity =>
-            //{
-            //    entity.Property(e => e.Name).HasMaxLength(250);
-
-            //    entity.HasOne(d => d.Parent)
-            //        .WithMany(p => p.InverseParents)
-            //        .HasForeignKey(d => d.ParentId)
-            //        .HasConstraintName("FK_Category_Category");
-            //});
 
             //modelBuilder.Entity<Product>(entity =>
             //{

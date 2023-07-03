@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Demo.Project2.Models
 {
-    [Table("Role")]
     public partial class Role
     {
         public int Id { get; set; }

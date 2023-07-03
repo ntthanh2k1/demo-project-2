@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Demo.Project2.Models.Category>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Phân loại</h1>
+
+<p>
+    <a asp-area="admin" asp-controller="category" asp-action="Create" class="btn btn-primary">Tạo mới</a>
+</p>
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                Danh sách phân loại
+            </div>
+            <div class="card-body">
+                <table id="example" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Số thứ tự</th>
+                            <th>Phân loại cha</th>
+                            <th>Tên</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+@{
+    var i = 1;
+    foreach (var item in Model) {
+                        <tr>
+                            <td>@i</td>
+                            <td>@Html.DisplayFor(modelItem => item.ParentCategory.Id)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => item.Status)</td>
+                            <td>
+                                <a asp-area="admin" asp-controller="category" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
+                                <a asp-area="admin" asp-controller="category" asp-action="Details" asp-route-id="@item.Id">Details</a> |
+                                <a asp-area="admin" asp-controller="category" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                            </td>
+                        </tr>
+        i++;
+    }
+}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Số thứ tự</th>
+                            <th>Phân loại cha</th>
+                            <th>Tên</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

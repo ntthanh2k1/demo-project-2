@@ -18,13 +18,16 @@ namespace Demo.Project2.Areas.Admin.Controllers
             _context = context;
         }
 
+        #region Trang đăng nhập
         [Route("")]
         [Route("index")]
         public IActionResult Index()
         {
             return View();
         }
+        #endregion Trang đăng nhập
 
+        #region Đăng nhập
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(string username, string password)
@@ -45,18 +48,23 @@ namespace Demo.Project2.Areas.Admin.Controllers
             await _securityHelper.SignIn(this.HttpContext, user, "AdminSchemes");
             return RedirectToAction("index", "home", new { area = "admin" });
         }
+        #endregion Đăng nhập
 
+        #region Đăng xuất
         [Route("logout")]
         public async Task<IActionResult> Logout()
         {
             await _securityHelper.SignOut(this.HttpContext, "AdminSchemes");
             return RedirectToAction("index", "auth", new { area = "admin" });
         }
+        #endregion Đăng xuất
 
+        #region Không cho truy cập
         [Route("accessDenied")]
         public IActionResult AccessDenied()
         {
             return View("AccessDenied");
         }
+        #endregion Không cho truy cập
     }
 }

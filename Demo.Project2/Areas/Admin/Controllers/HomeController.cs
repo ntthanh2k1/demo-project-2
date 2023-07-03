@@ -8,11 +8,13 @@ namespace Demo.Project2.Areas.Admin.Controllers
     [Route("admin")]
     public class HomeController : Controller
     {
+        #region Trang chủ quản lý
         [Route("")]
         [Route("index")]
         public IActionResult Index()
         {
             return View();
         }
+        #endregion Trang chủ quản lý
     }
 }

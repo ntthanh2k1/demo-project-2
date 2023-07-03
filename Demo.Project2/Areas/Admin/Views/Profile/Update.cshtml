@@ -1,7 +1,7 @@
 ﻿@model Demo.Project2.Models.User
 
 @{
-    ViewData["Title"] = "UpdateProfile";
+    ViewData["Title"] = "Update";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -11,7 +11,7 @@
 <hr />
 <div class="">
     <div class="">
-        <form asp-area="admin" asp-controller="profile" asp-action="UpdateProfile">
+        <form asp-area="admin" asp-controller="profile" asp-action="update">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -36,4 +36,3 @@
         </form>
     </div>
 </div>
-

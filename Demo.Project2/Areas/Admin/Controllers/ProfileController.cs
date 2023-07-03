@@ -20,6 +20,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             _context = context;
         }
 
+        #region Trang thông tin cá nhân
         [HttpGet]
         [Route("")]
         [Route("index")]
@@ -29,19 +30,21 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var user = await _context.Users.FirstOrDefaultAsync(a => a.Username.Equals(username));
             return View(user);
         }
+        #endregion Trang thông tin cá nhân
 
+        #region Cập nhật thông tin cá nhân
         [HttpGet]
-        [Route("updateProfile")]
-        public async Task<IActionResult> UpdateProfile()
+        [Route("update")]
+        public async Task<IActionResult> Update()
         {
             var username = User.FindFirstValue(ClaimTypes.Name);
             var user = await _context.Users.FirstOrDefaultAsync(a => a.Username.Equals(username));
-            return View("UpdateProfile", user);
+            return View("Update", user);
         }
 
         [HttpPost]
-        [Route("updateProfile")]
-        public async Task<IActionResult> UpdateProfile(User user)
+        [Route("update")]
+        public async Task<IActionResult> Update(User user)
         {
             var currentUser = await _context.Users.FirstOrDefaultAsync(a => a.Id == user.Id);
             currentUser.FullName = user.FullName;
@@ -49,9 +52,11 @@ namespace Demo.Project2.Areas.Admin.Controllers
             _context.Update(currentUser);
             await _context.SaveChangesAsync();
             ViewBag.success = "Cập nhật thành công!";
-            return View("UpdateProfile", currentUser);
+            return View("Update", currentUser);
         }
+        #endregion Cập nhật thông tin cá nhân
 
+        #region Đổi mật khẩu
         [HttpGet]
         [Route("updatePassword")]
         public async Task<IActionResult> UpdatePassword()
@@ -77,5 +82,6 @@ namespace Demo.Project2.Areas.Admin.Controllers
             ViewBag.success = "Cập nhật thành công!";
             return View("UpdatePassword", currentUser);
         }
+        #endregion Đổi mật khẩu
     }
 }
