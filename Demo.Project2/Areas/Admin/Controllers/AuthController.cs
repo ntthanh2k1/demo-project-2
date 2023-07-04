@@ -36,7 +36,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
                 .FirstOrDefaultAsync(a => a.Username.Equals(username) && a.Status == true);
             if (user == null)
             {
-                ViewBag.error = "Tài khoản không hợp lệ";
+                ViewBag.error = "Tài khoản không hợp lệ.";
                 return View("Index");
             }
             var userRole = user.UserRoles.FirstOrDefault(a => a.RoleId == 1 && a.Status == true);

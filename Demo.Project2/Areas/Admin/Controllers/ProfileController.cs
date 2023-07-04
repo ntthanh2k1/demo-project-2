@@ -51,7 +51,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             currentUser.Email = user.Email;
             _context.Update(currentUser);
             await _context.SaveChangesAsync();
-            ViewBag.success = "Cập nhật thành công!";
+            ViewBag.Success = "Cập nhật thành công.";
             return View("Update", currentUser);
         }
         #endregion Cập nhật thông tin cá nhân
@@ -73,13 +73,13 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var currentUser = await _context.Users.FirstOrDefaultAsync(a => a.Id == user.Id);
             if (user.Password.Length < 6)
             {
-                ViewBag.error = "Mật khẩu it nhất từ 6 ký tự trở lên";
+                ViewBag.Error = "Mật khẩu it nhất từ 6 ký tự trở lên.";
                 return View("UpdatePassword", currentUser);
             }
             currentUser.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             _context.Update(currentUser);
             await _context.SaveChangesAsync();
-            ViewBag.success = "Cập nhật thành công!";
+            ViewBag.Success = "Cập nhật thành công.";
             return View("UpdatePassword", currentUser);
         }
         #endregion Đổi mật khẩu

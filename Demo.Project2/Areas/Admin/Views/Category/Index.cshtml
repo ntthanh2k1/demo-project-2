@@ -13,9 +13,7 @@
 <div class="row">
     <div class="col-md-12">
         <div class="card">
-            <div class="card-header">
-                Danh sách phân loại
-            </div>
+            <div class="card-header">Danh sách phân loại</div>
             <div class="card-body">
                 <table id="example" class="table table-striped" style="width:100%">
                     <thead>
@@ -29,20 +27,50 @@
                     </thead>
                     <tbody>
 @{
-    var i = 1;
+    var a = 1;
     foreach (var item in Model) {
                         <tr>
-                            <td>@i</td>
-                            <td>@Html.DisplayFor(modelItem => item.ParentCategory.Id)</td>
+                            <td>@a</td>
+                            <td>@Html.DisplayFor(modelItem => item.ParentCategory.Name)</td>
                             <td>@Html.DisplayFor(modelItem => item.Name)</td>
                             <td>@Html.DisplayFor(modelItem => item.Status)</td>
                             <td>
-                                <a asp-area="admin" asp-controller="category" asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                                <a asp-area="admin" asp-controller="category" asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                                <a asp-area="admin" asp-controller="category" asp-action="Delete" asp-route-id="@item.Id">Delete</a>
+                                <button asp-area="admin" asp-controller="category" asp-action="createChildCategory" asp-route-id="@item.Id" class="btn btn-primary">
+                                    <i class="bi bi-plus"></i>Phân loại con
+                                </button>
+                                <button asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@item.Id" class="btn btn-warning">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+        @if (item.ChildCategories == null || item.ChildCategories.Count == 0) {
+                                <button asp-area="admin" asp-controller="category" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+        }
                             </td>
                         </tr>
-        i++;
+        var b = 1;
+        if (item.ChildCategories != null && item.ChildCategories.Count > 0)
+        {
+            foreach (var childItem in item.ChildCategories)
+            {
+                        <tr>
+                            <td>@(a + "." + b)</td>
+                            <td>@Html.DisplayFor(modelItem => childItem.ParentCategory.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => childItem.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => childItem.Status)</td>
+                            <td>
+                                <button asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@childItem.Id" class="btn btn-warning">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button asp-area="admin" asp-controller="category" asp-action="delete" asp-route-id="@childItem.Id" class="btn btn-danger">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </td>
+                        </tr>
+                b++;
+            }                
+        }
+        a++;
     }
 }
                     </tbody>

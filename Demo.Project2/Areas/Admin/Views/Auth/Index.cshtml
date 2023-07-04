@@ -24,11 +24,9 @@
                         <div class="card-body mx-auto">
                             <h2>Đăng Nhập Admin</h2>
                             <form asp-area="admin" asp-controller="auth" asp-action="login" method="post">
-                                <input asp-for="Username" type="text" name="username" id="" class="form-control my-4 py-2"
-                                       placeholder="Tài khoản" />
-                                <input asp-for="Password" type="password" name="password" id="" class="form-control my-4 py-2"
-                                       placeholder="Mật khẩu" />
-                                <span class="text-danger">@ViewBag.message</span>
+                                <input asp-for="Username" type="text" name="username" class="form-control my-4 py-2" placeholder="Tài khoản" />
+                                <input asp-for="Password" type="password" name="password" class="form-control my-4 py-2" placeholder="Mật khẩu" />
+                                <span class="text-danger">@ViewBag.Error</span>
                                 <div class="text-center my-3">
                                     <button class="btn btn-primary" type="submit">Đăng nhập</button>
                                 </div>
