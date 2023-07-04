@@ -27,7 +27,6 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             return View(await _context.Categories
                 .Where(a => a.ParentCategory == null)
-                .OrderByDescending(b => b.Id)
                 .ToListAsync());
         }
         #endregion Trang phân loại
