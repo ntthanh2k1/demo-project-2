@@ -93,6 +93,11 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id)
         {
             var category = await _context.Categories.FindAsync(id);
+            ViewBag.ParentId = new SelectList(await _context.Categories
+                .Where(a => a.ParentCategory == null)
+                .ToListAsync(),
+                "Id",
+                "Name");
             return View("edit", category);
         }
 
@@ -101,18 +106,18 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(int id, Category category)
         {
             var currentCategory = await _context.Categories.FindAsync(id);
-            if (currentCategory.ParentCategory == category)
+            if (currentCategory.ParentId == null)
             {
-                currentCategory.ParentId = null;
                 currentCategory.Name = category.Name;
                 currentCategory.Status = category.Status;
+                _context.Update(currentCategory);
+                await _context.SaveChangesAsync();
+                ViewBag.Success = "Cập nhật thành công.";
+                return RedirectToAction("index", "category", new { area = "admin" });
             }
-            else
-            {
-                currentCategory.ParentId = category.ParentId;
-                currentCategory.Name = category.Name;
-                currentCategory.Status = category.Status;
-            }
+            currentCategory.ParentId = category.ParentId;
+            currentCategory.Name = category.Name;
+            currentCategory.Status = category.Status;
             _context.Update(currentCategory);
             await _context.SaveChangesAsync();
             ViewBag.Success = "Cập nhật thành công.";
