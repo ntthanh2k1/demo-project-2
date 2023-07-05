@@ -1,7 +1,7 @@
 ﻿@model Demo.Project2.Models.User
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Trang cá nhân";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
@@ -11,22 +11,22 @@
     <h4>Thông tin chung</h4>
     <hr />
     <dl class="row">
-        <dt class = "col-sm-3">
+        <dt class="col-xs-12 col-sm-3">
             Tài khoản
         </dt>
-        <dd class = "col-sm-9">
+        <dd class="col-xs-12 col-sm-9">
             @Html.DisplayFor(model => model.Username)
         </dd>
-        <dt class = "col-sm-3">
+        <dt class="col-xs-12 col-sm-3">
             Họ và tên
         </dt>
-        <dd class = "col-sm-9">
+        <dd class="col-xs-12 col-sm-9">
             @Html.DisplayFor(model => model.FullName)
         </dd>
-        <dt class = "col-sm-3">
+        <dt class="col-xs-12 col-sm-3">
             Email
         </dt>
-        <dd class = "col-sm-9">
+        <dd class="col-xs-12 col-sm-9">
             @Html.DisplayFor(model => model.Email)
         </dd>
     </dl>

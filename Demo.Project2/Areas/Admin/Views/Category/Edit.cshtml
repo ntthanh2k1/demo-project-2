@@ -1,21 +1,29 @@
 ﻿@model Demo.Project2.Models.Category
 
 @{
-    ViewData["Title"] = "Tạo phân loại";
+    ViewData["Title"] = "Edit";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>Phân loại</h1>
 
-<h4>Tạo phân loại mới</h4>
+<h4>Cập nhật phân loại</h4>
 <hr />
 <div class="">
     <div class="">
-        <form asp-area="admin" asp-controller="category" asp-action="create">
+        <form asp-area="admin" asp-controller="category" asp-action="edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+@if (Model.ParentId != null) {
             <div class="form-group">
-                <label asp-for="Name" class="control-label">Tên</label>
-                <input asp-for="Name" class="form-control" required="required />
+                <label asp-for="ParentId" class="control-label"></label>
+                <select asp-for="ParentId" class="form-control" asp-items="ViewBag.ParentId"></select>
+                <span asp-validation-for="ParentId" class="text-danger"></span>
+            </div>
+}
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" required="required" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -26,9 +34,10 @@
             </div>
             <span class="text-success">@ViewBag.Success</span>
             <div class="form-group mt-3">
-                <input type="submit" value="Tạo" class="btn btn-primary" />
+                <input type="submit" value="Cập nhật" class="btn btn-primary" />
                 <a asp-area="admin" asp-controller="category" asp-action="index" class="btn btn-primary">Quay lại</a>
             </div>
         </form>
     </div>
 </div>
+

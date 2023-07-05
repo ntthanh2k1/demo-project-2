@@ -39,7 +39,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             var username = User.FindFirstValue(ClaimTypes.Name);
             var user = await _context.Users.FirstOrDefaultAsync(a => a.Username.Equals(username));
-            return View("Update", user);
+            return View("update", user);
         }
 
         [HttpPost]
@@ -63,7 +63,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             var username = User.FindFirstValue(ClaimTypes.Name);
             var user = await _context.Users.FirstOrDefaultAsync(a => a.Username.Equals(username));
-            return View("UpdatePassword", user);
+            return View("updatePassword", user);
         }
 
         [HttpPost]

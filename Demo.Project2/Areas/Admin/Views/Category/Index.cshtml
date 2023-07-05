@@ -1,14 +1,19 @@
 ﻿@model IEnumerable<Demo.Project2.Models.Category>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "Phân loại";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>Phân loại</h1>
 
 <p>
-    <a asp-area="admin" asp-controller="category" asp-action="Create" class="btn btn-primary">Tạo mới</a>
+    <a asp-area="admin" asp-controller="category" asp-action="create" class="btn btn-primary">
+        <i class="bi bi-plus"></i>Phân loại
+    </a>
+    <a asp-area="admin" asp-controller="category" asp-action="createChild" class="btn btn-primary">
+        <i class="bi bi-plus"></i>Phân loại con
+    </a>
 </p>
 <div class="row">
     <div class="col-md-12">
@@ -35,16 +40,13 @@
                             <td>@Html.DisplayFor(modelItem => item.Name)</td>
                             <td>@Html.DisplayFor(modelItem => item.Status)</td>
                             <td>
-                                <button asp-area="admin" asp-controller="category" asp-action="createChildCategory" asp-route-id="@item.Id" class="btn btn-primary">
-                                    <i class="bi bi-plus"></i>Phân loại con
-                                </button>
-                                <button asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@item.Id" class="btn btn-warning">
+                                <a asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@item.Id" class="btn btn-warning">
                                     <i class="bi bi-pencil-square"></i>
-                                </button>
+                                </a>
         @if (item.ChildCategories == null || item.ChildCategories.Count == 0) {
-                                <button asp-area="admin" asp-controller="category" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger">
+                                <a asp-area="admin" asp-controller="category" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger">
                                     <i class="bi bi-trash"></i>
-                                </button>
+                                </a>
         }
                             </td>
                         </tr>
@@ -59,12 +61,12 @@
                             <td>@Html.DisplayFor(modelItem => childItem.Name)</td>
                             <td>@Html.DisplayFor(modelItem => childItem.Status)</td>
                             <td>
-                                <button asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@childItem.Id" class="btn btn-warning">
+                                <a asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@childItem.Id" class="btn btn-warning">
                                     <i class="bi bi-pencil-square"></i>
-                                </button>
-                                <button asp-area="admin" asp-controller="category" asp-action="delete" asp-route-id="@childItem.Id" class="btn btn-danger">
+                                </a>
+                                <a asp-area="admin" asp-controller="category" asp-action="delete" asp-route-id="@childItem.Id" class="btn btn-danger">
                                     <i class="bi bi-trash"></i>
-                                </button>
+                                </a>
                             </td>
                         </tr>
                 b++;

@@ -1,21 +1,25 @@
 ﻿@model Demo.Project2.Models.Category
 
 @{
-    ViewData["Title"] = "Tạo phân loại";
+    ViewData["Title"] = "Tạo phân loại con";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
 <h1>Phân loại</h1>
 
-<h4>Tạo phân loại mới</h4>
+<h4>Tạo phân loại con mới</h4>
 <hr />
 <div class="">
     <div class="">
-        <form asp-area="admin" asp-controller="category" asp-action="create">
+        <form asp-area="admin" asp-controller="category" asp-action="createChild">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
+                <label asp-for="ParentId" class="control-label">Phân loại cha</label>
+                <select asp-for="ParentId" class ="form-control" asp-items="ViewBag.ParentId"></select>
+            </div>
+            <div class="form-group">
                 <label asp-for="Name" class="control-label">Tên</label>
-                <input asp-for="Name" class="form-control" required="required />
+                <input asp-for="Name" class="form-control" required="required" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
             <div class="form-group form-check">
@@ -32,3 +36,4 @@
         </form>
     </div>
 </div>
+
