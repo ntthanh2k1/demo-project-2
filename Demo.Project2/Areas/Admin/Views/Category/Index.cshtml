@@ -24,6 +24,7 @@
                     <thead>
                         <tr>
                             <th>Số thứ tự</th>
+                            <th>Mã</th>
                             <th>Phân loại cha</th>
                             <th>Tên</th>
                             <th>Trạng thái</th>
@@ -36,6 +37,7 @@
     foreach (var item in Model) {
                         <tr>
                             <td>@a</td>
+                            <td>@Html.DisplayFor(modelItem => item.Code)</td>
                             <td>@Html.DisplayFor(modelItem => item.ParentCategory.Name)</td>
                             <td>@Html.DisplayFor(modelItem => item.Name)</td>
                             <td>@Html.DisplayFor(modelItem => item.Status)</td>
@@ -50,13 +52,14 @@
         }
                             </td>
                         </tr>
-        var b = 1;
         if (item.ChildCategories != null && item.ChildCategories.Count > 0)
         {
+            var b = 1;
             foreach (var childItem in item.ChildCategories)
             {
                         <tr>
                             <td>@(a + "." + b)</td>
+                            <td>@Html.DisplayFor(modelItem => childItem.Code)</td>
                             <td>@Html.DisplayFor(modelItem => childItem.ParentCategory.Name)</td>
                             <td>@Html.DisplayFor(modelItem => childItem.Name)</td>
                             <td>@Html.DisplayFor(modelItem => childItem.Status)</td>
@@ -79,6 +82,7 @@
                     <tfoot>
                         <tr>
                             <th>Số thứ tự</th>
+                            <th>Mã</th>
                             <th>Phân loại cha</th>
                             <th>Tên</th>
                             <th>Trạng thái</th>
@@ -90,3 +94,11 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function () {
+        $('#example').DataTable({
+            "order": []
+        });
+    });
+</script>

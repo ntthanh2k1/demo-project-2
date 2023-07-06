@@ -27,7 +27,6 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             return View(await _context.Categories
                 .Where(a => a.ParentCategory == null)
-                .OrderByDescending(a => a.Id)
                 .ToListAsync());
         }
         #endregion Trang phân loại
@@ -46,6 +45,8 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             var newCategory = new Category
             {
+                Id = new Guid(),
+                Code = category.Code,
                 ParentId = null,
                 Name = category.Name,
                 Status = category.Status
@@ -74,13 +75,15 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("createChild")]
         public async Task<IActionResult> CreateChild(Category category)
         {
-            var newCategory = new Category
+            var newChildCategory = new Category
             {
+                Id = new Guid(),
+                Code = category.Code,
                 ParentId = category.ParentId,
                 Name = category.Name,
                 Status = category.Status
             };
-            _context.Add(newCategory);
+            _context.Add(newChildCategory);
             await _context.SaveChangesAsync();
             ViewBag.Success = "Tạo thành công.";
             return RedirectToAction("index", "category", new { area = "admin" });
@@ -90,32 +93,18 @@ namespace Demo.Project2.Areas.Admin.Controllers
         #region Cập nhật phân loại
         [HttpGet]
         [Route("edit/{id}")]
-        public async Task<IActionResult> Edit(int id)
+        public async Task<IActionResult> Edit(Guid id)
         {
-            var category = await _context.Categories.FindAsync(id);
-            ViewBag.ParentId = new SelectList(await _context.Categories
-                .Where(a => a.ParentCategory == null)
-                .ToListAsync(),
-                "Id",
-                "Name");
-            return View("edit", category);
+            var currentCategory = await _context.Categories.FindAsync(id);
+            return View("edit", currentCategory);
         }
 
         [HttpPost]
         [Route("edit/{id}")]
-        public async Task<IActionResult> Edit(int id, Category category)
+        public async Task<IActionResult> Edit(Guid id, Category category)
         {
             var currentCategory = await _context.Categories.FindAsync(id);
-            if (currentCategory.ParentId == null)
-            {
-                currentCategory.Name = category.Name;
-                currentCategory.Status = category.Status;
-                _context.Update(currentCategory);
-                await _context.SaveChangesAsync();
-                ViewBag.Success = "Cập nhật thành công.";
-                return RedirectToAction("index", "category", new { area = "admin" });
-            }
-            currentCategory.ParentId = category.ParentId;
+            currentCategory.Code = category.Code;
             currentCategory.Name = category.Name;
             currentCategory.Status = category.Status;
             _context.Update(currentCategory);
@@ -128,7 +117,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         #region Xóa phân loại
         [HttpGet]
         [Route("delete/{id}")]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             var category = await _context.Categories.FindAsync(id);
             _context.Categories.Remove(category);

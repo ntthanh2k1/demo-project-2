@@ -27,7 +27,8 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var username = User.FindFirstValue(ClaimTypes.Name);
-            var user = await _context.Users.FirstOrDefaultAsync(a => a.Username.Equals(username));
+            var user = await _context.Users
+                .FirstOrDefaultAsync(a => a.Username.Equals(username));
             return View(user);
         }
         #endregion Trang thông tin cá nhân
@@ -46,7 +47,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("update")]
         public async Task<IActionResult> Update(User user)
         {
-            var currentUser = await _context.Users.FirstOrDefaultAsync(a => a.Id == user.Id);
+            var currentUser = await _context.Users.FirstOrDefaultAsync(a => a.Id.Equals(user.Id));
             currentUser.FullName = user.FullName;
             currentUser.Email = user.Email;
             _context.Update(currentUser);
@@ -70,7 +71,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("updatePassword")]
         public async Task<IActionResult> UpdatePassword(User user)
         {
-            var currentUser = await _context.Users.FirstOrDefaultAsync(a => a.Id == user.Id);
+            var currentUser = await _context.Users.FirstOrDefaultAsync(a => a.Id.Equals(user.Id));
             if (user.Password.Length < 6)
             {
                 ViewBag.Error = "Mật khẩu it nhất từ 6 ký tự trở lên.";

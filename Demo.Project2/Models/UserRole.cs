@@ -5,8 +5,8 @@ namespace Demo.Project2.Models
 {
     public partial class UserRole
     {
-        public int UserId { get; set; }
-        public int RoleId { get; set; }
+        public Guid UserId { get; set; }
+        public Guid RoleId { get; set; }
         public bool Status { get; set; }
         public virtual User User { get; set; }
         public virtual Role Role { get; set; }
