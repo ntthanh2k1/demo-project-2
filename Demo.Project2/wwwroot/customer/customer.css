@@ -6,6 +6,15 @@
     width: var(--offcanvas-width) !important;
 }
 
+.sidebar-link .right-icon {
+    display: inline-flex;
+    transition: all ease 0.25s;
+}
+
+.sidebar-link[aria-expanded="true"] .right-icon {
+    transform: rotate(90deg);
+}
+
 .card-text {
     display: flex;
     align-items: center;

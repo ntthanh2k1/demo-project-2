@@ -25,9 +25,10 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("index")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories
+            var categories = await _context.Categories
                 .Where(a => a.ParentCategory == null)
-                .ToListAsync());
+                .ToListAsync();
+            return View(categories);
         }
         #endregion Trang phân loại
 
@@ -46,8 +47,8 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var newCategory = new Category
             {
                 Id = new Guid(),
-                Code = category.Code,
                 ParentId = null,
+                Code = category.Code,
                 Name = category.Name,
                 Status = category.Status
             };
@@ -78,8 +79,8 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var newChildCategory = new Category
             {
                 Id = new Guid(),
-                Code = category.Code,
                 ParentId = category.ParentId,
+                Code = category.Code,
                 Name = category.Name,
                 Status = category.Status
             };

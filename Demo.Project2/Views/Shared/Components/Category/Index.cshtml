@@ -1,0 +1,58 @@
+﻿@model IEnumerable<Demo.Project2.Models.Category>
+
+@*<style>
+    .sidebar-link .right-icon {
+        display: inline-flex;
+        transition: all ease 0.25s;
+    }
+
+    .sidebar-link[aria-expanded="true"] .right-icon {
+        transform: rotate(90deg);
+    }
+</style>*@
+
+<div class="offcanvas offcanvas-start sidebar-nav bg-dark opacity-75 text-white" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-body">
+        <nav class="navbar navbar-dark">
+            <ul class="navbar-nav w-100">
+                <li>
+                    <h3 class="d-flex justify-content-center">
+                        Danh mục
+                    </h3>
+                </li>
+                <li class="my-2"></li>
+@{
+    var i = 1;
+    foreach (var item in Model) {
+                <li>
+                    <a class="nav-link active px-3 sidebar-link" data-bs-toggle="collapse" href="#@i" role="button" aria-expanded="false" aria-controls="collapseExample">
+                        <span class="fw-bold d-flex justify-content-center">@Html.DisplayFor(modelItem => item.Name)</span>
+                    </a>
+        @if (item.ChildCategories != null && item.ChildCategories.Count > 0)
+        {
+                    <div class="collapse" id="@i">
+                        <div>
+                            <ul class="navbar-nav">
+            @foreach (var childItem in item.ChildCategories)
+            {
+                if (childItem.Status == true) {
+                                <li>
+                                    <a href="#" class="nav-link active px-3">
+                                        <span class="d-flex justify-content-center">@Html.DisplayFor(modelItem => childItem.Name)</span>
+                                    </a>
+                                </li>
+                }
+                    
+            }
+                            </ul>
+                        </div>
+                    </div>
+        }
+                </li>
+    i++;
+    }
+}
+            </ul>
+        </nav>
+    </div>
+</div>

@@ -25,8 +25,8 @@
                         <tr>
                             <th>Số thứ tự</th>
                             <th>Mã</th>
-                            <th>Phân loại cha</th>
                             <th>Tên</th>
+                            <th>Phân loại cha</th>
                             <th>Trạng thái</th>
                             <th>Thao tác</th>
                         </tr>
@@ -35,11 +35,11 @@
 @{
     var a = 1;
     foreach (var item in Model) {
-                        <tr>
+                        <tr class="fw-bold">
                             <td>@a</td>
                             <td>@Html.DisplayFor(modelItem => item.Code)</td>
-                            <td>@Html.DisplayFor(modelItem => item.ParentCategory.Name)</td>
                             <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => item.ParentCategory.Name)</td>
                             <td>@Html.DisplayFor(modelItem => item.Status)</td>
                             <td>
                                 <a asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@item.Id" class="btn btn-warning">
@@ -58,10 +58,10 @@
             foreach (var childItem in item.ChildCategories)
             {
                         <tr>
-                            <td>@(a + "." + b)</td>
+                            <td>&emsp;@(a + "." + b)</td>
                             <td>@Html.DisplayFor(modelItem => childItem.Code)</td>
-                            <td>@Html.DisplayFor(modelItem => childItem.ParentCategory.Name)</td>
                             <td>@Html.DisplayFor(modelItem => childItem.Name)</td>
+                            <td>@Html.DisplayFor(modelItem => childItem.ParentCategory.Name)</td>
                             <td>@Html.DisplayFor(modelItem => childItem.Status)</td>
                             <td>
                                 <a asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@childItem.Id" class="btn btn-warning">
@@ -83,8 +83,8 @@
                         <tr>
                             <th>Số thứ tự</th>
                             <th>Mã</th>
-                            <th>Phân loại cha</th>
                             <th>Tên</th>
+                            <th>Phân loại cha</th>
                             <th>Trạng thái</th>
                             <th>Thao tác</th>
                         </tr>

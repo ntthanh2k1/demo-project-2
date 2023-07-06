@@ -64,68 +64,8 @@
                 </div>
             </div>
         </nav>
-
-        <div class="offcanvas offcanvas-start sidebar-nav bg-dark opacity-75 text-white" tabindex="-1"
-             id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-            <div class="offcanvas-body p-0">
-                <nav class="navbar navbar-dark">
-                    <ul class="navbar-nav">
-                        <li>
-                            <div class="fw-bold px-3 my-2">
-                                Danh mục
-                            </div>
-                        </li>
-                        <li class="my-2"></li>
-                        <li>
-                            <a class="nav-link active px-3 sidebar-link" data-bs-toggle="collapse" href="#collapse1"
-                               role="button" aria-expanded="false" aria-controls="collapseExample">
-                                <span class="right-icon"><i class="bi bi-chevron-right"></i></span>
-                                <span class="me-2"><i class="bi bi-menu-button-wide-fill"></i></span>
-                                <span>Phân loại 1</span>
-                            </a>
-                            <div class="collapse" id="collapse1">
-                                <div>
-                                    <ul class="navbar-nav ps-3">
-                                        <li>
-                                            <a href="#" class="nav-link active px-3">
-                                                <span class="me-2"><i class="bi bi-sliders"></i></span>
-                                                <span>Sản phẩm 1.1</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <a class="nav-link active px-3 sidebar-link" data-bs-toggle="collapse" href="#collapse2"
-                               role="button" aria-expanded="false" aria-controls="collapseExample">
-                                <span class="right-icon"><i class="bi bi-chevron-right"></i></span>
-                                <span class="me-2"><i class="bi bi-menu-button-wide-fill"></i></span>
-                                <span>Phân loại 2</span>
-                            </a>
-                            <div class="collapse" id="collapse2">
-                                <div>
-                                    <ul class="navbar-nav ps-3">
-                                        <li>
-                                            <a href="#" class="nav-link active px-3">
-                                                <span class="me-2"><i class="bi bi-diagram-3"></i></span>
-                                                <span>Sản phẩm 2.1</span>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="nav-link active px-3">
-                                                <span class="me-2"><i class="bi bi-boxes"></i></span>
-                                                <span>Sản phẩm 2.2</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-        </div>
+        
+        @await Component.InvokeAsync("Category")
     </header>
 
     <main class="container mb-5 mt-3">

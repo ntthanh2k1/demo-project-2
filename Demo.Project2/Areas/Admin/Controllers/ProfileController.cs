@@ -28,7 +28,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             var username = User.FindFirstValue(ClaimTypes.Name);
             var user = await _context.Users
-                .FirstOrDefaultAsync(a => a.Username.Equals(username));
+                .FirstOrDefaultAsync(a => a.Username.Equals(username) == true);
             return View(user);
         }
         #endregion Trang thông tin cá nhân
