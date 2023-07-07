@@ -14,9 +14,9 @@
 
 <body>
     <header>
-        <nav class="navbar navbar-expand-md navbar-light fixed-top bg-light border-bottom">
+        <nav class="navbar navbar-expand-lg navbar-light fixed-top bg-light border-bottom py-4">
             <div class="container-fluid">
-                <button class="btn btn-light me-3 border border-dark-subtle" type="button" data-bs-toggle="offcanvas"
+                <button class="navbar-toggler btn btn-light me-3 border border-dark-subtle" type="button" data-bs-toggle="offcanvas"
                         data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
                     <span class="navbar-toggler-icon"></span>
                 </button>
@@ -27,7 +27,7 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <ul class="navbar-nav mb-2 mb-lg-0">
+                    <ul class="navbar-nav me-auto mb-lg-0">
                         <li class="nav-item">
                             <a class="nav-link active" aria-current="page" href="#">Trang chủ</a>
                         </li>
@@ -35,7 +35,13 @@
                             <a class="nav-link active" aria-current="page" href="#">Liên hệ</a>
                         </li>
                     </ul>
-                    <form class="d-flex ms-auto me-3" role="search">
+                    <select class="form-select d-flex ms-auto me-2 w-25 border border-dark-subtle" aria-label="Default select example">
+                        <option selected>Tất cả</option>
+                        <option value="1">One</option>
+                        <option value="2">Two</option>
+                        <option value="3">Three</option>
+                    </select>
+                    <form class="d-flex me-2" role="search">
                         <div class="input-group my-3 my-lg-0">
                             <input type="text" class="form-control border border-dark-subtle" placeholder="Tìm kiếm"
                                    aria-label="Tìm kiếm" aria-describedby="button-addon2">
@@ -65,12 +71,20 @@
             </div>
         </nav>
         
-        @await Component.InvokeAsync("Category")
+        <div class="offcanvas offcanvas-start sidebar-nav bg-dark opacity-75 text-white" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+            <div class="offcanvas-body">
+                <nav class="navbar navbar-dark">
+                    @await Component.InvokeAsync("SideCategory")
+                </nav>
+            </div>
+        </div>
     </header>
 
-    <main class="container mb-5 mt-3">
-        <div class="row mx-5">
-            @RenderBody()
+    <main class="container my-5">
+        <div class="mt-5">
+            <div class="row mx-5">
+                @RenderBody()
+            </div>
         </div>
     </main>
 

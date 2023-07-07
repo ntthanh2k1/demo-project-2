@@ -1,0 +1,22 @@
+﻿@model IEnumerable<Demo.Project2.Models.Category>
+
+<ul class="navbar-nav">
+    <li>
+@foreach (var item in Model) {
+        <div class="dropend border-bottom">
+            <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">@Html.DisplayFor(modelItem => item.Name)</a>
+    @if (item.ChildCategories != null && item.ChildCategories.Count > 0) {
+            <ul class="dropdown-menu">
+        @foreach (var childItem in item.ChildCategories) {
+            if (childItem.Status == true) {
+                <li>
+                    <a class="dropdown-item" href="#">@Html.DisplayFor(modelItem => childItem.Name)</a>
+                </li>
+            }
+        }
+            </ul>
+    }     
+        </div>
+}
+    </li>
+</ul>

@@ -4,12 +4,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Demo.Project2.ViewComponents
 {
-    [ViewComponent(Name = "Category")]
-    public class CategoryViewComponent : ViewComponent
+    public class SideCategoryViewComponent : ViewComponent
     {
         private readonly DemoProject2DbContext _context;
 
-        public CategoryViewComponent(DemoProject2DbContext context)
+        public SideCategoryViewComponent(DemoProject2DbContext context)
         {
             _context = context;
         }

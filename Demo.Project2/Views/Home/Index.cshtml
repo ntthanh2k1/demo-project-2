@@ -3,12 +3,16 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<div class="mt-5">
-    <img src="~/customer/images/slide-image-1.jpg" class="d-block img-fluid w-100 mx-auto" alt="">
+<div class="row mt-5 mb-3">
+    <div class="category col-lg-3 border border-dark-subtle">
+        @await Component.InvokeAsync("MainCategory")
+    </div>
+    <div class="col-md-12 col-lg-9">
+        <img src="~/customer/images/slide-image-1.jpg" class="d-block img-fluid w-100 mx-auto" alt="">
+    </div>
 </div>
-<hr class="hr my-3" />
-<h2>Sản phẩm bán chạy</h2>
-<hr class="hr my-3" />
+<h3>Sản phẩm bán chạy</h3>
+<hr />
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <div class="card text-bg-light mb-3 py-2">
@@ -63,9 +67,8 @@
         </div>
     </div>
 </div>
-<hr class="hr my-3" />
-<h2>Tất cả sản phẩm</h2>
-<hr class="hr my-3" />
+<h3>Tất cả sản phẩm</h3>
+<hr />
 <div class="row">
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <div class="card text-bg-light mb-3 py-2">
