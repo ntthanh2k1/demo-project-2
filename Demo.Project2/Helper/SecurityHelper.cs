@@ -8,10 +8,11 @@ namespace Demo.Project2.Helper
 {
     public class SecurityHelper
     {
-        public async Task SignIn(HttpContext httpContext, User user, string scheme)
+        public async Task Login(HttpContext httpContext, User user, string scheme)
         {
             var claims = new List<Claim>
             {
+                new Claim(ClaimTypes.Sid, user.Id.ToString()),
                 new Claim(ClaimTypes.Name, user.Username)
             };
             foreach (var userRole in user.UserRoles)
@@ -28,7 +29,7 @@ namespace Demo.Project2.Helper
             await httpContext.SignInAsync(scheme, claimsPrincipal, authProperties);
         }
 
-        public async Task SignOut(HttpContext httpContext, string scheme)
+        public async Task Logout(HttpContext httpContext, string scheme)
         {
             await httpContext.SignOutAsync(scheme);
         }

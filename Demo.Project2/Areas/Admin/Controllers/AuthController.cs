@@ -40,14 +40,13 @@ namespace Demo.Project2.Areas.Admin.Controllers
                 return View("Index");
             }
             var userRole = user.UserRoles
-                .FirstOrDefault(a => a.RoleId
-                .Equals("df07ec54-06e2-4646-a767-98d36924ef7f") == false && a.Status == true);
+                .FirstOrDefault(a => a.RoleId.Equals("df07ec54-06e2-4646-a767-98d36924ef7f") == false && a.Status == true);
             if (userRole == null || BCrypt.Net.BCrypt.Verify(password, user.Password) == false)
             {
                 ViewBag.error = "Tài khoản không hợp lệ";
                 return View("Index");
             }
-            await _securityHelper.SignIn(this.HttpContext, user, "AdminSchemes");
+            await _securityHelper.Login(this.HttpContext, user, "AdminSchemes");
             return RedirectToAction("index", "home", new { area = "admin" });
         }
         #endregion Đăng nhập
@@ -56,7 +55,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("logout")]
         public async Task<IActionResult> Logout()
         {
-            await _securityHelper.SignOut(this.HttpContext, "AdminSchemes");
+            await _securityHelper.Logout(this.HttpContext, "AdminSchemes");
             return RedirectToAction("index", "auth", new { area = "admin" });
         }
         #endregion Đăng xuất

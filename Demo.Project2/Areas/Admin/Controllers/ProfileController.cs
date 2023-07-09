@@ -26,62 +26,63 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("index")]
         public async Task<IActionResult> Index()
         {
-            var username = User.FindFirstValue(ClaimTypes.Name);
-            var user = await _context.Users
-                .FirstOrDefaultAsync(a => a.Username.Equals(username) == true);
+            var id = User.FindFirstValue(ClaimTypes.Sid);
+            var user = await _context.Users.FirstOrDefaultAsync(a => a.Id.Equals(Guid.Parse(id)));
             return View(user);
         }
         #endregion Trang thông tin cá nhân
 
         #region Cập nhật thông tin cá nhân
         [HttpGet]
-        [Route("update")]
-        public async Task<IActionResult> Update()
+        [Route("edit")]
+        public async Task<IActionResult> Edit()
         {
-            var username = User.FindFirstValue(ClaimTypes.Name);
-            var user = await _context.Users.FirstOrDefaultAsync(a => a.Username.Equals(username));
-            return View("update", user);
+            var id = User.FindFirstValue(ClaimTypes.Sid);
+            var user = await _context.Users.FindAsync(Guid.Parse(id));
+            return View("edit", user);
         }
 
         [HttpPost]
-        [Route("update")]
-        public async Task<IActionResult> Update(User user)
+        [Route("edit")]
+        public async Task<IActionResult> Edit(User user)
         {
-            var currentUser = await _context.Users.FirstOrDefaultAsync(a => a.Id.Equals(user.Id));
+            var id = User.FindFirstValue(ClaimTypes.Sid);
+            var currentUser = await _context.Users.FindAsync(Guid.Parse(id));
             currentUser.FullName = user.FullName;
             currentUser.Email = user.Email;
             _context.Update(currentUser);
             await _context.SaveChangesAsync();
             ViewBag.Success = "Cập nhật thành công.";
-            return View("Update", currentUser);
+            return View("edit", currentUser);
         }
         #endregion Cập nhật thông tin cá nhân
 
         #region Đổi mật khẩu
         [HttpGet]
-        [Route("updatePassword")]
-        public async Task<IActionResult> UpdatePassword()
+        [Route("editPassword")]
+        public async Task<IActionResult> EditPassword()
         {
-            var username = User.FindFirstValue(ClaimTypes.Name);
-            var user = await _context.Users.FirstOrDefaultAsync(a => a.Username.Equals(username));
-            return View("updatePassword", user);
+            var id = User.FindFirstValue(ClaimTypes.Sid);
+            var user = await _context.Users.FindAsync(Guid.Parse(id));
+            return View("editPassword", user);
         }
 
         [HttpPost]
-        [Route("updatePassword")]
-        public async Task<IActionResult> UpdatePassword(User user)
+        [Route("editPassword")]
+        public async Task<IActionResult> EditPassword(User user)
         {
-            var currentUser = await _context.Users.FirstOrDefaultAsync(a => a.Id.Equals(user.Id));
+            var id = User.FindFirstValue(ClaimTypes.Sid);
+            var currentUser = await _context.Users.FindAsync(Guid.Parse(id));
             if (user.Password.Length < 6)
             {
                 ViewBag.Error = "Mật khẩu it nhất từ 6 ký tự trở lên.";
-                return View("UpdatePassword", currentUser);
+                return View("editPassword", currentUser);
             }
             currentUser.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             _context.Update(currentUser);
             await _context.SaveChangesAsync();
             ViewBag.Success = "Cập nhật thành công.";
-            return View("UpdatePassword", currentUser);
+            return View("editPassword", currentUser);
         }
         #endregion Đổi mật khẩu
     }
