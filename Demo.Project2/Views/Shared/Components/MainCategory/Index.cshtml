@@ -4,18 +4,14 @@
     <li>
 @foreach (var item in Model) {
         <div class="dropend border-bottom">
-            <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">@Html.DisplayFor(modelItem => item.Name)</a>
-    @if (item.ChildCategories != null && item.ChildCategories.Count > 0) {
+            <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">@item.Name</a>
             <ul class="dropdown-menu">
-        @foreach (var childItem in item.ChildCategories) {
-            if (childItem.Status == true) {
+        @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.Status == true)) {
                 <li>
-                    <a class="dropdown-item" href="#">@Html.DisplayFor(modelItem => childItem.Name)</a>
+                    <a class="dropdown-item" href="#">@childItem.Name</a>
                 </li>
-            }
         }
-            </ul>
-    }     
+            </ul>    
         </div>
 }
     </li>

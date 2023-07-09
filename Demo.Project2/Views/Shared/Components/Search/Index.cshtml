@@ -1,10 +1,15 @@
-﻿<form class="d-flex ms-auto me-2" role="search">
+﻿@model IEnumerable<Demo.Project2.Models.Category>
+
+<form class="d-flex ms-auto me-2" role="search">
     <div class="input-group my-3 my-lg-0">
-        <select class="form-select border border-dark-subtle" aria-label="Default select example">
-            <option selected>Tất cả</option>
-            <option value="1">One</option>
-            <option value="2">Two</option>
-            <option value="3">Three</option>
+        <select class="select-category form-select border border-dark-subtle" aria-label="Default select example">
+@foreach (var item in Model) {
+        <optgroup label="@item.Name">
+            @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.Status == true)) {
+                <option value="@childItem.Id">@childItem.Name</option>
+            }
+        </optgroup>
+}
         </select>
         <input type="text" class="form-control border border-dark-subtle" placeholder="Tìm kiếm"
                aria-label="Tìm kiếm" aria-describedby="button-addon2">

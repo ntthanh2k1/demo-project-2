@@ -8,32 +8,28 @@
     </li>
     <li class="my-2"></li>
 @{
-    var i = 1;
+    var a = 1;
     foreach (var item in Model) {
     <li>
-        <a class="nav-link active px-3 sidebar-link" data-bs-toggle="collapse" href="#@i" role="button" aria-expanded="false" aria-controls="collapseExample">
-            <span class="fw-bold d-flex justify-content-center">@Html.DisplayFor(modelItem => item.Name)</span>
+        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#@a" role="button" aria-expanded="false" aria-controls="collapseExample">
+            <span class="fw-bold d-flex justify-content-center">@item.Name</span>
         </a>
-        @if (item.ChildCategories != null && item.ChildCategories.Count > 0) {
-        <div class="collapse" id="@i">
+        <div class="collapse" id="@a">
             <div>
                 <ul class="navbar-nav">
-            @foreach (var childItem in item.ChildCategories) {
-                if (childItem.Status == true) {
+            @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.Status == true)) {
                     <li>
-                        <a href="#" class="nav-link active px-3">
-                            <span class="d-flex justify-content-center">@Html.DisplayFor(modelItem => childItem.Name)</span>
+                        <a href="#" class="nav-link px-3">
+                            <span class="d-flex justify-content-center">@childItem.Name</span>
                         </a>
                     </li>
-                }
                     
             }
                 </ul>
             </div>
         </div>
-        }
     </li>
-    i++;
+        a++;
     }
 }
 </ul>
