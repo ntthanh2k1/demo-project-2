@@ -24,16 +24,11 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("index")]
         public async Task<IActionResult> Index()
         {
-            var slides = await _context.Slides
-                .Select(a => new Slide
-                {
-                    Code = a.Code,
-                    Name = a.Name,
-                    Status = a.Status
-                })
-                .ToListAsync();
+            var slides = await _context.Slides!.ToListAsync();
             return View(slides);
         }
         #endregion Trang quản lý slide
+
+
     }
 }

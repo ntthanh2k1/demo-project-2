@@ -48,7 +48,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             var id = User.FindFirstValue(ClaimTypes.Sid);
             var currentUser = await _context.Users.FindAsync(Guid.Parse(id));
-            currentUser.FullName = user.FullName;
+            currentUser!.FullName = user.FullName;
             currentUser.Email = user.Email;
             _context.Update(currentUser);
             await _context.SaveChangesAsync();
@@ -73,12 +73,12 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             var id = User.FindFirstValue(ClaimTypes.Sid);
             var currentUser = await _context.Users.FindAsync(Guid.Parse(id));
-            if (user.Password.Length < 6)
+            if (user.Password!.Length < 6)
             {
                 ViewBag.Error = "Mật khẩu it nhất từ 6 ký tự trở lên.";
                 return View("editPassword", currentUser);
             }
-            currentUser.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
+            currentUser!.Password = BCrypt.Net.BCrypt.HashPassword(user.Password);
             _context.Update(currentUser);
             await _context.SaveChangesAsync();
             ViewBag.Success = "Cập nhật thành công.";

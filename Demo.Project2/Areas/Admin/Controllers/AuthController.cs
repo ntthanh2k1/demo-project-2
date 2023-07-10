@@ -32,8 +32,8 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("login")]
         public async Task<IActionResult> Login(string username, string password)
         {
-            var user = await _context.Users
-                .FirstOrDefaultAsync(a => a.Username.Equals(username) && a.Status == true);
+            var user = await _context.Users!
+                .FirstOrDefaultAsync(a => a.Username!.Equals(username) && a.Status == true);
             if (user == null)
             {
                 ViewBag.error = "Tài khoản không hợp lệ.";

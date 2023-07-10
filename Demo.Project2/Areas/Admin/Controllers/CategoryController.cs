@@ -101,7 +101,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(Guid id, Category category)
         {
             var currentCategory = await _context.Categories.FindAsync(id);
-            currentCategory.Code = category.Code;
+            currentCategory!.Code = category.Code;
             currentCategory.Name = category.Name;
             currentCategory.Status = category.Status;
             _context.Update(currentCategory);
@@ -117,7 +117,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var category = await _context.Categories.FindAsync(id);
-            _context.Categories.Remove(category);
+            _context.Categories.Remove(category!);
             await _context.SaveChangesAsync();
             return RedirectToAction("Index", "category", new { area = "admin" });
         }

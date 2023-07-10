@@ -13,11 +13,11 @@ namespace Demo.Project2.Helper
             var claims = new List<Claim>
             {
                 new Claim(ClaimTypes.Sid, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Username)
+                new Claim(ClaimTypes.Name, user.Username!)
             };
             foreach (var userRole in user.UserRoles)
             {
-                claims.Add(new Claim(ClaimTypes.Role, userRole.Role.Name));
+                claims.Add(new Claim(ClaimTypes.Role, userRole.Role!.Name!));
             }
             var claimsIdentity = new ClaimsIdentity(claims, scheme);
             var claimsPrincipal = new ClaimsPrincipal(claimsIdentity);
