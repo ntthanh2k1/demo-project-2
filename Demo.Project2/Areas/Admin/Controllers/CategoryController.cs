@@ -25,7 +25,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("index")]
         public async Task<IActionResult> Index()
         {
-            var categories = await _context.Categories.Where(a => a.ParentCategory == null).ToListAsync();
+            var categories = await _context.Categories!.Where(a => a.ParentCategory == null).ToListAsync();
             return View(categories);
         }
         #endregion Trang quản lý phân loại
@@ -62,7 +62,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("createChild")]
         public async Task<IActionResult> CreateChild()
         {
-            ViewBag.ParentId = new SelectList(await _context.Categories
+            ViewBag.ParentId = new SelectList(await _context.Categories!
                 .Where(a => a.ParentCategory == null)
                 .ToListAsync(), "Id", "Name");
             return View();
@@ -92,7 +92,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("edit/{id}")]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _context.Categories!.FindAsync(id);
             return View("edit", category);
         }
 
@@ -100,7 +100,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("edit/{id}")]
         public async Task<IActionResult> Edit(Guid id, Category category)
         {
-            var currentCategory = await _context.Categories.FindAsync(id);
+            var currentCategory = await _context.Categories!.FindAsync(id);
             currentCategory!.Code = category.Code;
             currentCategory.Name = category.Name;
             currentCategory.Status = category.Status;
@@ -116,10 +116,10 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var category = await _context.Categories.FindAsync(id);
+            var category = await _context.Categories!.FindAsync(id);
             _context.Categories.Remove(category!);
             await _context.SaveChangesAsync();
-            return RedirectToAction("Index", "category", new { area = "admin" });
+            return RedirectToAction("index", "category", new { area = "admin" });
         }
         #endregion Xóa phân loại
     }
