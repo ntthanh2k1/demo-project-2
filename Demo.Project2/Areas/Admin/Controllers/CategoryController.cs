@@ -19,15 +19,16 @@ namespace Demo.Project2.Areas.Admin.Controllers
             _context = context;
         }
 
-        #region Trang phân loại
+        #region Trang quản lý phân loại
         [HttpGet]
         [Route("")]
         [Route("index")]
         public async Task<IActionResult> Index()
         {
-            return View(await _context.Categories.Where(a => a.ParentCategory == null).ToListAsync());
+            var categories = await _context.Categories.Where(a => a.ParentCategory == null).ToListAsync();
+            return View(categories);
         }
-        #endregion Trang phân loại
+        #endregion Trang quản lý phân loại
 
         #region Tạo phân loại
         [HttpGet]
@@ -91,8 +92,8 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("edit/{id}")]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var currentCategory = await _context.Categories.FindAsync(id);
-            return View("edit", currentCategory);
+            var category = await _context.Categories.FindAsync(id);
+            return View("edit", category);
         }
 
         [HttpPost]

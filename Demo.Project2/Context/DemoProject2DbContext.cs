@@ -12,6 +12,7 @@ namespace Demo.Project2.Context
 
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
+        public virtual DbSet<Slide> Slides { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<UserRole> UserRoles { get; set; }
 
@@ -20,11 +21,11 @@ namespace Demo.Project2.Context
             modelBuilder.Entity<Category>(entity =>
             {
                 entity.ToTable("Category");
-
                 entity.HasKey(a => a.Id);
-
+                entity.Property(a => a.ParentId).HasDefaultValue(null);
+                entity.Property(a => a.Code).HasMaxLength(250);
                 entity.Property(a => a.Name).HasMaxLength(250);
-
+                entity.Property(a => a.Status).HasDefaultValue(true);
                 entity.HasOne(a => a.ParentCategory)
                     .WithMany(b => b.ChildCategories)
                     .HasForeignKey(c => c.ParentId)
@@ -34,39 +35,43 @@ namespace Demo.Project2.Context
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.ToTable("Role");
-
                 entity.HasKey(a => a.Id);
-
+                entity.Property(a => a.Code).HasMaxLength(250);
                 entity.Property(a => a.Name).HasMaxLength(250);
+                entity.Property(a => a.Status).HasDefaultValue(true);
+            });
+
+            modelBuilder.Entity<Slide>(entity =>
+            {
+                entity.ToTable("Slide");
+                entity.HasKey(a => a.Id);
+                entity.Property(a => a.Code).HasMaxLength(250);
+                entity.Property(a => a.Name).HasMaxLength(250);
+                entity.Property(a => a.Description).HasMaxLength(250);
+                entity.Property(a => a.Status).HasDefaultValue(true);
             });
 
             modelBuilder.Entity<User>(entity =>
             {
                 entity.ToTable("User");
-
                 entity.HasKey(a => a.Id);
-
                 entity.Property(a => a.Username).HasMaxLength(250);
-
                 entity.Property(a => a.Password).HasMaxLength(250);
-
                 entity.Property(a => a.FullName).HasMaxLength(250);
-
                 entity.Property(a => a.Email).HasMaxLength(250);
+                entity.Property(a => a.Status).HasDefaultValue(true);
             });
 
             modelBuilder.Entity<UserRole>(entity =>
             {
                 entity.ToTable("UserRole");
-
                 entity.HasKey(a => new { a.UserId, a.RoleId });
-
+                entity.Property(a => a.Status).HasDefaultValue(true);
                 entity.HasOne(a => a.User)
                     .WithMany(b => b.UserRoles)
                     .HasForeignKey(c => c.UserId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserRole_User");
-
                 entity.HasOne(a => a.Role)
                     .WithMany(b => b.UserRoles)
                     .HasForeignKey(c => c.RoleId)

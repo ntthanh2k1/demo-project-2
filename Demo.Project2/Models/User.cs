@@ -1,7 +1,4 @@
-﻿using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
-
-namespace Demo.Project2.Models
+﻿namespace Demo.Project2.Models
 {
     public partial class User
     {

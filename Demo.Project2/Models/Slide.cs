@@ -1,11 +1,11 @@
 ﻿namespace Demo.Project2.Models
 {
-    public partial class Role
+    public partial class Slide
     {
         public Guid Id { get; set; }
         public string Code { get; set; }
         public string Name { get; set; }
-        public bool? Status { get; set; }
-        public virtual ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
+        public string Description { get; set; }
+        public bool Status { get; set; }
     }
 }
