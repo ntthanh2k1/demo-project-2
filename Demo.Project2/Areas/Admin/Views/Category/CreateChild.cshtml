@@ -19,13 +19,13 @@
                 <span asp-validation-for="Code" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ParentId" class="control-label">Phân loại cha</label>
-                <select asp-for="ParentId" class="form-control form-select" asp-items="ViewBag.ParentId"></select>
-            </div>
-            <div class="form-group">
                 <label asp-for="Name" class="control-label">Tên</label>
                 <input asp-for="Name" class="form-control" required="required" />
                 <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ParentId" class="control-label">Phân loại cha</label>
+                <select asp-for="ParentId" class="form-control form-select" asp-items="ViewBag.ParentId"></select>
             </div>
             <div class="form-group form-check">
                 <label class="form-check-label">

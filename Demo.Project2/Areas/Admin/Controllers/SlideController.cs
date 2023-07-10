@@ -42,6 +42,10 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("create")]
         public async Task<IActionResult> Create(Slide slide)
         {
+            var newSlide = new Slide
+            {
+
+            };
             return RedirectToAction("index", "slide", new { area = "admin" });
         }
         #endregion Tạo slide

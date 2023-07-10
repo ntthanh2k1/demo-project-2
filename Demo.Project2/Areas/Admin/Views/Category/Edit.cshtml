@@ -24,6 +24,10 @@
                 <input asp-for="Name" class="form-control" required="required" />
                 <span asp-validation-for="Name" class="text-danger"></span>
             </div>
+            <div class="form-group">
+                <label asp-for="ParentCategory!.Name" class="control-label">Phân loại cha</label>
+                <input asp-for="ParentCategory!.Name" class="form-control" disabled />
+            </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     Trạng thái

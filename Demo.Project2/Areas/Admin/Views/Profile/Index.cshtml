@@ -16,19 +16,16 @@
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
                 <label asp-for="Username" class="control-label">Tài khoản</label>
-                <input asp-for="Username" class="form-control" readonly="readonly" />
+                <input asp-for="Username" class="form-control" disabled />
             </div>
             <div class="form-group">
                 <label asp-for="FullName" class="control-label">Họ và tên</label>
-                <input asp-for="FullName" type="text" class="form-control" readonly="readonly" />
-                <span asp-validation-for="FullName" class="text-danger"></span>
+                <input asp-for="FullName" class="form-control" disabled />
             </div>
             <div class="form-group">
                 <label asp-for="Email" class="control-label">Email</label>
-                <input asp-for="Email" type="text" class="form-control" readonly="readonly" />
-                <span asp-validation-for="Email" class="text-danger"></span>
+                <input asp-for="Email" class="form-control" disabled />
             </div>
-            <span class="text-success">@ViewBag.Success</span>
             <div class="form-group mt-3">
                 <a asp-area="admin" asp-controller="profile" asp-action="edit" asp-route-id="@Model?.Id" class="btn btn-primary">Chỉnh sửa</a>
                 <a asp-area="admin" asp-controller="profile" asp-action="editPassword" asp-route-id="@Model?.Id" class="btn btn-primary">Đổi mật khẩu</a>

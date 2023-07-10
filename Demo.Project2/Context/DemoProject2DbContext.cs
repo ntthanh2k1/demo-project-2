@@ -47,6 +47,7 @@ namespace Demo.Project2.Context
                 entity.HasKey(a => a.Id);
                 entity.Property(a => a.Code).HasMaxLength(250);
                 entity.Property(a => a.Name).HasMaxLength(250);
+                entity.Property(a => a.Image).HasMaxLength(250);
                 entity.Property(a => a.Description).HasMaxLength(250);
                 entity.Property(a => a.Status).HasDefaultValue(true);
             });
