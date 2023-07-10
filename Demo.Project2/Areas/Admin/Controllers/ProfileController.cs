@@ -27,7 +27,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             var id = User.FindFirstValue(ClaimTypes.Sid);
-            var user = await _context.Users.FirstOrDefaultAsync(a => a.Id.Equals(Guid.Parse(id)));
+            var user = await _context.Users!.FirstOrDefaultAsync(a => a.Id.Equals(Guid.Parse(id)));
             return View(user);
         }
         #endregion Trang thông tin cá nhân
@@ -38,7 +38,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Edit()
         {
             var id = User.FindFirstValue(ClaimTypes.Sid);
-            var user = await _context.Users.FindAsync(Guid.Parse(id));
+            var user = await _context.Users!.FindAsync(Guid.Parse(id));
             return View("edit", user);
         }
 
@@ -47,7 +47,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(User user)
         {
             var id = User.FindFirstValue(ClaimTypes.Sid);
-            var currentUser = await _context.Users.FindAsync(Guid.Parse(id));
+            var currentUser = await _context.Users!.FindAsync(Guid.Parse(id));
             currentUser!.FullName = user.FullName;
             currentUser.Email = user.Email;
             _context.Update(currentUser);
@@ -63,7 +63,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> EditPassword()
         {
             var id = User.FindFirstValue(ClaimTypes.Sid);
-            var user = await _context.Users.FindAsync(Guid.Parse(id));
+            var user = await _context.Users!.FindAsync(Guid.Parse(id));
             return View("editPassword", user);
         }
 
@@ -72,7 +72,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> EditPassword(User user)
         {
             var id = User.FindFirstValue(ClaimTypes.Sid);
-            var currentUser = await _context.Users.FindAsync(Guid.Parse(id));
+            var currentUser = await _context.Users!.FindAsync(Guid.Parse(id));
             if (user.Password!.Length < 6)
             {
                 ViewBag.Error = "Mật khẩu it nhất từ 6 ký tự trở lên.";

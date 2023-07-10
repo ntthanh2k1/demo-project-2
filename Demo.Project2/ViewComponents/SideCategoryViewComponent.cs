@@ -15,7 +15,7 @@ namespace Demo.Project2.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var categories = await _context.Categories
+            var categories = await _context.Categories!
                 .Where(a => a.Status == true && a.ParentCategory == null && a.ChildCategories != null && a.ChildCategories.Count > 0)
                 .ToListAsync();
             return View("index", categories);

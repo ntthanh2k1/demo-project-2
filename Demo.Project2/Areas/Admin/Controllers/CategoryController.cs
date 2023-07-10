@@ -52,7 +52,6 @@ namespace Demo.Project2.Areas.Admin.Controllers
             };
             _context.Add(newCategory);
             await _context.SaveChangesAsync();
-            ViewBag.Success = "Tạo thành công.";
             return RedirectToAction("index", "category", new { area = "admin" });
         }
         #endregion Tạo phân loại
@@ -82,7 +81,6 @@ namespace Demo.Project2.Areas.Admin.Controllers
             };
             _context.Add(newChildCategory);
             await _context.SaveChangesAsync();
-            ViewBag.Success = "Tạo thành công.";
             return RedirectToAction("index", "category", new { area = "admin" });
         }
         #endregion Tạo phân loại con
@@ -106,7 +104,6 @@ namespace Demo.Project2.Areas.Admin.Controllers
             currentCategory.Status = category.Status;
             _context.Update(currentCategory);
             await _context.SaveChangesAsync();
-            ViewBag.Success = "Cập nhật thành công.";
             return RedirectToAction("index", "category", new { area = "admin" });
         }
         #endregion Cập nhật phân loại

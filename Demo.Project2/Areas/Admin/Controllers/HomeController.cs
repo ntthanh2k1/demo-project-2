@@ -22,7 +22,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("index")]
         public async Task<IActionResult> Index()
         {
-            ViewBag.CountChildCategories = await _context.Categories
+            ViewBag.CountChildCategories = await _context.Categories!
                 .CountAsync(a => a.Status == true && a.ParentCategory != null);
             return View();
         }
