@@ -40,12 +40,22 @@ namespace Demo.Project2.Areas.Admin.Controllers
         }
         [HttpPost]
         [Route("create")]
-        public async Task<IActionResult> Create(Slide slide)
+        public async Task<IActionResult> Create(Slide slide, IFormFile image)
         {
+            var filePath = Path
+                .Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
+            var stream = System.IO.File.Create(filePath);
+            await image.CopyToAsync(stream);
             var newSlide = new Slide
             {
-
+                Code = slide.Code,
+                Name = slide.Name,
+                Image = image.FileName,
+                Description = slide.Description,
+                Status = slide.Status
             };
+            _context.Add(newSlide);
+            await _context.SaveChangesAsync();
             return RedirectToAction("index", "slide", new { area = "admin" });
         }
         #endregion Tạo slide
