@@ -22,10 +22,8 @@ namespace Demo.Project2.Context
             {
                 entity.ToTable("Category");
                 entity.HasKey(a => a.Id);
-                entity.Property(a => a.ParentId).HasDefaultValue(null);
                 entity.Property(a => a.Code).HasMaxLength(250);
                 entity.Property(a => a.Name).HasMaxLength(250);
-                entity.Property(a => a.Status).HasDefaultValue(true);
                 entity.HasOne(a => a.ParentCategory)
                     .WithMany(b => b.ChildCategories)
                     .HasForeignKey(c => c.ParentId)
@@ -38,7 +36,6 @@ namespace Demo.Project2.Context
                 entity.HasKey(a => a.Id);
                 entity.Property(a => a.Code).HasMaxLength(250);
                 entity.Property(a => a.Name).HasMaxLength(250);
-                entity.Property(a => a.Status).HasDefaultValue(true);
             });
 
             modelBuilder.Entity<Slide>(entity =>
@@ -49,7 +46,6 @@ namespace Demo.Project2.Context
                 entity.Property(a => a.Name).HasMaxLength(250);
                 entity.Property(a => a.Image).HasMaxLength(250);
                 entity.Property(a => a.Description).HasMaxLength(250);
-                entity.Property(a => a.Status).HasDefaultValue(true);
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -60,14 +56,12 @@ namespace Demo.Project2.Context
                 entity.Property(a => a.Password).HasMaxLength(250);
                 entity.Property(a => a.FullName).HasMaxLength(250);
                 entity.Property(a => a.Email).HasMaxLength(250);
-                entity.Property(a => a.Status).HasDefaultValue(true);
             });
 
             modelBuilder.Entity<UserRole>(entity =>
             {
                 entity.ToTable("UserRole");
                 entity.HasKey(a => new { a.UserId, a.RoleId });
-                entity.Property(a => a.Status).HasDefaultValue(true);
                 entity.HasOne(a => a.User)
                     .WithMany(b => b.UserRoles)
                     .HasForeignKey(c => c.UserId)

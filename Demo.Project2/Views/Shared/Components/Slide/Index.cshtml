@@ -1,0 +1,5 @@
+﻿@model IEnumerable<Demo.Project2.Models.Slide>
+
+@foreach (var item in Model) {
+<img src="~/admin/images/slides/@item.Image" class="d-block img-fluid w-100 mx-auto" alt="">
+}

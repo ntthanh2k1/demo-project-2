@@ -45,8 +45,10 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             var path = Path
                 .Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
-            var stream = new FileStream(path, FileMode.Create);
-            await image.CopyToAsync(stream);
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await image.CopyToAsync(stream);
+            }
             var newSlide = new Slide
             {
                 Code = slide.Code,
@@ -85,6 +87,17 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(Guid id, Slide slide, IFormFile image)
         {
             var currentSlide = await _context.Slides!.FindAsync(id);
+            var path = Path
+                .Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", currentSlide!.Image!);
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+            path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
+            using (var stream = new FileStream(path, FileMode.Create))
+            {
+                await image.CopyToAsync(stream);
+            }
             currentSlide!.Code = slide.Code;
             currentSlide.Name = slide.Name;
             currentSlide.Image = image.FileName;
@@ -102,6 +115,12 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var slide = await _context.Slides!.FindAsync(id);
+            var path = Path
+                .Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", slide!.Image!);
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
             _context.Slides.Remove(slide!);
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "slide", new { area = "admin" });
