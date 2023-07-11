@@ -5,7 +5,7 @@
         public Guid Id { get; set; }
         public string? Code { get; set; }
         public string? Name { get; set; }
-        public bool? Status { get; set; }
+        public bool Status { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
     }
 }

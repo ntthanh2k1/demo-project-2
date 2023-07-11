@@ -1,6 +1,5 @@
 ﻿using Demo.Project2.Context;
 using Demo.Project2.Helper;
-using Demo.Project2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -46,7 +45,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
                 ViewBag.error = "Tài khoản không hợp lệ";
                 return View("Index");
             }
-            await _securityHelper.Login(this.HttpContext, user, "AdminSchemes");
+            await _securityHelper.Login(HttpContext, user, "AdminSchemes");
             return RedirectToAction("index", "home", new { area = "admin" });
         }
         #endregion Đăng nhập
@@ -55,7 +54,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("logout")]
         public async Task<IActionResult> Logout()
         {
-            await _securityHelper.Logout(this.HttpContext, "AdminSchemes");
+            await _securityHelper.Logout(HttpContext, "AdminSchemes");
             return RedirectToAction("index", "auth", new { area = "admin" });
         }
         #endregion Đăng xuất

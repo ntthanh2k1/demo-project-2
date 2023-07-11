@@ -38,13 +38,14 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             return View();
         }
+
         [HttpPost]
         [Route("create")]
         public async Task<IActionResult> Create(Slide slide, IFormFile image)
         {
-            var filePath = Path
+            var path = Path
                 .Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
-            var stream = System.IO.File.Create(filePath);
+            var stream = new FileStream(path, FileMode.Create);
             await image.CopyToAsync(stream);
             var newSlide = new Slide
             {
@@ -65,7 +66,8 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("details/{id}")]
         public async Task<IActionResult> Details(Guid id)
         {
-            return View("details");
+            var slide = await _context.Slides!.FirstOrDefaultAsync(a => a.Id.Equals(id));
+            return View("details", slide);
         }
         #endregion Xem chi tiết slide
 
@@ -74,13 +76,22 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("edit/{id}")]
         public async Task<IActionResult> Edit(Guid id)
         {
-            return View("edit");
+            var slide = await _context.Slides!.FindAsync(id);
+            return View("edit", slide);
         }
 
         [HttpPost]
         [Route("edit/{id}")]
-        public async Task<IActionResult> Edit(Guid id, Slide slide)
+        public async Task<IActionResult> Edit(Guid id, Slide slide, IFormFile image)
         {
+            var currentSlide = await _context.Slides!.FindAsync(id);
+            currentSlide!.Code = slide.Code;
+            currentSlide.Name = slide.Name;
+            currentSlide.Image = image.FileName;
+            currentSlide.Description = slide.Description;
+            currentSlide.Status = slide.Status;
+            _context.Update(currentSlide);
+            await _context.SaveChangesAsync();
             return RedirectToAction("index", "slide", new { area = "admin" });
         }
         #endregion Cập nhật slide

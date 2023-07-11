@@ -11,7 +11,7 @@
 <hr />
 <div class="">
     <div class="">
-        <form asp-area="admin" asp-controller="slide" asp-action="edit">
+        <form asp-area="admin" asp-controller="slide" asp-action="edit" enctype="multipart/form-data">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
             <div class="form-group">
@@ -26,7 +26,8 @@
             </div>
             <div class="form-group">
                 <label asp-for="Image" class="control-label">Hình ảnh</label>
-                <input asp-for="Image" class="form-control" required="required" />
+                <img src="~/admin/images/slides/@Model.Image" width="120" />
+                <input asp-for="Image" type="file" name="file" class="form-control" accept="image/*" required="required" />
                 <span asp-validation-for="Image" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -40,7 +41,7 @@
                     <input class="form-check-input" asp-for="Status" />
                 </label>
             </div>
-            <div class="form-group">
+            <div class="form-group mt-3">
                 <input type="submit" value="Cập nhật" class="btn btn-primary" />
                 <a asp-area="admin" asp-controller="slide" asp-action="index" class="btn btn-primary">Quay lại</a>
             </div>
