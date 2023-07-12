@@ -57,6 +57,11 @@ namespace Demo.Project2.Areas.Admin.Controllers
                 Description = slide.Description,
                 Status = slide.Status
             };
+            if (await _context.Slides!.AnyAsync(a => a.Id.Equals(newSlide.Id)))
+            {
+                ViewBag.Error = "Id đã tồn tại, vui lòng nhấn tạo lần nữa.";
+                return View("create", newSlide);
+            }
             _context.Add(newSlide);
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "slide", new { area = "admin" });

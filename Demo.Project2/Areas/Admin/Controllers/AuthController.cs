@@ -39,8 +39,8 @@ namespace Demo.Project2.Areas.Admin.Controllers
                 return View("Index");
             }
             var userRole = user.UserRoles
-                .FirstOrDefault(a => a.RoleId.Equals("df07ec54-06e2-4646-a767-98d36924ef7f") == false && a.Status == true);
-            if (userRole == null || BCrypt.Net.BCrypt.Verify(password, user.Password) == false)
+                .FirstOrDefault(a => a.RoleId.Equals(Guid.Parse("93312dfb-7580-4946-ab83-4f23ba834a28")) && a.Status == true);
+            if (userRole == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
                 ViewBag.error = "Tài khoản không hợp lệ";
                 return View("Index");
