@@ -44,11 +44,9 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Create(Slide slide, IFormFile image)
         {
             var path = Path
-                .Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                await image.CopyToAsync(stream);
-            }
+            .Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
+            using var stream = new FileStream(path, FileMode.Create);
+            await image.CopyToAsync(stream);
             var newSlide = new Slide
             {
                 Code = slide.Code,
@@ -94,18 +92,16 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var currentSlide = await _context.Slides!.FindAsync(id);
             var path = Path
                 .Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", currentSlide!.Image!);
-            if (image != null && System.IO.File.Exists(path))
+            if (System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);
                 path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await image.CopyToAsync(stream);
-                }
-                currentSlide.Image = image.FileName;
+                using var stream = new FileStream(path, FileMode.Create);
+                await image.CopyToAsync(stream);
             }
-            currentSlide.Code = slide.Code;
+            currentSlide!.Code = slide.Code;
             currentSlide.Name = slide.Name;
+            currentSlide.Image = image.FileName;
             currentSlide.Description = slide.Description;
             currentSlide.IsActive = slide.IsActive;
             _context.Update(currentSlide);
@@ -122,7 +118,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var slide = await _context.Slides!.FindAsync(id);
             if (slide!.IsActive == true)
             {
-                return View("index");
+                return RedirectToAction("index", "slide", new { area = "admin" });
             }
             var path = Path
                 .Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", slide!.Image!);

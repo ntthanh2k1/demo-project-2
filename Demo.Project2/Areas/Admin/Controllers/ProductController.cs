@@ -47,22 +47,17 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("create")]
         public async Task<IActionResult> Create(Product product, IFormFile image)
         {
-            if (image != null)
-            {
-                var path = Path
-                    .Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", image.FileName);
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await image.CopyToAsync(stream);
-                }
-            }
+            var path = Path
+                .Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", image.FileName);
+            using var stream = new FileStream(path, FileMode.Create);
+            await image.CopyToAsync(stream);
             var newProduct = new Product
             {
                 Id = new Guid(),
                 CategoryId = product.CategoryId,
                 Code = product.Code,
                 Name = product.Name,
-                Image = image!.FileName,
+                Image = image.FileName,
                 Description = product.Description,
                 Details = product.Details,
                 Price = product.Price,
@@ -70,6 +65,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
                 IsFeatured = product.IsFeatured,
                 IsActive = product.IsActive
             };
+            
             if (await _context.Products!.AnyAsync(a => a.Id.Equals(newProduct.Id)))
             {
                 ViewBag.Error = "Id đã tồn tại, cần nhấn tạo lần nữa.";
@@ -110,19 +106,17 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var currentProduct = await _context.Products!.FindAsync(id);
             var path = Path
                 .Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", currentProduct!.Image!);
-            if (image != null && System.IO.File.Exists(path))
+            if (System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);
                 path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", image.FileName);
-                using (var stream = new FileStream(path, FileMode.Create))
-                {
-                    await image.CopyToAsync(stream);
-                }
-                currentProduct.Image = image.FileName;
+                using var stream = new FileStream(path, FileMode.Create);
+                await image.CopyToAsync(stream);
             }
             currentProduct.CategoryId = product.CategoryId;
             currentProduct.Code = product.Code;
             currentProduct.Name = product.Name;
+            currentProduct.Image = image.FileName;
             currentProduct.Description = product.Description;
             currentProduct.Details = product.Details;
             currentProduct.Price = product.Price;
@@ -143,7 +137,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var product = await _context.Products!.FindAsync(id);
             if (product!.IsActive == true)
             {
-                return View("index");
+                return RedirectToAction("index", "product", new { area = "admin" });
             }
             var path = Path
                 .Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", product!.Image!);
