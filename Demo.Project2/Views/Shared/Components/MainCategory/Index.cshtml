@@ -6,7 +6,7 @@
         <div class="dropend border-bottom">
             <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">@item.Name</a>
             <ul class="dropdown-menu">
-        @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.Status == true)) {
+        @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.IsActive == true)) {
                 <li>
                     <a class="dropdown-item" href="#">@childItem.Name</a>
                 </li>

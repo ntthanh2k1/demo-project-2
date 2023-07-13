@@ -48,7 +48,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
                 ParentId = null,
                 Code = category.Code,
                 Name = category.Name,
-                Status = category.Status
+                IsActive = category.IsActive
             };
             if (await _context.Categories!.AnyAsync(a => a.Id.Equals(newCategory.Id)))
             {
@@ -82,7 +82,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
                 ParentId = category.ParentId,
                 Code = category.Code,
                 Name = category.Name,
-                Status = category.Status
+                IsActive = category.IsActive
             };
             if (await _context.Categories!.AnyAsync(a => a.Id.Equals(newChildCategory.Id)))
             {
@@ -111,7 +111,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var currentCategory = await _context.Categories!.FindAsync(id);
             currentCategory!.Code = category.Code;
             currentCategory.Name = category.Name;
-            currentCategory.Status = category.Status;
+            currentCategory.IsActive = category.IsActive;
             _context.Update(currentCategory);
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "category", new { area = "admin" });
@@ -124,6 +124,10 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var category = await _context.Categories!.FindAsync(id);
+            if (category!.IsActive == true)
+            {
+                return View("index");
+            }
             _context.Categories.Remove(category!);
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "category", new { area = "admin" });

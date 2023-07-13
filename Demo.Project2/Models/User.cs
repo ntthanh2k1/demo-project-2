@@ -7,7 +7,7 @@
         public string? Password { get; set; }
         public string? FullName { get; set; }
         public string? Email { get; set; }
-        public bool Status { get; set; }
+        public bool IsActive { get; set; }
         public virtual ICollection<UserRole> UserRoles { get; set; } = new HashSet<UserRole>();
     }
 }

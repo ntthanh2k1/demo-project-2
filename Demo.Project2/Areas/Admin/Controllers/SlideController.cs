@@ -55,7 +55,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
                 Name = slide.Name,
                 Image = image.FileName,
                 Description = slide.Description,
-                Status = slide.Status
+                IsActive = slide.IsActive
             };
             if (await _context.Slides!.AnyAsync(a => a.Id.Equals(newSlide.Id)))
             {
@@ -94,20 +94,20 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var currentSlide = await _context.Slides!.FindAsync(id);
             var path = Path
                 .Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", currentSlide!.Image!);
-            if (System.IO.File.Exists(path))
+            if (image != null && System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);
+                path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
+                using (var stream = new FileStream(path, FileMode.Create))
+                {
+                    await image.CopyToAsync(stream);
+                }
+                currentSlide.Image = image.FileName;
             }
-            path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
-            using (var stream = new FileStream(path, FileMode.Create))
-            {
-                await image.CopyToAsync(stream);
-            }
-            currentSlide!.Code = slide.Code;
+            currentSlide.Code = slide.Code;
             currentSlide.Name = slide.Name;
-            currentSlide.Image = image.FileName;
             currentSlide.Description = slide.Description;
-            currentSlide.Status = slide.Status;
+            currentSlide.IsActive = slide.IsActive;
             _context.Update(currentSlide);
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "slide", new { area = "admin" });
@@ -120,6 +120,10 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var slide = await _context.Slides!.FindAsync(id);
+            if (slide!.IsActive == true)
+            {
+                return View("index");
+            }
             var path = Path
                 .Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", slide!.Image!);
             if (System.IO.File.Exists(path))

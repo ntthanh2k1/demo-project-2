@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Demo.Project2.Models.Product>
+
+@{
+    ViewData["Title"] = "Sản phẩm";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Sản phẩm</h1>
+
+<p>
+    <a asp-area="admin" asp-controller="product" asp-action="create" class="btn btn-primary">
+        <i class="bi bi-plus"></i>Sản phẩm
+    </a>
+</p>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Danh sách sản phẩm</div>
+            <div class="card-body">
+                <table id="example" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Mã</th>
+                            <th>Tên</th>
+                            <th>Hình ảnh</th>
+                            <th>Phân loại</th>
+                            <th>Nổi bật</th>
+                            <th>Hoạt động</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr class="">
+                                <td>@item.Code</td>
+                                <td>@item.Name</td>
+                                <td>
+                                    <img src="~/admin/images/products/@item.Image" width="120" alt="" />
+                                </td>
+                                <td>@item.Categories?.Name</td>
+                                <td>@item.IsFeatured</td>
+                                <td>@item.IsActive</td>
+                                <td>
+                                    <a asp-area="admin" asp-controller="product" asp-action="details" asp-route-id="@item.Id" class="btn btn-primary">
+                                        <i class="bi bi-card-text"></i>
+                                    </a>
+                                    <a asp-area="admin" asp-controller="product" asp-action="edit" asp-route-id="@item.Id" class="btn btn-warning">
+                                        <i class="bi bi-pencil-square"></i>
+                                    </a>
+                                    <a asp-area="admin" asp-controller="product" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger">
+                                        <i class="bi bi-trash"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Mã</th>
+                            <th>Tên</th>
+                            <th>Hình ảnh</th>
+                            <th>Phân loại</th>
+                            <th>Nổi bật</th>
+                            <th>Hoạt động</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

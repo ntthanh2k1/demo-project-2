@@ -17,7 +17,7 @@
         <div class="collapse" id="@a">
             <div>
                 <ul class="navbar-nav">
-            @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.Status == true)) {
+            @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.IsActive == true)) {
                     <li>
                         <a href="#" class="nav-link px-3">
                             <span class="d-flex justify-content-center">@childItem.Name</span>

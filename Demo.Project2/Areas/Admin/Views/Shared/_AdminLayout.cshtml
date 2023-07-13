@@ -9,7 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="~/assets/dist/css/dataTables.bootstrap5.min.css">
     <link rel="stylesheet" href="~/assets/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="~/assets/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="~/admin/admin.css">
@@ -99,7 +99,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="#" class="nav-link px-3">
+                                            <a asp-area="admin" asp-controller="product" asp-action="index" class="nav-link px-3">
                                                 <span class="me-2"><i class="bi bi-boxes"></i></span>
                                                 <span>Sản phẩm</span>
                                             </a>
@@ -166,9 +166,9 @@
         </div>
     </footer>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    <script src="~/assets/dist/js/jquery-3.7.0.min.js"></script>
+    <script src="~/assets/dist/js/jquery.dataTables.min.js"></script>
+    <script src="~/assets/dist/js/dataTables.bootstrap5.min.js"></script>
     <script src="~/assets/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/admin/admin.js"></script>
 </body>

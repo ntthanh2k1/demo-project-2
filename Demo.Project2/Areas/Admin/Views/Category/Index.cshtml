@@ -27,7 +27,7 @@
                             <th>Mã</th>
                             <th>Tên</th>
                             <th>Phân loại cha</th>
-                            <th>Trạng thái</th>
+                            <th>Hoạt động</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -40,7 +40,7 @@
                             <td>@item.Code</td>
                             <td>@item.Name</td>
                             <td>@item.ParentCategory?.Name</td>
-                            <td>@item.Status</td>
+                            <td>@item.IsActive</td>
                             <td>
                                 <a asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@item.Id" class="btn btn-warning">
                                     <i class="bi bi-pencil-square"></i>
@@ -62,7 +62,7 @@
                             <td>@childItem.Code</td>
                             <td>@childItem.Name</td>
                             <td>@childItem.ParentCategory?.Name</td>
-                            <td>@childItem.Status</td>
+                            <td>@childItem.IsActive</td>
                             <td>
                                 <a asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@childItem.Id" class="btn btn-warning">
                                     <i class="bi bi-pencil-square"></i>
@@ -85,7 +85,7 @@
                             <th>Mã</th>
                             <th>Tên</th>
                             <th>Phân loại cha</th>
-                            <th>Trạng thái</th>
+                            <th>Hoạt động</th>
                             <th>Thao tác</th>
                         </tr>
                     </tfoot>

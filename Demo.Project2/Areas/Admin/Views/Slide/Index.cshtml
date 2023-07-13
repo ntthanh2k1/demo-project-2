@@ -24,7 +24,7 @@
                             <th>Mã</th>
                             <th>Tên</th>
                             <th>Hình ảnh</th>
-                            <th>Trạng thái</th>
+                            <th>Hoạt động</th>
                             <th>Thao tác</th>
                         </tr>
                     </thead>
@@ -34,9 +34,9 @@
                             <td>@item.Code</td>
                             <td>@item.Name</td>
                             <td>
-                                <img src="~/admin/images/slides/@item.Image" width="120" />
+                                <img src="~/admin/images/slides/@item.Image" width="120" alt="" />
                             </td>
-                            <td>@item.Status</td>
+                            <td>@item.IsActive</td>
                             <td>
                                 <a asp-area="admin" asp-controller="slide" asp-action="details" asp-route-id="@item.Id" class="btn btn-primary">
                                     <i class="bi bi-card-text"></i>
@@ -56,7 +56,7 @@
                             <th>Mã</th>
                             <th>Tên</th>
                             <th>Hình ảnh</th>
-                            <th>Trạng thái</th>
+                            <th>Hoạt động</th>
                             <th>Thao tác</th>
                         </tr>
                     </tfoot>

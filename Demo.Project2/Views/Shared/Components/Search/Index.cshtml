@@ -2,10 +2,10 @@
 
 <form class="d-flex ms-auto me-2" role="search">
     <div class="input-group my-3 my-lg-0">
-        <select class="select-category form-select border border-dark-subtle" aria-label="Default select example">
+        <select class="form-select border border-dark-subtle" aria-label="Default select example">
 @foreach (var item in Model) {
         <optgroup label="@item.Name">
-            @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.Status == true)) {
+            @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.IsActive == true)) {
                 <option value="@childItem.Id">@childItem.Name</option>
             }
         </optgroup>

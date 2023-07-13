@@ -32,18 +32,18 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Login(string username, string password)
         {
             var user = await _context.Users!
-                .FirstOrDefaultAsync(a => a.Username!.Equals(username) && a.Status == true);
+                .FirstOrDefaultAsync(a => a.Username!.Equals(username) && a.IsActive == true);
             if (user == null)
             {
                 ViewBag.error = "Tài khoản không hợp lệ.";
-                return View("Index");
+                return View("index");
             }
             var userRole = user.UserRoles
-                .FirstOrDefault(a => a.RoleId.Equals(Guid.Parse("93312dfb-7580-4946-ab83-4f23ba834a28")) && a.Status == true);
+                .FirstOrDefault(a => a.RoleId.Equals(Guid.Parse("93312dfb-7580-4946-ab83-4f23ba834a28")) && a.IsActive == true);
             if (userRole == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
                 ViewBag.error = "Tài khoản không hợp lệ";
-                return View("Index");
+                return View("index");
             }
             await _securityHelper.Login(HttpContext, user, "AdminSchemes");
             return RedirectToAction("index", "home", new { area = "admin" });
@@ -63,7 +63,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("accessDenied")]
         public IActionResult AccessDenied()
         {
-            return View("AccessDenied");
+            return View("accessDenied");
         }
         #endregion Không cho truy cập
     }

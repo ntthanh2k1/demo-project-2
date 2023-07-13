@@ -11,6 +11,7 @@ namespace Demo.Project2.Context
         }
 
         public virtual DbSet<Category>? Categories { get; set; }
+        public virtual DbSet<Product>? Products { get; set; }
         public virtual DbSet<Role>? Roles { get; set; }
         public virtual DbSet<Slide>? Slides { get; set; }
         public virtual DbSet<User>? Users { get; set; }
@@ -30,6 +31,20 @@ namespace Demo.Project2.Context
                     .HasConstraintName("FK_Category_Category");
             });
 
+            modelBuilder.Entity<Product>(entity =>
+            {
+                entity.ToTable("Product");
+                entity.HasKey(a => a.Id);
+                entity.Property(a => a.Code).HasMaxLength(250);
+                entity.Property(a => a.Name).HasMaxLength(250);
+                entity.Property(a => a.Image).HasMaxLength(250);
+                entity.HasOne(a => a.Categories)
+                    .WithMany(b => b.Products)
+                    .HasForeignKey(c => c.CategoryId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Product_Category");
+            });
+
             modelBuilder.Entity<Role>(entity =>
             {
                 entity.ToTable("Role");
@@ -45,7 +60,6 @@ namespace Demo.Project2.Context
                 entity.Property(a => a.Code).HasMaxLength(250);
                 entity.Property(a => a.Name).HasMaxLength(250);
                 entity.Property(a => a.Image).HasMaxLength(250);
-                entity.Property(a => a.Description).HasMaxLength(250);
             });
 
             modelBuilder.Entity<User>(entity =>
@@ -74,14 +88,7 @@ namespace Demo.Project2.Context
                     .HasConstraintName("FK_UserRole_Role");
             });
 
-            //modelBuilder.Entity<Product>(entity =>
-            //{
-            //    entity.HasOne(d => d.Category)
-            //        .WithMany(p => p.Products)
-            //        .HasForeignKey(d => d.CategoryId)
-            //        .OnDelete(DeleteBehavior.ClientSetNull)
-            //        .HasConstraintName("FK_Category_Product");
-            //});
+            
 
             //modelBuilder.Entity<Photo>(entity =>
             //{
