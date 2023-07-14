@@ -124,10 +124,6 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var category = await _context.Categories!.FindAsync(id);
-            if (category!.IsActive == true || category.Products != null)
-            {
-                return RedirectToAction("index", "category", new { area = "admin" });
-            }
             _context.Categories.Remove(category!);
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "category", new { area = "admin" });

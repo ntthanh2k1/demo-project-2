@@ -40,40 +40,39 @@
                             <td>@item.Code</td>
                             <td>@item.Name</td>
                             <td>@item.ParentCategory?.Name</td>
-                            <td>@item.IsActive</td>
+                            <td>@(item.IsActive ? "Hiện" : "Ẩn")</td>
                             <td>
                                 <a asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@item.Id" class="btn btn-warning">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
-        @if (item.ChildCategories == null || item.ChildCategories.Count == 0) {
+        @if (item.ChildCategories.Count == 0) {
                                 <a asp-area="admin" asp-controller="category" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger">
                                     <i class="bi bi-trash"></i>
                                 </a>
         }
                             </td>
                         </tr>
-        if (item.ChildCategories != null && item.ChildCategories.Count > 0)
+        var b = 1;
+        foreach (var childItem in item.ChildCategories)
         {
-            var b = 1;
-            foreach (var childItem in item.ChildCategories)
-            {
                         <tr>
                             <td>&emsp;@(a + "." + b)</td>
                             <td>@childItem.Code</td>
                             <td>@childItem.Name</td>
                             <td>@childItem.ParentCategory?.Name</td>
-                            <td>@childItem.IsActive</td>
+                            <td>@(childItem.IsActive ? "Hiện" : "Ẩn")</td>
                             <td>
                                 <a asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@childItem.Id" class="btn btn-warning">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
+            @if (childItem.Products.Count == 0) {
                                 <a asp-area="admin" asp-controller="category" asp-action="delete" asp-route-id="@childItem.Id" class="btn btn-danger">
                                     <i class="bi bi-trash"></i>
                                 </a>
+            }
                             </td>
                         </tr>
-                b++;
-            }                
+            b++;
         }
         a++;
     }
