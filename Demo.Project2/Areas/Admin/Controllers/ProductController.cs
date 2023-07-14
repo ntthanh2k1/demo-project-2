@@ -138,10 +138,13 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var product = await _context.Products!.FindAsync(id);
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", product!.Image!);
-            if (System.IO.File.Exists(path))
+            if (product!.Image != null)
             {
-                System.IO.File.Delete(path);
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", product.Image);
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
             }
             _context.Products.Remove(product!);
             await _context.SaveChangesAsync();

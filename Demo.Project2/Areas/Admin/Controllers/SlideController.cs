@@ -120,10 +120,13 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var slide = await _context.Slides!.FindAsync(id);
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", slide!.Image!);
-            if (System.IO.File.Exists(path))
+            if (slide!.Image != null)
             {
-                System.IO.File.Delete(path);
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", slide.Image);
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
             }
             _context.Slides.Remove(slide!);
             await _context.SaveChangesAsync();
