@@ -43,17 +43,20 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("create")]
         public async Task<IActionResult> Create(Slide slide, IFormFile image)
         {
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
-            using var stream = new FileStream(path, FileMode.Create);
-            await image.CopyToAsync(stream);
             var newSlide = new Slide
             {
                 Code = slide.Code,
                 Name = slide.Name,
-                Image = image.FileName,
                 Description = slide.Description,
                 IsActive = slide.IsActive
             };
+            if (image != null)
+            {
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
+                using var stream = new FileStream(path, FileMode.Create);
+                await image.CopyToAsync(stream);
+                newSlide.Image = image.FileName;
+            }
             if (await _context.Slides!.AnyAsync(a => a.Id.Equals(newSlide.Id)))
             {
                 ViewBag.Error = "Id đã tồn tại, vui lòng nhấn tạo lần nữa.";
@@ -89,19 +92,22 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(Guid id, Slide slide, IFormFile image)
         {
             var currentSlide = await _context.Slides!.FindAsync(id);
-            var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", currentSlide!.Image!);
-            if (System.IO.File.Exists(path))
-            {
-                System.IO.File.Delete(path);
-            }
-            path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
-            using var stream = new FileStream(path, FileMode.Create);
-            await image.CopyToAsync(stream);
             currentSlide!.Code = slide.Code;
             currentSlide.Name = slide.Name;
-            currentSlide.Image = image.FileName;
             currentSlide.Description = slide.Description;
             currentSlide.IsActive = slide.IsActive;
+            if (image != null)
+            {
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", currentSlide!.Image!);
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
+                using var stream = new FileStream(path, FileMode.Create);
+                await image.CopyToAsync(stream);
+                currentSlide.Image = image.FileName;
+            }
             _context.Update(currentSlide);
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "slide", new { area = "admin" });
@@ -114,8 +120,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var slide = await _context.Slides!.FindAsync(id);
-            var path = Path
-                .Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", slide!.Image!);
+            var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", slide!.Image!);
             if (System.IO.File.Exists(path))
             {
                 System.IO.File.Delete(path);

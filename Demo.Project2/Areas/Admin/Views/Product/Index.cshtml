@@ -39,8 +39,8 @@
                                     <img src="~/admin/images/products/@item.Image" width="120" alt="" />
                                 </td>
                                 <td>@item.Categories?.Name</td>
-                                <td>@item.IsFeatured</td>
-                                <td>@(item.IsActive ? "Hiện" : "Ẩn")</td>
+                                <td>@(item.IsFeatured? "Có" : "Không")</td>
+                                <td>@(item.IsActive ? "Có" : "Không")</td>
                                 <td>
                                     <a asp-area="admin" asp-controller="product" asp-action="details" asp-route-id="@item.Id" class="btn btn-primary">
                                         <i class="bi bi-card-text"></i>
