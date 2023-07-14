@@ -10,7 +10,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
     public class AuthController : Controller
     {
         private readonly DemoProject2DbContext _context;
-        private readonly SecurityHelper _securityHelper = new();
+        private readonly AuthHelper _authHelper = new();
 
         public AuthController(DemoProject2DbContext context)
         {
@@ -45,7 +45,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
                 ViewBag.error = "Tài khoản không hợp lệ";
                 return View("index");
             }
-            await _securityHelper.Login(HttpContext, user, "AdminSchemes");
+            await _authHelper.Login(HttpContext, user, "AdminSchemes");
             return RedirectToAction("index", "home", new { area = "admin" });
         }
         #endregion Đăng nhập
@@ -54,7 +54,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("logout")]
         public async Task<IActionResult> Logout()
         {
-            await _securityHelper.Logout(HttpContext, "AdminSchemes");
+            await _authHelper.Logout(HttpContext, "AdminSchemes");
             return RedirectToAction("index", "auth", new { area = "admin" });
         }
         #endregion Đăng xuất

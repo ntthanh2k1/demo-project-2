@@ -4,7 +4,7 @@ using System.Security.Claims;
 
 namespace Demo.Project2.Helper
 {
-    public class SecurityHelper
+    public class AuthHelper
     {
         public async Task Login(HttpContext httpContext, User user, string scheme)
         {
