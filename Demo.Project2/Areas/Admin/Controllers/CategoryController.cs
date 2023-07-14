@@ -95,6 +95,16 @@ namespace Demo.Project2.Areas.Admin.Controllers
         }
         #endregion Tạo phân loại con
 
+        #region Xem chi tiết phân loại
+        [HttpGet]
+        [Route("details/{id}")]
+        public async Task<IActionResult> Details(Guid id)
+        {
+            var category = await _context.Categories!.FirstOrDefaultAsync(a => a.Id.Equals(id));
+            return View("details", category);
+        }
+        #endregion Xem chi tiết phân loại
+
         #region Cập nhật phân loại
         [HttpGet]
         [Route("edit/{id}")]

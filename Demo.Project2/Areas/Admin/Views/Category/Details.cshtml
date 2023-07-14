@@ -1,13 +1,13 @@
-﻿@model Demo.Project2.Models.Slide
+﻿@model Demo.Project2.Models.Category
 
 @{
-    ViewData["Title"] = "Chi tiết slide";
+    ViewData["Title"] = "Chi tiết phân loại";
     Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
 }
 
-<h1>Slide</h1>
+<h1>Phân loại</h1>
 
-<h4>Chi tiết slide</h4>
+<h4>Chi tiết phân loại</h4>
 <hr />
 <div class="">
     <div class="">
@@ -20,10 +20,6 @@
             <div class="form-group">
                 <label asp-for="Name" class="control-label">Tên</label>
                 <input asp-for="Name" class="form-control" disabled />
-            </div>
-            <div class="form-group">
-                <label asp-for="Image" class="control-label">Hình ảnh</label>
-                <img src="~/admin/images/slides/@Model.Image" width="200" alt="" />
             </div>
             <div class="form-group">
                 <label asp-for="Description" class="control-label">Mô tả</label>

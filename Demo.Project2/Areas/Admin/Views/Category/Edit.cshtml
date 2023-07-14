@@ -28,6 +28,11 @@
                 <label asp-for="ParentCategory!.Name" class="control-label">Phân loại cha</label>
                 <input asp-for="ParentCategory!.Name" class="form-control" disabled />
             </div>
+            <div class="form-group">
+                <label asp-for="Description" class="control-label">Mô tả</label>
+                <textarea asp-for="Description" class="form-control"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
             <div class="form-group form-check">
                 <label class="form-check-label">
                     Hoạt động

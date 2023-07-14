@@ -42,6 +42,9 @@
                             <td>@item.ParentCategory?.Name</td>
                             <td>@(item.IsActive ? "Có" : "Không")</td>
                             <td>
+                                <a asp-area="admin" asp-controller="category" asp-action="details" asp-route-id="@item.Id" class="btn btn-primary">
+                                    <i class="bi bi-card-text"></i>
+                                </a>
                                 <a asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@item.Id" class="btn btn-warning">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
@@ -62,6 +65,9 @@
                             <td>@childItem.ParentCategory?.Name</td>
                             <td>@(childItem.IsActive ? "Có" : "Không")</td>
                             <td>
+                                <a asp-area="admin" asp-controller="category" asp-action="details" asp-route-id="@childItem.Id" class="btn btn-primary">
+                                    <i class="bi bi-card-text"></i>
+                                </a>
                                 <a asp-area="admin" asp-controller="category" asp-action="edit" asp-route-id="@childItem.Id" class="btn btn-warning">
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
