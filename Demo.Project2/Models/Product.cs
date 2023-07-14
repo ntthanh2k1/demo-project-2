@@ -13,6 +13,7 @@
         public int Stock { get; set;}
         public bool IsFeatured { get; set; }
         public bool IsActive { get; set; }
-        public virtual Category? Categories { get; set; }
+        public virtual Category? Category { get; set; }
+        //public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
     }
 }
