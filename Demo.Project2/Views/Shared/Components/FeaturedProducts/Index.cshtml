@@ -1,0 +1,14 @@
+﻿@model IEnumerable<Demo.Project2.Models.Product>
+
+@foreach (var item in Model) {
+<div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
+    <div class="card text-bg-light mb-3 py-2">
+        <img src="~/admin/images/products/@item.Image" class="card-img-top img-fluid w-75 mx-auto" alt="">
+        <div class="card-body mx-auto">
+            <h5 class="card-title">@item.Name</h5>
+            <p class="card-text">@(item.Price) VND</p>
+        </div>
+        <button type="button" class="btn btn-sm btn-light border border-dark-subtle mx-auto">Xem</button>
+    </div>
+</div>
+}

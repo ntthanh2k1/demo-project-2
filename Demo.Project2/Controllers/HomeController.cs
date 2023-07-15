@@ -24,11 +24,9 @@ namespace Demo.Project2.Controllers
 
         [Route("")]
         [Route("index")]
-        public async Task<IActionResult> Index()
+        public IActionResult Index()
         {
-            var products = await _context.Products!
-                .Where(a => a.IsFeatured && a.IsActive).Take(4).ToListAsync();
-            return View(products);
+            return View();
         }
 
         public IActionResult Privacy()

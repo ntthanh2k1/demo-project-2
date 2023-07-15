@@ -7,69 +7,18 @@
 <div class="category col-lg-3 border border-dark-subtle">
     <ul class="navbar-nav">
         <li>
-            @await Component.InvokeAsync("MainCategory")
+            @await Component.InvokeAsync("MainCategories")
         </li>
     </ul>
 </div>
 <div class="col-md-12 col-lg-9">
-    @await Component.InvokeAsync("Slide")
+    @await Component.InvokeAsync("Slides")
 </div>
 </div>
 <h3>Sản phẩm bán chạy</h3>
 <hr />
 <div class="row">
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card text-bg-light mb-3 py-2">
-            <img src="~/customer/images/empty.png" class="card-img-top img-fluid w-75 mx-auto" alt="">
-            <div class="card-body mx-auto">
-                <h5 class="card-title">Tên sản phẩm</h5>
-                <p class="card-text">99999 VND</p>
-            </div>
-            <button type="button"
-                    class="btn btn-sm btn-light border border-dark-subtle mx-auto">
-                Xem
-            </button>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card text-bg-light mb-3 py-2">
-            <img src="~/customer/images/empty.png" class="card-img-top img-fluid w-75 mx-auto" alt="">
-            <div class="card-body mx-auto">
-                <h5 class="card-title">Tên sản phẩm</h5>
-                <p class="card-text">99999 VND</p>
-            </div>
-            <button type="button"
-                    class="btn btn-sm btn-light border border-dark-subtle mx-auto">
-                Xem
-            </button>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card text-bg-light mb-3 py-2">
-            <img src="~/customer/images/empty.png" class="card-img-top img-fluid w-75 mx-auto" alt="">
-            <div class="card-body mx-auto">
-                <h5 class="card-title">Tên sản phẩm</h5>
-                <p class="card-text">99999 VND</p>
-            </div>
-            <button type="button"
-                    class="btn btn-sm btn-light border border-dark-subtle mx-auto">
-                Xem
-            </button>
-        </div>
-    </div>
-    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card text-bg-light mb-3 py-2">
-            <img src="~/customer/images/empty.png" class="card-img-top img-fluid w-75 mx-auto" alt="">
-            <div class="card-body mx-auto">
-                <h5 class="card-title">Tên sản phẩm</h5>
-                <p class="card-text">99999 VND</p>
-            </div>
-            <button type="button"
-                    class="btn btn-sm btn-light border border-dark-subtle mx-auto">
-                Xem
-            </button>
-        </div>
-    </div>
+    @await Component.InvokeAsync("FeaturedProducts")
 </div>
 <h3>Tất cả sản phẩm</h3>
 <hr />
