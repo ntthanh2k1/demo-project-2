@@ -8,13 +8,6 @@ namespace Demo.Project2.Controllers
 {
     public class HomeController : Controller
     {
-        //private readonly ILogger<HomeController> _logger;
-
-        //public HomeController(ILogger<HomeController> logger)
-        //{
-        //    _logger = logger;
-        //}
-
         private readonly DemoProject2DbContext _context;
 
         public HomeController(DemoProject2DbContext context)
@@ -24,20 +17,10 @@ namespace Demo.Project2.Controllers
 
         [Route("")]
         [Route("index")]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var products = await _context.Products!.Where(a => a.IsActive).ToListAsync();
+            return View(products);
         }
     }
 }
