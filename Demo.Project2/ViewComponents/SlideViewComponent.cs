@@ -15,7 +15,7 @@ namespace Demo.Project2.ViewComponents
 
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            var slides = await _context.Slides!.Where(a => a.IsActive == true).Take(1).ToListAsync();
+            var slides = await _context.Slides!.Where(a => a.IsActive).Take(1).ToListAsync();
             return View("index", slides);
         }
     }

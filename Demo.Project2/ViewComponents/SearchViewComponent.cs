@@ -17,7 +17,7 @@ namespace Demo.Project2.ViewComponents
         {
             var categories = await _context.Categories!
                 .Where(a => 
-                    a.IsActive == true && 
+                    a.IsActive && 
                     a.ParentCategory == null && 
                     a.ChildCategories != null && 
                     a.ChildCategories.Count > 0)

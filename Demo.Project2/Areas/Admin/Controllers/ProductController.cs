@@ -38,7 +38,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Create()
         {
             ViewBag.CategoryId = new SelectList(await _context.Categories!
-                .Where(a => a.IsActive == true && a.ParentCategory != null)
+                .Where(a => a.IsActive && a.ParentCategory != null)
                 .ToListAsync(), "Id", "Name");
             return View();
         }
@@ -62,10 +62,11 @@ namespace Demo.Project2.Areas.Admin.Controllers
             };
             if (image != null)
             {
-                var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", image.FileName);
+                var imageName = $"{DateTime.Now:ddMMyyyyHHmmss}_{image.FileName}";
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", imageName);
                 using var stream = new FileStream(path, FileMode.Create);
                 await image.CopyToAsync(stream);
-                newProduct.Image = image.FileName;
+                newProduct.Image = imageName;
             }
             if (await _context.Products!.AnyAsync(a => a.Id.Equals(newProduct.Id)))
             {
@@ -95,7 +96,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             var product = await _context.Products!.FindAsync(id);
             ViewBag.CategoryId = new SelectList(await _context.Categories!
-                .Where(a => a.IsActive == true && a.ParentCategory != null)
+                .Where(a => a.IsActive && a.ParentCategory != null)
                 .ToListAsync(), "Id", "Name");
             return View("edit", product);
         }
@@ -116,15 +117,16 @@ namespace Demo.Project2.Areas.Admin.Controllers
             currentProduct.IsActive = product.IsActive;
             if (image != null)
             {
+                var imageName = $"{DateTime.Now:ddMMyyyyHHmmss}_{image.FileName}";
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", currentProduct!.Image!);
                 if (System.IO.File.Exists(path))
                 {
                     System.IO.File.Delete(path);
                 }
-                path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", image.FileName);
+                path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", imageName);
                 using var stream = new FileStream(path, FileMode.Create);
                 await image.CopyToAsync(stream);
-                currentProduct.Image = image.FileName;
+                currentProduct.Image = imageName;
             }
             _context.Update(currentProduct);
             await _context.SaveChangesAsync();

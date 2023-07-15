@@ -1,35 +1,27 @@
 ﻿@model IEnumerable<Demo.Project2.Models.Category>
 
-<ul class="navbar-nav w-100">
-    <li>
-        <h3 class="d-flex justify-content-center">
-            Danh mục
-        </h3>
-    </li>
-    <li class="my-2"></li>
 @{
     var a = 1;
     foreach (var item in Model) {
-    <li>
-        <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#@a" role="button" aria-expanded="false" aria-controls="collapseExample">
-            <span class="fw-bold d-flex justify-content-center">@item.Name</span>
-        </a>
-        <div class="collapse" id="@a">
-            <div>
-                <ul class="navbar-nav">
-            @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.IsActive == true)) {
-                    <li>
-                        <a href="#" class="nav-link px-3">
-                            <span class="d-flex justify-content-center">@childItem.Name</span>
-                        </a>
-                    </li>
+<li>
+    <a class="nav-link px-3 sidebar-link" data-bs-toggle="collapse" href="#@a" aria-expanded="false" aria-controls="collapseExample">
+        <span class="fw-bold d-flex justify-content-center">@item.Name</span>
+    </a>
+    <div class="collapse" id="@a">
+        <div>
+            <ul class="navbar-nav">
+            @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.IsActive)) {
+                <li>
+                    <a href="#" class="nav-link px-3">
+                        <span class="d-flex justify-content-center">@childItem.Name</span>
+                    </a>
+                </li>
                     
             }
-                </ul>
-            </div>
+            </ul>
         </div>
-    </li>
+    </div>
+</li>
         a++;
     }
 }
-</ul>

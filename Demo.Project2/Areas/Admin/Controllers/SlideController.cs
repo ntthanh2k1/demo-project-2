@@ -52,10 +52,11 @@ namespace Demo.Project2.Areas.Admin.Controllers
             };
             if (image != null)
             {
-                var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
+                var imageName = $"{DateTime.Now:ddMMyyyyHHmmss}_{image.FileName}";
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", imageName);
                 using var stream = new FileStream(path, FileMode.Create);
                 await image.CopyToAsync(stream);
-                newSlide.Image = image.FileName;
+                newSlide.Image = imageName;
             }
             if (await _context.Slides!.AnyAsync(a => a.Id.Equals(newSlide.Id)))
             {
@@ -98,15 +99,16 @@ namespace Demo.Project2.Areas.Admin.Controllers
             currentSlide.IsActive = slide.IsActive;
             if (image != null)
             {
+                var imageName = $"{DateTime.Now:ddMMyyyyHHmmss}_{image.FileName}";
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", currentSlide!.Image!);
                 if (System.IO.File.Exists(path))
                 {
                     System.IO.File.Delete(path);
                 }
-                path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", image.FileName);
+                path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", imageName);
                 using var stream = new FileStream(path, FileMode.Create);
                 await image.CopyToAsync(stream);
-                currentSlide.Image = image.FileName;
+                currentSlide.Image = imageName;
             }
             _context.Update(currentSlide);
             await _context.SaveChangesAsync();

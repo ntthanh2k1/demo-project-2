@@ -60,7 +60,15 @@
         <div class="offcanvas offcanvas-start sidebar-nav bg-dark opacity-75 text-white" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-body">
                 <nav class="navbar navbar-dark">
-                    @await Component.InvokeAsync("SideCategory")
+                    <ul class="navbar-nav w-100">
+                        <li>
+                            <h3 class="d-flex justify-content-center">
+                                Danh mục
+                            </h3>
+                        </li>
+                        <li class="my-2"></li>
+                        @await Component.InvokeAsync("SideCategory")
+                    </ul>
                 </nav>
             </div>
         </div>

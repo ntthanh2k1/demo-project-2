@@ -32,17 +32,17 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Login(string username, string password)
         {
             var user = await _context.Users!
-                .FirstOrDefaultAsync(a => a.Username!.Equals(username) && a.IsActive == true);
+                .FirstOrDefaultAsync(a => a.Username!.Equals(username) && a.IsActive);
             if (user == null)
             {
-                ViewBag.error = "Tài khoản không hợp lệ.";
+                ViewBag.Error = "Tài khoản không hợp lệ.";
                 return View("index");
             }
             var userRole = user.UserRoles
-                .FirstOrDefault(a => a.RoleId.Equals(Guid.Parse("93312dfb-7580-4946-ab83-4f23ba834a28")) && a.IsActive == true);
+                .FirstOrDefault(a => a.RoleId.Equals(Guid.Parse("93312dfb-7580-4946-ab83-4f23ba834a28")) && a.IsActive);
             if (userRole == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
-                ViewBag.error = "Tài khoản không hợp lệ";
+                ViewBag.Error = "Tài khoản không hợp lệ";
                 return View("index");
             }
             await _authHelper.Login(HttpContext, user, "AdminSchemes");

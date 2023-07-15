@@ -23,7 +23,8 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Index()
         {
             ViewBag.CountChildCategories = await _context.Categories!
-                .CountAsync(a => a.IsActive == true && a.ParentCategory != null);
+                .CountAsync(a => a.IsActive && a.ParentCategory != null);
+            ViewBag.CountProducts = await _context.Products!.CountAsync(a => a.IsActive);
             return View();
         }
         #endregion Trang chủ quản lý

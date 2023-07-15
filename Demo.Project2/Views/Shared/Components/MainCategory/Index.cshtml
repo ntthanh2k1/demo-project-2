@@ -1,18 +1,14 @@
 ﻿@model IEnumerable<Demo.Project2.Models.Category>
 
-<ul class="navbar-nav">
-    <li>
 @foreach (var item in Model) {
-        <div class="dropend border-bottom">
-            <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">@item.Name</a>
-            <ul class="dropdown-menu">
-        @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.IsActive == true)) {
-                <li>
-                    <a class="dropdown-item" href="#">@childItem.Name</a>
-                </li>
+<div class="dropend border-bottom">
+    <a class="nav-link" role="button" data-bs-toggle="dropdown" aria-expanded="false">@item.Name</a>
+    <ul class="dropdown-menu">
+        @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.IsActive)) {
+        <li>
+            <a class="dropdown-item" href="#">@childItem.Name</a>
+        </li>
         }
-            </ul>    
-        </div>
+    </ul>    
+</div>
 }
-    </li>
-</ul>
