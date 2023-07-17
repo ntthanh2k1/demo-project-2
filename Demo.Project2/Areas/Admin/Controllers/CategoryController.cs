@@ -44,17 +44,11 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             var newCategory = new Category
             {
-                Id = new Guid(),
                 ParentId = null,
                 Code = category.Code,
                 Name = category.Name,
                 IsActive = category.IsActive
             };
-            if (await _context.Categories!.AnyAsync(a => a.Id.Equals(newCategory.Id)))
-            {
-                ViewBag.Error = "Id đã tồn tại, cần nhấn tạo lần nữa.";
-                return View("create", newCategory);
-            }
             _context.Add(newCategory);
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "category", new { area = "admin" });
@@ -78,17 +72,11 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             var newChildCategory = new Category
             {
-                Id = new Guid(),
                 ParentId = category.ParentId,
                 Code = category.Code,
                 Name = category.Name,
                 IsActive = category.IsActive
             };
-            if (await _context.Categories!.AnyAsync(a => a.Id.Equals(newChildCategory.Id)))
-            {
-                ViewBag.Error = "Id đã tồn tại, cần nhấn tạo lần nữa.";
-                return View("create", newChildCategory);
-            }
             _context.Add(newChildCategory);
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "category", new { area = "admin" });

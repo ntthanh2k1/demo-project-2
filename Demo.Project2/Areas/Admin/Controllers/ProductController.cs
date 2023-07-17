@@ -49,7 +49,6 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             var newProduct = new Product
             {
-                Id = new Guid(),
                 CategoryId = product.CategoryId,
                 Code = product.Code,
                 Name = product.Name,
@@ -67,11 +66,6 @@ namespace Demo.Project2.Areas.Admin.Controllers
                 using var stream = new FileStream(path, FileMode.Create);
                 await image.CopyToAsync(stream);
                 newProduct.Image = imageName;
-            }
-            if (await _context.Products!.AnyAsync(a => a.Id.Equals(newProduct.Id)))
-            {
-                ViewBag.Error = "Id đã tồn tại, cần nhấn tạo lần nữa.";
-                return View("create", newProduct);
             }
             _context.Add(newProduct);
             await _context.SaveChangesAsync();
