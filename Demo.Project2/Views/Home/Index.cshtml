@@ -27,20 +27,16 @@
 <div class="row">
 @foreach (var item in Model) {
     <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3">
-        <div class="card text-bg-light mb-3 py-2">
-            <img src="~/admin/images/products/@item.Image" class="card-img-top img-fluid w-75 mx-auto" alt="">
+        <div class="card text-bg-light mb-3">
+            <img href="#" src="~/admin/images/products/@item.Image" class="product-image rounded" alt="">
             <div class="card-body mx-auto">
-                <h5 class="card-title">@item.Name</h5>
+                <a href="#" class="card-title fw-bold">@item.Name</a>
                 <p class="card-text">@(item.Price) VND</p>
             </div>
-            <button type="button"
-                    class="btn btn-sm btn-light border border-dark-subtle mx-auto">
-                Xem
-            </button>
         </div>
     </div>
 }
-    <nav aria-label="Page navigation example">
+    <nav class="mb-3">
         <ul class="pagination justify-content-center">
             <li class="page-item">
                 <a class="page-link">Previous</a>
