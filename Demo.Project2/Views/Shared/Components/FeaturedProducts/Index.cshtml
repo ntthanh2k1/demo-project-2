@@ -2,8 +2,6 @@
 
 <style>
     .product-image {
-        width: 100%;
-        height: 200px;
         object-fit: cover;
     }
 
@@ -13,12 +11,18 @@
 </style>
 
 @foreach (var item in Model) {
-<div class="col-xs-12 col-sm-6 col-lg-3">
-    <div class="card text-bg-light mb-3">
-        <img href="#" src="~/admin/images/products/@item.Image" class="product-image rounded" alt="">
-        <div class="card-body mx-auto">
-            <a href="#" class="card-title fw-bold">@item.Name</a>
-            <p class="card-text">@(item.Price) VND</p>
+<div class="col-md-12 col-lg-4">
+    <div class="card mb-3">
+        <div class="row g-0">
+            <div class="col-4">
+                    <img href="#" src="~/admin/images/products/@item.Image" class="product-image img-fluid rounded" alt="">
+            </div>
+            <div class="col-8">
+                <div class="card-body">
+                    <a href="#" class="card-title fw-bold">@item.Name</a>
+                    <p class="card-text">@(item.Price) VND</p>
+                </div>
+            </div>
         </div>
     </div>
 </div>

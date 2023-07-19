@@ -16,7 +16,7 @@ namespace Demo.Project2.ViewComponents
         public async Task<IViewComponentResult> InvokeAsync()
         {
             var featuredProducts = await _context.Products!
-                .Where(a => a.IsFeatured && a.IsActive).Take(4).ToListAsync();
+                .Where(a => a.IsFeatured && a.IsActive).Take(3).ToListAsync();
             return View("index", featuredProducts);
         }
     }

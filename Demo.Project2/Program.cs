@@ -25,7 +25,7 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddSession();
 
-builder.Services.AddDbContext<DemoProject2DbContext>(options =>
+builder.Services.AddDbContextPool<DemoProject2DbContext>(options =>
     options.UseLazyLoadingProxies().UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddControllersWithViews();
