@@ -1,13 +1,5 @@
 ﻿@model IEnumerable<Demo.Project2.Models.Slide>
 
-<style>
-    .slide-image {
-        width: 100%;
-        max-height: 400px;
-        object-fit: cover;
-    }
-</style>
-
 @foreach (var item in Model) {
 <img src="~/admin/images/slides/@item.Image" class="slide-image" alt="">
 }
