@@ -18,7 +18,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             _context = context;
         }
 
-        #region Trang quản lý người dùng
+        #region Trang quản lý tài khoản
         [HttpGet]
         [Route("")]
         [Route("index")]
@@ -27,9 +27,9 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var users = await _context.Users!.ToListAsync();
             return View(users);
         }
-        #endregion Trang quản lý người dùng
+        #endregion Trang quản lý tài khoản
 
-        #region Xem chi tiết người dùng
+        #region Xem chi tiết tài khoản
         [HttpGet]
         [Route("details/{id}")]
         public async Task<IActionResult> Details(Guid id)
@@ -37,9 +37,9 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var user = await _context.Users!.FirstOrDefaultAsync(a => a.Id.Equals(id));
             return View("details", user);
         }
-        #endregion Xem chi tiết người dùng
+        #endregion Xem chi tiết tài khoản
 
-        #region Cập nhật người dùng
+        #region Cập nhật tài khoản
         [HttpGet]
         [Route("edit/{id}")]
         public async Task<IActionResult> Edit(Guid id)
@@ -60,9 +60,9 @@ namespace Demo.Project2.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "user", new { area = "admin" });
         }
-        #endregion Cập nhật người dùng
+        #endregion Cập nhật tài khoản
 
-        #region Xóa người dùng
+        #region Xóa tài khoản
         [HttpGet]
         [Route("delete/{id}")]
         public async Task<IActionResult> Delete(Guid id)
@@ -72,6 +72,6 @@ namespace Demo.Project2.Areas.Admin.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "user", new { area = "admin" });
         }
-        #endregion Xóa người dùng
+        #endregion Xóa tài khoản
     }
 }

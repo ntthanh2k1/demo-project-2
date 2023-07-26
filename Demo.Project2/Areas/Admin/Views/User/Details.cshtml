@@ -1,0 +1,40 @@
+﻿@model Demo.Project2.Models.User
+
+@{
+    ViewData["Title"] = "Chi tiết tài khoản";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Tài khoản</h1>
+
+<h4>Chi tiết tài khoản</h4>
+<hr />
+<div class="">
+    <div class="">
+        <form>
+            <input type="hidden" asp-for="Id" />
+            <div class="form-group">
+                <label asp-for="Username" class="control-label">Tài khoản</label>
+                <input asp-for="Username" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="FullName" class="control-label">Họ và tên</label>
+                <input asp-for="FullName" class="form-control" disabled />
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Email</label>
+                <input asp-for="Email" class="form-control" disabled />
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    Hoạt động
+                    <input class="form-check-input" asp-for="IsActive" disabled />
+                </label>
+            </div>
+            <div class="form-group mt-3">
+                <a asp-area="admin" asp-controller="user" asp-action="edit" asp-route-id="@Model?.Id" class="btn btn-primary">Chỉnh sửa</a>
+                <a asp-area="admin" asp-controller="user" asp-action="index" class="btn btn-primary">Quay lại</a>
+            </div>
+        </form>
+    </div>
+</div>
