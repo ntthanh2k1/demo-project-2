@@ -15,6 +15,7 @@ namespace Demo.Project2.Controllers
             _context = context;
         }
 
+        #region Trang chủ
         [Route("")]
         [Route("index")]
         public async Task<IActionResult> Index()
@@ -22,5 +23,6 @@ namespace Demo.Project2.Controllers
             var products = await _context.Products!.Where(a => a.IsActive).ToListAsync();
             return View(products);
         }
+        #endregion Trang chủ
     }
 }

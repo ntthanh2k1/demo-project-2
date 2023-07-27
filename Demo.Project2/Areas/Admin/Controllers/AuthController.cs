@@ -17,7 +17,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             _context = context;
         }
 
-        #region Trang đăng nhập
+        #region Đăng nhập
         [HttpGet]
         [Route("")]
         [Route("login")]
@@ -25,9 +25,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         {
             return View();
         }
-        #endregion Trang đăng nhập
-
-        #region Đăng nhập
+        
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(string username, string password)
