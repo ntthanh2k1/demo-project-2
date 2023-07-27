@@ -6,7 +6,7 @@
     <ul class="dropdown-menu">
     @foreach (var childItem in item.ChildCategories.TakeWhile(b => b.IsActive)) {
         <li>
-            <a class="dropdown-item" href="#">@childItem.Name</a>
+            <a asp-controller="product" asp-action="getProductsByCategory" asp-route-id="@childItem.Id" class="dropdown-item">@childItem.Name</a>
         </li>
     }
     </ul>
