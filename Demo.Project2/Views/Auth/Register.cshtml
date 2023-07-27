@@ -1,0 +1,42 @@
+﻿@model Demo.Project2.Models.User
+
+@{
+    ViewData["Title"] = "Đăng ký tài khoản";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row mt-5">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 m-auto mt-5">
+            <div class="card bg-light border border-dark-subtle shadow">
+                <div class="card-body mx-auto">
+                    <h2>Đăng Ký</h2>
+                    <form asp-controller="auth" asp-action="register" method="post">
+                        <div class="form-floating my-3">
+                            <input asp-for="Username" class="form-control" id="floatingUsername" placeholder="Tài khoản" required="required" />
+                            <label for="floatingUsername">Tài khoản</label>
+                        </div>
+                        <div class="form-floating my-3">
+                            <input asp-for="Password" type="password" class="form-control" id="floatingPassword" placeholder="Mật khẩu" required="required" />
+                            <label for="floatingPassword">Mật khẩu</label>
+                        </div>
+                        <div class="form-floating my-3">
+                            <input asp-for="FullName" class="form-control" id="floatingUsername" placeholder="Họ và tên" required="required" />
+                            <label for="floatingUsername">Họ và tên</label>
+                        </div>
+                        <div class="form-floating my-3">
+                            <input asp-for="Email" class="form-control" id="floatingUsername" placeholder="Email" required="required" />
+                            <label for="floatingUsername">Email</label>
+                        </div>
+                        <span class="text-success">@ViewBag.Success</span>
+                        <span class="text-danger">@ViewBag.Error</span>
+                        <div class="text-center my-3">
+                            <button type="submit" class="btn btn-primary">Đăng ký</button>
+                            <a asp-controller="auth" asp-action="login" class="btn btn-outline-primary">Đăng nhập</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

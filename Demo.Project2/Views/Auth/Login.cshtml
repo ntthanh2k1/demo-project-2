@@ -1,0 +1,33 @@
+﻿@model Demo.Project2.Models.User
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-5">
+    <div class="row mt-5">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-lg-5 col-xl-4 m-auto mt-5">
+            <div class="card bg-light border border-dark-subtle shadow">
+                <div class="card-body mx-auto">
+                    <h2>Đăng Ký</h2>
+                    <form asp-controller="auth" asp-action="login" method="post">
+                        <div class="form-floating my-3">
+                            <input asp-for="Username" class="form-control" id="floatingUsername" placeholder="Tài khoản" required="required" />
+                            <label for="floatingUsername">Tài khoản</label>
+                        </div>
+                        <div class="form-floating my-3">
+                            <input asp-for="Password" type="password" class="form-control" id="floatingPassword" placeholder="Mật khẩu" required="required" />
+                            <label for="floatingPassword">Mật khẩu</label>
+                        </div>
+                        <span class="text-danger">@ViewBag.Error</span>
+                        <div class="text-center my-3">
+                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                            <a asp-controller="auth" asp-action="register" class="btn btn-outline-primary">Đăng ký</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

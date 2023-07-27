@@ -19,11 +19,14 @@ namespace Demo.Project2.Controllers
             _context = context;
         }
 
-        public IActionResult Index()
+        #region Đăng ký
+        [HttpGet]
+        [Route("register")]
+        public IActionResult Register()
         {
             return View();
         }
-
+        
         [HttpPost]
         [Route("register")]
         public async Task<IActionResult> Register(User user)
@@ -55,10 +58,19 @@ namespace Demo.Project2.Controllers
             };
             _context.Add(newUserRole);
             await _context.SaveChangesAsync();
+            ViewBag.Success = "Đăng ký thành công.";
             return View("register", newUser);
         }
+        #endregion Đăng ký
 
         #region Đăng nhập
+        [HttpGet]
+        [Route("login")]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         [HttpPost]
         [Route("login")]
         public async Task<IActionResult> Login(string username, string password)
@@ -81,5 +93,22 @@ namespace Demo.Project2.Controllers
             return RedirectToAction("index", "home");
         }
         #endregion Đăng nhập
+
+        #region Đăng xuất
+        [Route("logout")]
+        public async Task<IActionResult> Logout()
+        {
+            await _authHelper.Logout(HttpContext, "CustomerSchemes");
+            return RedirectToAction("index", "home");
+        }
+        #endregion Đăng xuất
+
+        #region Không cho truy cập
+        [Route("accessDenied")]
+        public IActionResult AccessDenied()
+        {
+            return View("accessDenied");
+        }
+        #endregion Không cho truy cập
     }
 }
