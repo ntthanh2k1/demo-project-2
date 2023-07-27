@@ -1,0 +1,53 @@
+﻿@model Demo.Project2.Models.Product
+
+@{
+    ViewData["Title"] = "Chi tiết sản phẩm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row mt-5 mb-3">
+    <div class="col-sm-12 col-md-5">
+        <div class="card mb-3">
+            <img src="~/admin/images/products/@Model.Image" class="image-product-details rounded" alt="">
+        </div>
+    </div>
+    <div class="col-sm-12 col-md-7">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h3 class="card-title">@Model.Name</h3>
+                <h5>Giá @Model.Price</h5>
+                <p>Kho: @Model.Stock</p>
+                <input type="number" class="form-control mb-3 w-25" value="1">
+                <div class="">
+                    <a class="btn btn-primary">Mua ngay</a>
+                    <a class="btn btn-outline-primary">Thêm vào giỏ hàng</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <a class="btn btn-secondary w-100 mb-3">Thông số kỹ thuật</a>
+    </div>
+    <div class="col-12">
+        <div class="card mb-3 p-2">
+            <div class="card-body">
+                <h3 class="card-title text-center">Mô tả</h3>
+                <h5 class="card-text">@Model.Description</h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-12">
+        <div class="card mb-3">
+            <div class="card-body">
+                <h3 class="card-title text-center">Bình luận</h3>
+                <form>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control">
+                        <input type="submit" value="Gửi" class="btn btn-primary w-25" />
+                    </div>
+                </form>
+                <p>Customer</p>
+            </div>
+        </div>
+    </div>
+</div>
