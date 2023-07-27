@@ -12,13 +12,13 @@ builder.Services.AddAuthentication(options =>
 })
     .AddCookie("CustomerSchemes", options =>
     {
-        options.LoginPath = "/auth/index";
+        options.LoginPath = "/auth/login";
         options.LogoutPath = "/auth/logout";
         options.AccessDeniedPath = "/auth/forbidden";
     })
     .AddCookie("AdminSchemes", options =>
     {
-        options.LoginPath = "/admin/auth/index";
+        options.LoginPath = "/admin/auth/login";
         options.LogoutPath = "/admin/auth/logout";
         options.AccessDeniedPath = "/admin/auth/forbidden";
     });

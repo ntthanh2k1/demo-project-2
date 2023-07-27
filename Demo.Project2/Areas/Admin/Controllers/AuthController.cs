@@ -18,9 +18,10 @@ namespace Demo.Project2.Areas.Admin.Controllers
         }
 
         #region Trang đăng nhập
+        [HttpGet]
         [Route("")]
-        [Route("index")]
-        public IActionResult Index()
+        [Route("login")]
+        public IActionResult Login()
         {
             return View();
         }
@@ -36,14 +37,14 @@ namespace Demo.Project2.Areas.Admin.Controllers
             if (user == null)
             {
                 ViewBag.Error = "Tài khoản không hợp lệ.";
-                return View("index");
+                return View("login");
             }
             var userRole = user.UserRoles
                 .FirstOrDefault(a => a.RoleId.Equals(Guid.Parse("93312dfb-7580-4946-ab83-4f23ba834a28")) && a.IsActive);
             if (userRole == null || !BCrypt.Net.BCrypt.Verify(password, user.Password))
             {
                 ViewBag.Error = "Tài khoản không hợp lệ";
-                return View("index");
+                return View("login");
             }
             await _authHelper.Login(HttpContext, user, "AdminSchemes");
             return RedirectToAction("index", "home", new { area = "admin" });
@@ -55,7 +56,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Logout()
         {
             await _authHelper.Logout(HttpContext, "AdminSchemes");
-            return RedirectToAction("index", "auth", new { area = "admin" });
+            return RedirectToAction("login", "auth", new { area = "admin" });
         }
         #endregion Đăng xuất
 
