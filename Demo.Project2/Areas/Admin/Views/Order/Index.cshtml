@@ -1,0 +1,82 @@
+﻿@model IEnumerable<Demo.Project2.Models.Order>
+
+@{
+    ViewData["Title"] = "Đơn hàng";
+    Layout = "~/Areas/Admin/Views/Shared/_AdminLayout.cshtml";
+}
+
+<h1>Đơn hàng</h1>
+
+<p>
+    @*<a asp-area="admin" asp-controller="order" asp-action="create" class="btn btn-primary">
+        <i class="bi bi-plus"></i>Đơn hàng
+    </a>*@
+</p>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">Danh sách đơn hàng</div>
+            <div class="card-body">
+                <table id="example" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Mã</th>
+                            <th>Tên</th>
+                            <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+@foreach (var item in Model) {
+                        <tr class="">
+                            <td>@item.Code</td>
+                            <td>@item.Name</td>
+                            <td>@item.CreatedOn</td>
+                            <td>@item.OrderStatus</td>
+                            <td>
+                                <a asp-area="admin" asp-controller="order" asp-action="details" asp-route-id="@item.Id" class="btn btn-primary">
+                                    <i class="bi bi-card-text"></i>
+                                </a>
+                                <a asp-area="admin" asp-controller="order" asp-action="edit" asp-route-id="@item.Id" class="btn btn-warning">
+                                    <i class="bi bi-pencil-square"></i>
+                                </a>
+    @if (item.OrderStatus == OrderStatus.Completed || item.OrderStatus == OrderStatus.Cancelled) {
+                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông báo</h1>
+                                                <a class="btn-close" data-bs-dismiss="modal"></a>
+                                            </div>
+                                            <div class=" modal-body">Chắc chắn xóa slide này?</div>
+                                            <div class="modal-footer">
+                                                <a class="btn btn-secondary" data-bs-dismiss="modal">Đóng</a>
+                                                    <a asp-area="admin" asp-controller="order" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger">Xóa</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    }
+                            </td>
+                        </tr>
+}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th>Mã</th>
+                            <th>Tên</th>
+                            <th>Ngày tạo</th>
+                            <th>Trạng thái</th>
+                            <th>Thao tác</th>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

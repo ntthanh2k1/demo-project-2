@@ -12,6 +12,8 @@ namespace Demo.Project2.Context
 
         public virtual DbSet<Category>? Categories { get; set; }
         //public virtual DbSet<Image>? Images { get; set; }
+        public virtual DbSet<Order>? Orders { get; set; }
+        public virtual DbSet<OrderDetails>? OrderDetails { get; set; }
         public virtual DbSet<Product>? Products { get; set; }
         public virtual DbSet<Role>? Roles { get; set; }
         public virtual DbSet<Slide>? Slides { get; set; }
@@ -45,6 +47,35 @@ namespace Demo.Project2.Context
             //        .OnDelete(DeleteBehavior.ClientSetNull)
             //        .HasConstraintName("FK_Image_Product");
             //});
+
+            modelBuilder.Entity<Order>(entity =>
+            {
+                entity.ToTable("Order");
+                entity.HasKey(a => a.Id);
+                entity.Property(a => a.Code).HasMaxLength(250);
+                entity.Property(a => a.Name).HasMaxLength(250);
+                entity.HasOne(a => a.User)
+                    .WithMany(b => b.Orders)
+                    .HasForeignKey(c => c.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Order_User");
+            });
+
+            modelBuilder.Entity<OrderDetails>(entity =>
+            {
+                entity.ToTable("OrderDetails");
+                entity.HasKey(a => new { a.OrderId, a.ProductId });
+                entity.HasOne(a => a.Order)
+                    .WithMany(b => b.OrderDetails)
+                    .HasForeignKey(c => c.OrderId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OrderDetails_Order");
+                entity.HasOne(a => a.Product)
+                    .WithMany(b => b.OrderDetails)
+                    .HasForeignKey(c => c.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_OrderDetails_Product");
+            });
 
             modelBuilder.Entity<Product>(entity =>
             {
@@ -102,32 +133,6 @@ namespace Demo.Project2.Context
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_UserRole_Role");
             });
-
-            //modelBuilder.Entity<Invoice>(entity =>
-            //{
-            //    entity.HasOne(d => d.Account)
-            //        .WithMany(p => p.Invoices)
-            //        .HasForeignKey(d => d.AccountId)
-            //        .OnDelete(DeleteBehavior.ClientSetNull)
-            //        .HasConstraintName("FK_Invoice_Account");
-            //});
-
-            //modelBuilder.Entity<InvoiceDetails>(entity =>
-            //{
-            //    entity.HasKey(e => new { e.InvoiceId, e.ProductId });
-
-            //    entity.HasOne(d => d.Invoice)
-            //        .WithMany(p => p.InvoiceDetailses)
-            //        .HasForeignKey(d => d.InvoiceId)
-            //        .OnDelete(DeleteBehavior.ClientSetNull)
-            //        .HasConstraintName("FK_InvoiceDetails_Invoice");
-
-            //    entity.HasOne(d => d.Product)
-            //        .WithMany(p => p.InvoiceDetailses)
-            //        .HasForeignKey(d => d.ProductId)
-            //        .OnDelete(DeleteBehavior.ClientSetNull)
-            //        .HasConstraintName("FK_InvoiceDetails_Product");
-            //});
         }
     }
 }
