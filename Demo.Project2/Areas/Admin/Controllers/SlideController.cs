@@ -43,26 +43,22 @@ namespace Demo.Project2.Areas.Admin.Controllers
         [Route("create")]
         public async Task<IActionResult> Create(Slide slide, IFormFile image)
         {
+            var imageName = "";
+            if (image != null)
+            {
+                imageName = $"{DateTime.Now:ddMMyyyyHHmmss}_{image.FileName}";
+                var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", imageName);
+                using var stream = new FileStream(path, FileMode.Create);
+                await image.CopyToAsync(stream);
+            }
             var newSlide = new Slide
             {
                 Code = slide.Code,
                 Name = slide.Name,
+                Image = imageName,
                 Description = slide.Description,
                 IsActive = slide.IsActive
             };
-            if (image != null)
-            {
-                var imageName = $"{DateTime.Now:ddMMyyyyHHmmss}_{image.FileName}";
-                var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", imageName);
-                using var stream = new FileStream(path, FileMode.Create);
-                await image.CopyToAsync(stream);
-                newSlide.Image = imageName;
-            }
-            if (await _context.Slides!.AnyAsync(a => a.Id.Equals(newSlide.Id)))
-            {
-                ViewBag.Error = "Id đã tồn tại, vui lòng nhấn tạo lần nữa.";
-                return View("create", newSlide);
-            }
             _context.Add(newSlide);
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "slide", new { area = "admin" });
@@ -93,13 +89,10 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Edit(Guid id, Slide slide, IFormFile image)
         {
             var currentSlide = await _context.Slides!.FindAsync(id);
-            currentSlide!.Code = slide.Code;
-            currentSlide.Name = slide.Name;
-            currentSlide.Description = slide.Description;
-            currentSlide.IsActive = slide.IsActive;
+            var imageName = "";
             if (image != null)
             {
-                var imageName = $"{DateTime.Now:ddMMyyyyHHmmss}_{image.FileName}";
+                imageName = $"{DateTime.Now:ddMMyyyyHHmmss}_{image.FileName}";
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", currentSlide!.Image!);
                 if (System.IO.File.Exists(path))
                 {
@@ -108,8 +101,12 @@ namespace Demo.Project2.Areas.Admin.Controllers
                 path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", imageName);
                 using var stream = new FileStream(path, FileMode.Create);
                 await image.CopyToAsync(stream);
-                currentSlide.Image = imageName;
             }
+            currentSlide!.Code = slide.Code;
+            currentSlide.Name = slide.Name;
+            currentSlide.Image = imageName;
+            currentSlide.Description = slide.Description;
+            currentSlide.IsActive = slide.IsActive;
             _context.Update(currentSlide);
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "slide", new { area = "admin" });

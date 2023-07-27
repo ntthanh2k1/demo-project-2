@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+﻿
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -47,8 +49,8 @@
                                 <span><i class="bi bi-person-circle"></i></span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#">Đăng nhập</a></li>
-                                <li><a class="dropdown-item" href="#">Đăng Ký</a></li>
+                                <li><a asp-controller="auth" asp-action="login" class="dropdown-item">Đăng nhập</a></li>
+                                <li><a asp-controller="auth" asp-action="register" class="dropdown-item">Đăng Ký</a></li>
                             </ul>
                         </li>
                         @*<li class="nav-item dropdown">
@@ -69,6 +71,47 @@
                 </div>
             </div>
         </nav>
+        <div class="modal fade" id="loginModal" tabindex="-1" aria-labelledby="loginModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="loginModalLabel">Đăng nhập</h1>
+                        <a class="btn-close" data-bs-dismiss="modal"></a>
+                    </div>
+                    <form asp-controller="auth" asp-action="login" method="post">
+                        <div class="modal-body">
+                            <div class="form-floating my-3">
+                                <input class="form-control" id="floatingUsername" placeholder="Tài khoản" />
+                                <label for="floatingUsername">Tài khoản</label>
+                            </div>
+                            <div class="form-floating my-3">
+                                <input type="password" class="form-control" id="floatingPassword" placeholder="Mật khẩu" />
+                                <label for="floatingPassword">Mật khẩu</label>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <a class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#registerModal">Đăng ký</a>
+                            <button type="submit" class="btn btn-primary">Đăng nhập</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="registerModal" tabindex="-1" aria-labelledby="registerModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="registerModalLabel">Đăng ký</h1>
+                        <a class="btn-close" data-bs-dismiss="modal"></a>
+                    </div>
+                    <div class="modal-body"></div>
+                    <div class="modal-footer">
+                        <a class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#loginModal">Đăng Nhập</a>
+                        <a class="btn btn-primary">Đăng Ký</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="offcanvas offcanvas-start sidebar-nav bg-dark opacity-75 text-white" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
             <div class="offcanvas-body">
                 <nav class="navbar navbar-dark">

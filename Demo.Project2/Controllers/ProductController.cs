@@ -15,7 +15,6 @@ namespace Demo.Project2.Controllers
             _context = context;
         }
 
-
         #region Xem sản phẩm theo phân loại
         [HttpGet]
         [Route("getProductsByCategory/{id}")]

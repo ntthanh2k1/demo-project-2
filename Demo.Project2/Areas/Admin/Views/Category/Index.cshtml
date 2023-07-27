@@ -49,14 +49,14 @@
                                     <i class="bi bi-pencil-square"></i>
                                 </a>
         @if (item.ChildCategories.Count == 0) {
-                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
                                     <i class="bi bi-trash"></i>
                                 </a>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông báo</h1>
+                                                <h1 class="modal-title fs-5" id="deleteModalLabel">Thông báo</h1>
                                                 <a class="btn-close" data-bs-dismiss="modal"></a>
                                             </div>
                                             <div class=" modal-body">Chắc chắn xóa phân loại này?</div>
