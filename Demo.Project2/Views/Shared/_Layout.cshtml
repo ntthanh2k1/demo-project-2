@@ -1,6 +1,7 @@
 ﻿@using System.Security.Claims;
 @{
     var username = User.FindFirstValue(ClaimTypes.Name);
+    var role = User.FindFirstValue(ClaimTypes.Role);
 }
 
 <!DOCTYPE html>
@@ -44,11 +45,11 @@
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link">
-                                <i class="bi bi-cart-fill"></i>(1)
+                                <i class="bi bi-cart-fill"></i>(0)
                             </a>
                         </li>
                         <li class="nav-item dropdown">
-@if (username == null) {
+@if (username == null || role != "Customer") {
                             <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <span><i class="bi bi-person-circle"></i></span>
                             </a>
