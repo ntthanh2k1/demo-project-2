@@ -1,5 +1,4 @@
 ﻿using Demo.Project2.Context;
-using Demo.Project2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
