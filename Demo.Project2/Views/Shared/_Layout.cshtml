@@ -41,7 +41,15 @@
                             <a class="nav-link active" aria-current="page" href="#">Liên hệ</a>
                         </li>
                     </ul>
-                    @await Component.InvokeAsync("Search")
+                    @*@await Component.InvokeAsync("Search")*@
+                    <form asp-controller="home" asp-action="index" class="d-flex ms-auto me-2">
+                        <div class="input-group my-3 my-lg-0">
+                            <input name="SearchString" class="form-control border border-dark-subtle" placeholder="Tìm kiếm">
+                            <button type="submit" class="btn btn-light border border-dark-subtle">
+                                <i class="bi bi-search text-black"></i>
+                            </button>
+                        </div>
+                    </form>
                     <ul class="navbar-nav mb-2 mb-lg-0">
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link">

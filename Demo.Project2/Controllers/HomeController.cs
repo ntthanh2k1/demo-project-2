@@ -2,7 +2,6 @@
 using Demo.Project2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.Diagnostics;
 
 namespace Demo.Project2.Controllers
 {
@@ -15,14 +14,19 @@ namespace Demo.Project2.Controllers
             _context = context;
         }
 
-        #region Trang chủ
+        #region Trang chủ, Tìm kiếm sản phẩm
         [Route("")]
         [Route("index")]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string searchString)
         {
-            var products = await _context.Products!.Where(a => a.IsActive).ToListAsync();
+            var query = _context.Products!.Where(a => a.IsActive);
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                query = query.Where(a => a.Name!.Contains(searchString));
+            }
+            var products = await query.ToListAsync();
             return View(products);
         }
-        #endregion Trang chủ
+        #endregion Trang chủ, Tìm kiếm sản phẩm
     }
 }
