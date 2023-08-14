@@ -1,4 +1,6 @@
 ﻿using Demo.Project2.Context;
+using Demo.Project2.Dtos;
+using Demo.Project2.Helper;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 

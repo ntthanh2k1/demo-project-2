@@ -8,7 +8,7 @@ namespace Demo.Project2.ViewComponents
     {
         public async Task<IViewComponentResult> InvokeAsync()
         {
-            List<Item>? cart = SessionHelper.Get<List<Item>>(HttpContext.Session, "cart");
+            var cart = SessionHelper.Get<List<Item>>(HttpContext.Session, "cart");
             if (cart == null)
             {
                 ViewBag.CountItems = 0;

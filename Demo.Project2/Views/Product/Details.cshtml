@@ -14,13 +14,14 @@
     <div class="col-sm-12 col-md-7">
         <div class="card mb-3">
             <div class="card-body">
-                <h3 class="card-title">@Model.Name</h3>
-                <h5>Giá @Model.Price</h5>
-                <p>Kho: @Model.Stock</p>
-                <input type="number" class="form-control mb-3 w-25" value="1">
-                <div class="">
-                    <a class="btn btn-primary">Thêm vào giỏ hàng</a>
-                </div>
+                <form asp-controller="cart" asp-action="addToCart" method="post">
+                    <input type="hidden" asp-for="Id" />
+                    <h3 class="card-title">@Model.Name</h3>
+                    <h5>Giá @Model.Price</h5>
+                    <p>Kho: @Model.Stock</p>
+                    <input type="number" name="quantity" value="1" class="form-control mb-3 w-25">
+                    <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
+                </form>
             </div>
         </div>
     </div>

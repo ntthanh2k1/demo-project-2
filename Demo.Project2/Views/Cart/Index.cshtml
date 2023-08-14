@@ -4,4 +4,72 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Hello</h1>
+<div class="my-5">
+    <h4>Thanh toán giỏ hàng</h4>
+    <form>
+        <h5>Danh sách sản phẩm</h5>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>STT</th>
+                    <th>Tên</th>
+                    <th>Hình ảnh</th>
+                    <th>Đơn Giá</th>
+                    <th>Số lượng</th>
+                    <th>Thành tiền</th>
+                    <th>Thao tác</th>
+                </tr>
+            </thead>
+            <tbody>
+@{
+    var a = 1;
+    if (ViewBag.Cart != null) {
+        foreach (var item in ViewBag.Cart) {
+                <tr>
+                    <td>@a</td>
+                    <td>@item.Name</td>
+                    <td>
+                        <img src="~/admin/images/products/@item.Image" width="120" alt="" />
+                    </td>
+                    <td>@item.Price</td>
+                    <td>@item.Quantity</td>
+                    <td>@(item.Price * item.Quantity)</td>
+                    <td>Cập nhật | Xóa</td>
+                </tr>
+            a++;
+        }
+    }
+}
+                <tr>
+                    <td class="text-end fw-bold" colspan="6">Tổng cộng</td>
+                    <td>@ViewBag.TotalPrice</td>
+                </tr>
+            </tbody>
+        </table>
+        <h5>Thông tin nhận hàng</h5>
+        <div class="form-group">
+            <label class="control-label">Họ và tên</label>
+            <input class="form-control" required />
+            <span class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Số điện thoại</label>
+            <input class="form-control" required />
+            <span class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Địa chỉ</label>
+            <input class="form-control" required />
+            <span class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label class="control-label">Mô tả</label>
+            <input class="form-control" required />
+            <span class="text-danger"></span>
+        </div>
+        <div class="form-group mt-3">
+            <input type="submit" value="Thanh toán" class="btn btn-primary" />
+            <a asp-controller="home" asp-action="index" class="btn btn-primary">Quay lại</a>
+        </div>
+    </form>
+</div>
