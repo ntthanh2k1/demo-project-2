@@ -14,7 +14,7 @@
     <div class="col-sm-12 col-md-7">
         <div class="card mb-3">
             <div class="card-body">
-                <form asp-controller="cart" asp-action="addToCart" method="post">
+                <form asp-controller="product" asp-action="addToCart" method="post">
                     <input type="hidden" asp-for="Id" />
                     <h3 class="card-title">@Model.Name</h3>
                     <h5>Giá @Model.Price</h5>
