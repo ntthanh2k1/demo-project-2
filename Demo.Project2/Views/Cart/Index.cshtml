@@ -1,12 +1,15 @@
-﻿
+﻿@model Demo.Project2.Models.Order
+
 @{
     ViewData["Title"] = "Giỏ hàng";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <div class="my-5">
+    <h3>Giỏ hàng</h3>
     <h4>Thanh toán giỏ hàng</h4>
-    <form>
+    <form asp-controller="cart" asp-action="checkout">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <h5>Danh sách sản phẩm</h5>
         <table class="table table-bordered">
             <thead>
@@ -46,29 +49,44 @@
                 </tr>
             </tbody>
         </table>
-        <h5>Thông tin nhận hàng</h5>
+        <h5>Thông tin người nhận hàng</h5>
         <div class="form-group">
-            <label class="control-label">Họ và tên</label>
-            <input class="form-control" required />
-            <span class="text-danger"></span>
+            <label asp-for="FullName" class="control-label">Họ và tên</label>
+            <input asp-for="FullName" class="form-control" required />
+            <span asp-validation-for="FullName" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label class="control-label">Số điện thoại</label>
-            <input class="form-control" required />
-            <span class="text-danger"></span>
+            <label asp-for="PhoneNumber" class="control-label">Số điện thoại</label>
+            <input asp-for="PhoneNumber" class="form-control" required />
+            <span asp-validation-for="PhoneNumber" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label class="control-label">Địa chỉ</label>
-            <input class="form-control" required />
-            <span class="text-danger"></span>
+            <label asp-for="Address" class="control-label">Địa chỉ</label>
+            <textarea asp-for="Address" class="form-control" rows="5" required></textarea>
+            <span asp-validation-for="Address" class="text-danger"></span>
         </div>
         <div class="form-group">
-            <label class="control-label">Mô tả</label>
-            <input class="form-control" required />
-            <span class="text-danger"></span>
+            <label asp-for="Description" class="control-label">Mô tả</label>
+            <textarea asp-for="Description" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
         </div>
         <div class="form-group mt-3">
-            <input type="submit" value="Thanh toán" class="btn btn-primary" />
+            <a class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#checkoutModal">Thanh toán</a>
+            <div class="modal fade" id="checkoutModal" tabindex="-1" aria-labelledby="checkoutModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="checkoutModalLabel">Thông báo</h1>
+                            <a class="btn-close" data-bs-dismiss="modal"></a>
+                        </div>
+                        <div class=" modal-body">Chắc chắn thanh toán?</div>
+                        <div class="modal-footer">
+                            <a class="btn btn-secondary" data-bs-dismiss="modal">Đóng</a>
+                            <input type="submit" value="Thanh toán" class="btn btn-primary" />
+                        </div>
+                    </div>
+                </div>
+            </div>
             <a asp-controller="home" asp-action="index" class="btn btn-primary">Quay lại</a>
         </div>
     </form>

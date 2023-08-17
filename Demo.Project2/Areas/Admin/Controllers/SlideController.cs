@@ -46,7 +46,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var imageName = "";
             if (image != null)
             {
-                imageName = $"{DateTime.Now:ddMMyyyyHHmmss}_{image.FileName}";
+                imageName = $"{DateTime.Now:yyyyMMddHHmmss}_{image.FileName}";
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", imageName);
                 using var stream = new FileStream(path, FileMode.Create);
                 await image.CopyToAsync(stream);
@@ -92,7 +92,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var imageName = "";
             if (image != null)
             {
-                imageName = $"{DateTime.Now:ddMMyyyyHHmmss}_{image.FileName}";
+                imageName = $"{DateTime.Now:yyyyMMddHHmmss}_{image.FileName}";
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\slides", currentSlide!.Image!);
                 if (System.IO.File.Exists(path))
                 {

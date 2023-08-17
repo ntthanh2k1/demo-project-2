@@ -61,7 +61,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             };
             if (image != null)
             {
-                var imageName = $"{DateTime.Now:ddMMyyyyHHmmss}_{image.FileName}";
+                var imageName = $"{DateTime.Now:yyyyMMddHHmmss}_{image.FileName}";
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", imageName);
                 using var stream = new FileStream(path, FileMode.Create);
                 await image.CopyToAsync(stream);
@@ -111,7 +111,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             currentProduct.IsActive = product.IsActive;
             if (image != null)
             {
-                var imageName = $"{DateTime.Now:ddMMyyyyHHmmss}_{image.FileName}";
+                var imageName = $"{DateTime.Now:yyyyMMddHHmmss}_{image.FileName}";
                 var path = Path.Combine(_webHostEnvironment.WebRootPath, @"admin\images\products", currentProduct!.Image!);
                 if (System.IO.File.Exists(path))
                 {

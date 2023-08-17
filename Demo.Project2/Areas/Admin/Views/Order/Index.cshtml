@@ -34,26 +34,64 @@
                             <td>@item.Code</td>
                             <td>@item.Name</td>
                             <td>@item.CreatedOn</td>
-                            <td>@item.OrderStatus</td>
+                            <td>
+                                @(item.OrderStatus == OrderStatus.Processing ? "Đang xử lý" :
+                                    item.OrderStatus == OrderStatus.Completed ? "Hoàn thành" : "Hủy")
+                            </td>
                             <td>
                                 <a asp-area="admin" asp-controller="order" asp-action="details" asp-route-id="@item.Id" class="btn btn-primary">
                                     <i class="bi bi-card-text"></i>
                                 </a>
-                                <a asp-area="admin" asp-controller="order" asp-action="edit" asp-route-id="@item.Id" class="btn btn-warning">
-                                    <i class="bi bi-pencil-square"></i>
+    @if (item.OrderStatus == OrderStatus.Processing) {
+                                <a class="btn btn-success" data-bs-toggle="modal" data-bs-target="#completedOrderModal">
+                                    <i class="bi bi-check"></i>
                                 </a>
-    @if (item.OrderStatus == OrderStatus.Completed || item.OrderStatus == OrderStatus.Cancelled) {
-                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    <i class="bi bi-trash"></i>
-                                </a>
-                                <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="completedOrderModal" tabindex="-1" aria-labelledby="completedOrderModalLabel" aria-hidden="true">
                                     <div class="modal-dialog modal-dialog-centered">
                                         <div class="modal-content">
                                             <div class="modal-header">
-                                                <h1 class="modal-title fs-5" id="exampleModalLabel">Thông báo</h1>
+                                                <h1 class="modal-title fs-5" id="completedOrderModalLabel">Thông báo</h1>
                                                 <a class="btn-close" data-bs-dismiss="modal"></a>
                                             </div>
-                                            <div class=" modal-body">Chắc chắn xóa slide này?</div>
+                                            <div class=" modal-body">Chắc chắn xác nhận hoàn thành đơn hàng này?</div>
+                                            <div class="modal-footer">
+                                                <a class="btn btn-secondary" data-bs-dismiss="modal">Đóng</a>
+                                                    <a asp-area="admin" asp-controller="order" asp-action="completedOrder" asp-route-id="@item.Id" class="btn btn-success">Xác nhận</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#cancelledOrderModal">
+                                    <i class="bi bi-x"></i>
+                                </a>
+                                <div class="modal fade" id="cancelledOrderModal" tabindex="-1" aria-labelledby="cancelledOrderModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="cancelledOrderModalLabel">Thông báo</h1>
+                                                <a class="btn-close" data-bs-dismiss="modal"></a>
+                                            </div>
+                                            <div class=" modal-body">Chắc chắn hủy đơn hàng này?</div>
+                                            <div class="modal-footer">
+                                                <a class="btn btn-secondary" data-bs-dismiss="modal">Đóng</a>
+                                                    <a asp-area="admin" asp-controller="order" asp-action="cancelledOrder" asp-route-id="@item.Id" class="btn btn-danger">Hủy</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+    }
+    @if (item.OrderStatus == OrderStatus.Completed || item.OrderStatus == OrderStatus.Cancelled) {
+                                <a class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                    <i class="bi bi-trash"></i>
+                                </a>
+                                <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="deleteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog modal-dialog-centered">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <h1 class="modal-title fs-5" id="deleteModalLabel">Thông báo</h1>
+                                                <a class="btn-close" data-bs-dismiss="modal"></a>
+                                            </div>
+                                            <div class=" modal-body">Chắc chắn xóa đơn hàng này?</div>
                                             <div class="modal-footer">
                                                 <a class="btn btn-secondary" data-bs-dismiss="modal">Đóng</a>
                                                     <a asp-area="admin" asp-controller="order" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger">Xóa</a>

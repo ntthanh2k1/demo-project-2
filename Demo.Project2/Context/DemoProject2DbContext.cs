@@ -54,6 +54,8 @@ namespace Demo.Project2.Context
                 entity.HasKey(a => a.Id);
                 entity.Property(a => a.Code).HasMaxLength(250);
                 entity.Property(a => a.Name).HasMaxLength(250);
+                entity.Property(a => a.FullName).HasMaxLength(250);
+                entity.Property(a => a.PhoneNumber).HasMaxLength(50);
                 entity.HasOne(a => a.User)
                     .WithMany(b => b.Orders)
                     .HasForeignKey(c => c.UserId)
@@ -65,6 +67,7 @@ namespace Demo.Project2.Context
             {
                 entity.ToTable("OrderDetails");
                 entity.HasKey(a => new { a.OrderId, a.ProductId });
+                entity.Property(a => a.Name).HasMaxLength(250);
                 entity.HasOne(a => a.Order)
                     .WithMany(b => b.OrderDetails)
                     .HasForeignKey(c => c.OrderId)

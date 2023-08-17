@@ -41,7 +41,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         #endregion Xem chi tiết đơn hàng
 
         #region Hoàn tất đơn hàng
-        [HttpPost]
+        [HttpGet]
         [Route("completedOrder/{id}")]
         public async Task<IActionResult> CompletedOrder(Guid id)
         {
@@ -54,7 +54,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         #endregion Hoàn tất đơn hàng
 
         #region Hủy đơn hàng
-        [HttpPost]
+        [HttpGet]
         [Route("cancelledOrder/{id}")]
         public async Task<IActionResult> CancelledOrder(Guid id)
         {
@@ -72,6 +72,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
         public async Task<IActionResult> Delete(Guid id)
         {
             var order = await _context.Orders!.FindAsync(id);
+            _context.OrderDetails!.RemoveRange(order!.OrderDetails);
             _context.Orders.Remove(order!);
             await _context.SaveChangesAsync();
             return RedirectToAction("index", "order", new { area = "admin" });
