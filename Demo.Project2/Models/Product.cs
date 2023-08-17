@@ -15,5 +15,6 @@
         public virtual Category? Category { get; set; }
         //public virtual ICollection<Image> Images { get; set; } = new HashSet<Image>();
         public virtual ICollection<OrderDetails> OrderDetails { get; set; } = new HashSet<OrderDetails>();
+        public virtual ICollection<Review> Reviews { get; set; } = new HashSet<Review>();
     }
 }

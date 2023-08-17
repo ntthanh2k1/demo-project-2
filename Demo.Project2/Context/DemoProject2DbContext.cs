@@ -11,6 +11,7 @@ namespace Demo.Project2.Context
         }
 
         public virtual DbSet<Category>? Categories { get; set; }
+        public virtual DbSet<Review>? Reviews { get; set; }
         //public virtual DbSet<Image>? Images { get; set; }
         public virtual DbSet<Order>? Orders { get; set; }
         public virtual DbSet<OrderDetails>? OrderDetails { get; set; }
@@ -32,6 +33,23 @@ namespace Demo.Project2.Context
                     .WithMany(b => b.ChildCategories)
                     .HasForeignKey(c => c.ParentId)
                     .HasConstraintName("FK_Category_Category");
+            });
+
+            modelBuilder.Entity<Review>(entity =>
+            {
+                entity.ToTable("Review");
+                entity.Property(a => a.Username).HasMaxLength(250);
+                entity.HasKey(a => a.Id);
+                entity.HasOne(a => a.User)
+                    .WithMany(b => b.Reviews)
+                    .HasForeignKey(c => c.UserId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Review_User");
+                entity.HasOne(a => a.Product)
+                    .WithMany(b => b.Reviews)
+                    .HasForeignKey(c => c.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
+                    .HasConstraintName("FK_Review_Product");
             });
 
             //modelBuilder.Entity<Image>(entity =>

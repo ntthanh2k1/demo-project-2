@@ -1,8 +1,10 @@
 ﻿using Demo.Project2.Context;
 using Demo.Project2.Dtos;
 using Demo.Project2.Helper;
+using Demo.Project2.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Security.Claims;
 
 namespace Demo.Project2.Controllers
 {
@@ -80,7 +82,7 @@ namespace Demo.Project2.Controllers
                 }
                 SessionHelper.Set(HttpContext.Session, "cart", cart);
             }
-            return View("details", product);
+            return RedirectToAction("details", product);
         }
 
         private static int ItemExists(Guid id, List<Item>? cart)
@@ -95,5 +97,27 @@ namespace Demo.Project2.Controllers
             return -1;
         }
         #endregion Thêm sản phẩm vào giỏ hàng
+
+        #region Bình luận sản phẩm
+        [HttpPost]
+        [Route("details/{productId}")]
+        public async Task<IActionResult> AddComment(Guid productId, Review review)
+        {
+            var product = await _context.Products!.FindAsync(productId);
+            var userId = User.FindFirstValue(ClaimTypes.Sid);
+            var username = User.FindFirstValue(ClaimTypes.Name);
+            var newReview = new Review
+            {
+                UserId = Guid.Parse(userId),
+                ProductId = product!.Id,
+                Username = username,
+                Text = review.Text,
+                CreatedOn = DateTime.Now
+            };
+            _context.Add(newReview);
+            await _context.SaveChangesAsync();
+            return RedirectToAction("details", product);
+        }
+        #endregion Bình luận sản phẩm
     }
 }
