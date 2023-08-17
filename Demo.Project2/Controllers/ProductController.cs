@@ -100,10 +100,10 @@ namespace Demo.Project2.Controllers
 
         #region Bình luận sản phẩm
         [HttpPost]
-        [Route("details/{productId}")]
-        public async Task<IActionResult> AddComment(Guid productId, Review review)
+        [Route("addReview")]
+        public async Task<IActionResult> AddReview(Guid id, string text)
         {
-            var product = await _context.Products!.FindAsync(productId);
+            var product = await _context.Products!.FindAsync(id);
             var userId = User.FindFirstValue(ClaimTypes.Sid);
             var username = User.FindFirstValue(ClaimTypes.Name);
             var newReview = new Review
@@ -111,7 +111,7 @@ namespace Demo.Project2.Controllers
                 UserId = Guid.Parse(userId),
                 ProductId = product!.Id,
                 Username = username,
-                Text = review.Text,
+                Text = text,
                 CreatedOn = DateTime.Now
             };
             _context.Add(newReview);

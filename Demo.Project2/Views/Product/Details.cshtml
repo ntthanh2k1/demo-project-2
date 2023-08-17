@@ -14,7 +14,7 @@
     <div class="col-sm-12 col-md-7">
         <div class="card mb-3">
             <div class="card-body">
-                <form asp-controller="product" asp-action="addToCart" method="post">
+                <form asp-controller="product" asp-action="addToCart">
                     <input type="hidden" asp-for="Id" />
                     <h3 class="card-title">@Model.Name</h3>
                     <h5>Giá @Model.Price</h5>
@@ -26,7 +26,21 @@
         </div>
     </div>
     <div class="col-12">
-        <a class="btn btn-secondary w-100 mb-3">Thông số kỹ thuật</a>
+        <a class="btn btn-secondary w-100 mb-3" data-bs-toggle="modal" data-bs-target="#reviewModal">Thông số kỹ thuật</a>
+        <div class="modal fade" id="reviewModal" tabindex="-1" aria-labelledby="reviewModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="reviewModalLabel">Thông số kỹ thuật</h1>
+                        <a class="btn-close" data-bs-dismiss="modal"></a>
+                    </div>
+                    <div class="modal-body">@Model.Details</div>
+                    <div class="modal-footer">
+                        <a class="btn btn-secondary" data-bs-dismiss="modal">Đóng</a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="col-12">
         <div class="card mb-3 p-2">
@@ -40,12 +54,22 @@
         <div class="card mb-3">
             <div class="card-body">
                 <h3 class="card-title text-center">Bình luận</h3>
-                <form>
+                <form asp-controller="product" asp-action="addReview">
+                    <input type="hidden" asp-for="Id" />
                     <div class="input-group mb-3">
-                        <input type="text" class="form-control">
-                        <input type="submit" value="Gửi" class="btn btn-primary w-25" />
+                        <input type="text" name="text" class="form-control" required />
+                        <button type="submit" class="btn btn-primary w-25">Gửi</button>
                     </div>
                 </form>
+@foreach (var item in Model.Reviews) {
+                <div class="card mt-3">
+                    <div class="card-body">
+                        <h6>@item.Username</h6>
+                        <small class="text-secondary">@item.CreatedOn</small>
+                        <p>@item.Text</p>
+                    </div>
+                </div>
+}  
             </div>
         </div>
     </div>
