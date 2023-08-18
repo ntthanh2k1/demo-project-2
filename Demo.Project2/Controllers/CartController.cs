@@ -4,6 +4,7 @@ using Demo.Project2.Helper;
 using Demo.Project2.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
@@ -40,6 +41,30 @@ namespace Demo.Project2.Controllers
             return View();
         }
         #endregion Trang giỏ hàng
+
+        #region Xóa sản phẩm trong giỏ hàng
+        [Route("delete/{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            var cart = SessionHelper.Get<List<Item>>(HttpContext.Session, "cart");
+            int index = ItemExists(id, cart);
+            cart!.RemoveAt(index);
+            SessionHelper.Set(HttpContext.Session, "cart", cart);
+            return RedirectToAction("index", "cart");
+        }
+
+        private static int ItemExists(Guid id, List<Item>? cart)
+        {
+            for (var i = 0; i < cart!.Count; i++)
+            {
+                if (cart[i].Id == id)
+                {
+                    return i;
+                }
+            }
+            return -1;
+        }
+        #endregion Xóa sản phẩm trong giỏ hàng
 
         #region Thanh toán giỏ hàng
         [HttpPost]
@@ -79,6 +104,9 @@ namespace Demo.Project2.Controllers
                     Quantity = item.Quantity
                 };
                 _context.Add(newOrderDetails);
+                var product = await _context.Products!.FirstOrDefaultAsync(a => a.Id.Equals(item.Id));
+                product!.Stock -= item.Quantity;
+                _context.Update(product);
             }
             await _context.SaveChangesAsync();
             HttpContext.Session.Remove("cart");

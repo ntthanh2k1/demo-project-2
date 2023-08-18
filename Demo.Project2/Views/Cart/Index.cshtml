@@ -11,6 +11,7 @@
     <form asp-controller="cart" asp-action="checkout">
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
         <h5>Danh sách sản phẩm</h5>
+        <input type="hidden" name="id" />
         <table class="table table-bordered">
             <thead>
                 <tr>
@@ -37,7 +38,11 @@
                     <td>@item.Price</td>
                     <td>@item.Quantity</td>
                     <td>@(item.Price * item.Quantity)</td>
-                    <td>Cập nhật | Xóa</td>
+                    <td>
+                        <a asp-area="admin" asp-controller="cart" asp-action="delete" asp-route-id="@item.Id" class="btn btn-danger">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </td>
                 </tr>
             a++;
         }

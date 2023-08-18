@@ -19,8 +19,13 @@
                     <h3 class="card-title">@Model.Name</h3>
                     <h5>Giá @Model.Price</h5>
                     <p>Kho: @Model.Stock</p>
-                    <input type="number" name="quantity" value="1" class="form-control mb-3 w-25">
+                    <input type="number" name="quantity" min="1" max="@Model.Stock" value="1" class="form-control mb-3 w-25" required>
+@if (Model.Stock > 0) {
                     <button type="submit" class="btn btn-primary">Thêm vào giỏ hàng</button>
+} else {
+                    <button type="submit" class="btn btn-primary" disabled>Thêm vào giỏ hàng</button>
+                    <h6 class="text-danger">Hết hàng</h6>
+}
                 </form>
             </div>
         </div>

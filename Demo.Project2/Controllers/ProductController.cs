@@ -47,6 +47,10 @@ namespace Demo.Project2.Controllers
         {
             var product = await _context.Products!.FindAsync(id);
             var cart = SessionHelper.Get<List<Item>>(HttpContext.Session, "cart");
+            if (quantity <= 0)
+            {
+                return RedirectToAction("details", product);
+            }
             if (cart == null)
             {
                 cart = new List<Item>
@@ -78,7 +82,7 @@ namespace Demo.Project2.Controllers
                 }
                 else
                 {
-                    cart![index].Quantity++;
+                    cart![index].Quantity += quantity;
                 }
                 SessionHelper.Set(HttpContext.Session, "cart", cart);
             }
