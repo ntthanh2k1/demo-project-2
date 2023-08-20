@@ -2,9 +2,13 @@
 using Demo.Project2.Dtos;
 using Demo.Project2.Helper;
 using Demo.Project2.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.ML;
+using System.Data;
 using System.Security.Claims;
+using static Demo_Project2.SentimentAnalysis;
 
 namespace Demo.Project2.Controllers
 {
@@ -12,10 +16,12 @@ namespace Demo.Project2.Controllers
     public class ProductController : Controller
     {
         private readonly DemoProject2DbContext _context;
+        private readonly PredictionEnginePool<ModelInput, ModelOutput> _predictionEnginePool;
 
-        public ProductController(DemoProject2DbContext context)
+        public ProductController(DemoProject2DbContext context, PredictionEnginePool<ModelInput, ModelOutput> predictionEnginePool)
         {
             _context = context;
+            _predictionEnginePool = predictionEnginePool;
         }
 
         #region Xem sản phẩm theo phân loại
@@ -103,6 +109,7 @@ namespace Demo.Project2.Controllers
         #endregion Thêm sản phẩm vào giỏ hàng
 
         #region Bình luận sản phẩm
+        [Authorize(Roles = "Customer", AuthenticationSchemes = "CustomerSchemes")]
         [HttpPost]
         [Route("addReview")]
         public async Task<IActionResult> AddReview(Guid id, string text)
@@ -118,6 +125,25 @@ namespace Demo.Project2.Controllers
                 Text = text,
                 CreatedOn = DateTime.Now
             };
+            var input = new ModelInput
+            {
+                Content = text
+            };
+            var prediction = _predictionEnginePool.Predict(input);
+            string? sentiment;
+            if (prediction.PredictedLabel.Equals("POS"))
+            {
+                sentiment = "Tích cực";
+            }
+            else if (prediction.PredictedLabel.Equals("NEG"))
+            {
+                sentiment = "Tiêu cực";
+            }
+            else
+            {
+                sentiment = "Bình thường";
+            }
+            newReview.Sentiment = sentiment;
             _context.Add(newReview);
             await _context.SaveChangesAsync();
             return RedirectToAction("details", product);

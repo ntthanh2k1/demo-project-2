@@ -6,6 +6,7 @@
         public Guid ProductId { get; set; }
         public string? Username { get; set; }
         public string? Text { get; set; }
+        public string? Sentiment { get; set; }
         public DateTime CreatedOn { get; set; }
         public virtual User? User { get; set; }
         public virtual Product? Product { get; set; }

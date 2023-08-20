@@ -1,11 +1,16 @@
 using Demo.Project2.Context;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.ML;
 using System.Security.Claims;
+using static Demo_Project2.SentimentAnalysis;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddPredictionEnginePool<ModelInput, ModelOutput>()
+    .FromFile("SentimentAnalysis.zip");
+
 builder.Services.AddAuthentication(options =>
 {
     options.DefaultScheme = "CustomerSchemes";

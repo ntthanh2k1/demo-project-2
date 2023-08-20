@@ -64,12 +64,14 @@
         </form>
         <h4>Bình luận sản phẩm</h4>
         <hr />
-@foreach (var item in Model!.Reviews) {
+        @foreach (var item in Model!.Reviews.OrderByDescending(a => a.CreatedOn))
+        {
             <div class="card mt-3">
                 <div class="card-body">
                     <h6>@item.Username</h6>
                     <small class="text-secondary">@item.CreatedOn</small>
                     <p>@item.Text</p>
+                    <p>@item.Sentiment</p>
                 </div>
             </div>
 }

@@ -39,6 +39,7 @@ namespace Demo.Project2.Context
             {
                 entity.ToTable("Review");
                 entity.Property(a => a.Username).HasMaxLength(250);
+                entity.Property(a => a.Sentiment).HasMaxLength(50);
                 entity.HasKey(a => a.Id);
                 entity.HasOne(a => a.User)
                     .WithMany(b => b.Reviews)

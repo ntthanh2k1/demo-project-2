@@ -66,7 +66,7 @@
                         <button type="submit" class="btn btn-primary w-25">Gửi</button>
                     </div>
                 </form>
-@foreach (var item in Model.Reviews) {
+@foreach (var item in Model.Reviews.OrderByDescending(a => a.CreatedOn)) {
                 <div class="card mt-3">
                     <div class="card-body">
                         <h6>@item.Username</h6>

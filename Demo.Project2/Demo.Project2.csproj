@@ -1,11 +1,9 @@
 <Project Sdk="Microsoft.NET.Sdk.Web">
-
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
   </PropertyGroup>
-
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.20" />
@@ -19,14 +17,27 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Microsoft.Extensions.ML" Version="2.0.1" />
+    <PackageReference Include="Microsoft.ML" Version="2.0.1" />
+    <PackageReference Include="Microsoft.ML.FastTree" Version="1.7.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
   </ItemGroup>
-
   <ItemGroup>
     <Folder Include="Areas\Admin\Data\" />
     <Folder Include="Areas\Admin\Models\" />
     <Folder Include="wwwroot\admin\images\products\" />
     <Folder Include="wwwroot\admin\images\slides\" />
   </ItemGroup>
-
+  <ItemGroup Label="SentimentAnalysis">
+    <None Include="SentimentAnalysis.consumption.cs">
+      <DependentUpon>SentimentAnalysis.mbconfig</DependentUpon>
+    </None>
+    <None Include="SentimentAnalysis.training.cs">
+      <DependentUpon>SentimentAnalysis.mbconfig</DependentUpon>
+    </None>
+    <None Include="SentimentAnalysis.zip">
+      <DependentUpon>SentimentAnalysis.mbconfig</DependentUpon>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
 </Project>
