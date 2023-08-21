@@ -19,7 +19,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             _context = context;
         }
 
-        #region Trang quản lý phân loại
+        #region Danh sách phân loại
         [HttpGet]
         [Route("")]
         [Route("index")]
@@ -28,7 +28,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var categories = await _context.Categories!.Where(a => a.ParentCategory == null).ToListAsync();
             return View(categories);
         }
-        #endregion Trang quản lý phân loại
+        #endregion Danh sách phân loại
 
         #region Tạo phân loại
         [HttpGet]

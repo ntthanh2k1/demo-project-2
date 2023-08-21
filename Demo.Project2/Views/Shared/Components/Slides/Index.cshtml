@@ -1,5 +1,30 @@
 ﻿@model IEnumerable<Demo.Project2.Models.Slide>
 
-@foreach (var item in Model) {
-<img src="~/admin/images/slides/@item.Image" class="slide-image" alt="">
+<div id="carouselSlider" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+@{
+    var a = 1;
+    foreach (var item in Model) {
+        if (a == 1) {
+        <div class="carousel-item active">
+            <img src="~/admin/images/slides/@item.Image" class="slide-image" alt="">
+        </div>
+        }
+        else {
+        <div class="carousel-item">
+            <img src="~/admin/images/slides/@item.Image" class="slide-image" alt="">
+        </div>
+        }
+        a++;
+    }
 }
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselSlider" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselSlider" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>

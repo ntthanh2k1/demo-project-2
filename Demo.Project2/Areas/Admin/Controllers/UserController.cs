@@ -18,7 +18,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             _context = context;
         }
 
-        #region Trang quản lý tài khoản
+        #region Danh sách tài khoản
         [HttpGet]
         [Route("")]
         [Route("index")]
@@ -27,7 +27,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var users = await _context.Users!.ToListAsync();
             return View(users);
         }
-        #endregion Trang quản lý tài khoản
+        #endregion Danh sách tài khoản
 
         #region Xem chi tiết tài khoản
         [HttpGet]

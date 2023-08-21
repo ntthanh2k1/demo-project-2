@@ -20,7 +20,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        #region Trang quản lý slide
+        #region Danh sách slide
         [HttpGet]
         [Route("")]
         [Route("index")]
@@ -29,7 +29,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var slides = await _context.Slides!.ToListAsync();
             return View(slides);
         }
-        #endregion Trang quản lý slide
+        #endregion Danh sách slide
 
         #region Tạo slide
         [HttpGet]

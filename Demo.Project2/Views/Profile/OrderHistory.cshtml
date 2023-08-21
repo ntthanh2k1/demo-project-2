@@ -1,0 +1,59 @@
+﻿@model IEnumerable<Demo.Project2.Models.Order>
+
+@{
+    ViewData["Title"] = "Lịch sử đơn hàng";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="my-5">
+    <h3>Trang cá nhân</h3>
+    <h4>Danh sách lịch sử đơn hàng</h4>
+    <a asp-controller="profile" asp-action="index" class="btn btn-primary">Quay lại</a>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">Danh sách đơn hàng</div>
+                <div class="card-body">
+                    <table id="example" class="table table-striped" style="width:100%">
+                        <thead>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Tên</th>
+                                <th>Ngày tạo</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+@foreach (var item in Model) {
+                                <tr class="">
+                                    <td>@item.Code</td>
+                                    <td>@item.Name</td>
+                                    <td>@item.CreatedOn</td>
+                                    <td>
+                                        @(item.OrderStatus == OrderStatus.Processing ? "Đang xử lý" :
+                                            item.OrderStatus == OrderStatus.Completed ? "Hoàn thành" : "Hủy")
+                                    </td>
+                                    <td>
+                                        <a asp-controller="profile" asp-action="OrderHistoryDetails" asp-route-id="@item.Id" class="btn btn-primary">
+                                            <i class="bi bi-card-text"></i>
+                                        </a>
+                                    </td>
+                                </tr>
+}
+                        </tbody>
+                        <tfoot>
+                            <tr>
+                                <th>Mã</th>
+                                <th>Tên</th>
+                                <th>Ngày tạo</th>
+                                <th>Trạng thái</th>
+                                <th>Thao tác</th>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

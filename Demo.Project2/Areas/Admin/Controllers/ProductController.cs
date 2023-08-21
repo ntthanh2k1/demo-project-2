@@ -21,7 +21,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             _webHostEnvironment = webHostEnvironment;
         }
 
-        #region Trang quản lý sản phẩm
+        #region Danh sách sản phẩm
         [HttpGet]
         [Route("")]
         [Route("index")]
@@ -30,7 +30,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var products = await _context.Products!.ToListAsync();
             return View(products);
         }
-        #endregion Trang quản lý sản phẩm
+        #endregion Danh sách sản phẩm
 
         #region Tạo sản phẩm
         [HttpGet]

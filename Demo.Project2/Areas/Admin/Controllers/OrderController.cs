@@ -19,7 +19,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             _context = context;
         }
 
-        #region Trang quản lý đơn hàng
+        #region Danh sách đơn hàng
         [HttpGet]
         [Route("")]
         [Route("index")]
@@ -28,7 +28,7 @@ namespace Demo.Project2.Areas.Admin.Controllers
             var orders = await _context.Orders!.OrderByDescending(a => a.CreatedOn).ToListAsync();
             return View(orders);
         }
-        #endregion Trang quản lý đơn hàng
+        #endregion Danh sách đơn hàng
 
         #region Xem chi tiết đơn hàng
         [HttpGet]

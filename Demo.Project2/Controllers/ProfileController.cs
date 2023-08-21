@@ -84,7 +84,7 @@ namespace Demo.Project2.Controllers
         }
         #endregion Đổi mật khẩu
 
-        #region Trang lịch sử đơn hàng
+        #region Danh sách lịch sử đơn hàng
         [HttpGet]
         [Route("orderHistory")]
         public async Task<IActionResult> OrderHistory()
@@ -96,6 +96,16 @@ namespace Demo.Project2.Controllers
                 .ToListAsync();
             return View(orders);
         }
-        #endregion Trang lịch sử đơn hàng
+        #endregion Danh sách lịch sử đơn hàng
+
+        #region Xem chi tiết lịch sử đơn hàng
+        [HttpGet]
+        [Route("orderHistoryDetails/{id}")]
+        public async Task<IActionResult> OrderHistoryDetails(Guid id)
+        {
+            var order = await _context.Orders!.FirstOrDefaultAsync(a => a.Id.Equals(id));
+            return View("orderHistoryDetails", order);
+        }
+        #endregion Xem chi tiết lịch sử đơn hàng
     }
 }
